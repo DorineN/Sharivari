@@ -4,12 +4,7 @@ package sample.controller;
  */
 
 //import appli
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import sample.Main;
 import sample.modele.Bdd;
 
@@ -45,6 +40,8 @@ public class Controller_Connexion {
     private PasswordField pwd;
     @FXML
     private Label msgError;
+
+
 
 
     public Controller_Connexion() {
@@ -131,15 +128,15 @@ public class Controller_Connexion {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////   SUBSCRIBE   //////////////////////////////////////////////////////////////////////
+    @FXML
+    private void handleBtnInscription() throws NamingException {
+        try {
+            mainApp.showSubscribe();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    /**
-     * Opens a dialog to create a new user. If the user clicks Confirm
-     * the fields are checked and if it's valid the user created are saved
-     * and injected in the database and true is returned.
-     *
-     * @return true if the user clicked confirm, false otherwise.
-     */
+    }
 
 
     /**

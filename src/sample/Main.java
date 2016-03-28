@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.modele.User;
 
@@ -49,7 +50,7 @@ public class Main extends Application {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////   CONNECTION   //////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////   Connection   //////////////////////////////////////////////////////////////////////
     public void showConnexion() throws IOException {
         try {
             // Load connexion overview.
@@ -57,13 +58,35 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/View_Connexion.fxml"));
             AnchorPane ConnexionOverview = (AnchorPane) loader.load();
 
-            this.primaryStage.setTitle("Tempo - Connexion");
+            this.primaryStage.setTitle("Sharin - Connexion");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(ConnexionOverview);
 
             // Give the controller access to the main app.
             Controller_Connexion controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////   Subscribe   //////////////////////////////////////////////////////////////////////
+    public void showSubscribe() throws IOException {
+        try {
+            // Load connexion overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/View_Subscribe.fxml"));
+            AnchorPane InscriptionOverview = (AnchorPane) loader.load();
+
+            this.primaryStage.setTitle("Sharin - Inscription");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(InscriptionOverview);
+
+            // Give the controller access to the main app.
+            Controller_Subscribe controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -79,7 +102,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/View_Home.fxml"));
             AnchorPane HomeOverview = (AnchorPane) loader.load();
 
-            this.primaryStage.setTitle("Tempo - Accueil");
+            this.primaryStage.setTitle("Sharin - Accueil");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(HomeOverview);
@@ -87,33 +110,6 @@ public class Main extends Application {
             // Give the controller access to the main app.
             Controller_Home controller = loader.getController();
             controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////   SUBSCRIBE   //////////////////////////////////////////////////////////////////////
-
-    /**
-     * Opens a dialog to create a new user. If the user clicks Confirm
-     * the fields are checked and if it's valid the user created are saved
-     * and injected in the database and true is returned.
-     **/
-
-    public void showSubscribe() throws IOException {
-        try {
-            // Load home overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/Controller_Subscribe.fxml"));
-            AnchorPane subscribeOverview = (AnchorPane) loader.load();
-
-            this.primaryStage.setTitle("Subscribe to Sharin");
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(subscribeOverview);
-
-            // Give the controller access to the main app.
-            Controller_Subscribe controller = loader.getController();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,4 +1,6 @@
 package sample.controller;
+import sample.Main;
+import sample.modele.Bdd;
 import sample.modele.User;
 
 import javafx.fxml.FXML;
@@ -15,6 +17,9 @@ import java.sql.*;
  *********** Created by Dorine on 28/03/2016.*****************
  ************************************************************/
 public class Controller_Subscribe {
+
+    //Attributes
+    private Main mainApp;
 
     @FXML
     private TextField name;
@@ -64,33 +69,24 @@ public class Controller_Subscribe {
 
             Connection con;
 
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
+            try {
+                Bdd bdd = new Bdd();
 
-                    String connectionURL = "jdbc:mysql://localhost:3306/sharin?autoReconnect=true&useSSL=false";
+                Connection connection = bdd.getConnexion();
+                Statement myStmt = connection.createStatement();
 
-                    con = DriverManager.getConnection(connectionURL, "root", "sharin");
+                //SQL query to insert new user
+                String sql = "INSERT INTO user (lastNameUser, firstNameUser, loginUser, mailUser, typeUser, pwdUser) VALUES ('"+varName+"', '"+varFirstname+"', '"+varUsername+"', '"+varMail+"','basic', '"+varPassword+"');";
+                myStmt.executeUpdate(sql);
 
-                    Statement myStmt = con.createStatement();
-
-                    //SQL query to insert new user
-                    String sql = "INSERT INTO user (lastNameUser, firstNameUser, loginUser, mailUser, typeUser, pwdUser) VALUES ('"+varName+"', '"+varFirstname+"', '"+varUsername+"', '"+varMail+"','basic', '"+varPassword+"');";
-                    myStmt.executeUpdate(sql);
-
-                    //SQL query to display all users
-                    ResultSet myRs = myStmt.executeQuery("SELECT * from user");
-                    while(myRs.next()){
-                        System.out.println(myRs.getString("lastNameUser") + " , " + myRs.getString("firstNameUser") + " , " + myRs.getString("loginUser")+ " , " + myRs.getString("mailUser")+ " , " + myRs.getString("pwdUser"));
-                    }
-                } catch (ClassNotFoundException e) {
-                    try {
-                        throw new Exception("No database");
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                //SQL query to display all users
+                ResultSet myRs = myStmt.executeQuery("SELECT * from user");
+                while(myRs.next()){
+                    System.out.println(myRs.getString("lastNameUser") + " , " + myRs.getString("firstNameUser") + " , " + myRs.getString("loginUser")+ " , " + myRs.getString("mailUser")+ " , " + myRs.getString("pwdUser"));
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("YEAH FIRST STEP");
@@ -101,14 +97,14 @@ public class Controller_Subscribe {
 
     /**
      * Validates the user input in the text fields.
-     * 
+     *
      * @return true if the input is valid
      */
     private boolean isInputValid() {
         String errorMessage = "";
 
         if (firstname.getText() == null || firstname.getText().length() == 0) {
-            errorMessage += "No valid first name!\n"; 
+            errorMessage += "No valid first name!\n";
         }
         if (name.getText() == null || name.getText().length() == 0) {
             errorMessage += "No valid name!\n";
@@ -149,10 +145,15 @@ public class Controller_Subscribe {
             alert.setTitle("Invalid Fields");
             alert.setHeaderText("Please correct invalid fields");
             alert.setContentText(errorMessage);
-            
+
             alert.showAndWait();
-            
+
             return false;
         }
+    }
+
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
     }
 }
