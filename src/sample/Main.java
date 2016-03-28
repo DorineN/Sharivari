@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.modele.User;
 
@@ -50,7 +49,7 @@ public class Main extends Application {
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////   Connection   //////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////   CONNECTION   //////////////////////////////////////////////////////////////////////
     public void showConnexion() throws IOException {
         try {
             // Load connexion overview.
@@ -88,6 +87,33 @@ public class Main extends Application {
             // Give the controller access to the main app.
             Controller_Home controller = loader.getController();
             controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////   SUBSCRIBE   //////////////////////////////////////////////////////////////////////
+
+    /**
+     * Opens a dialog to create a new user. If the user clicks Confirm
+     * the fields are checked and if it's valid the user created are saved
+     * and injected in the database and true is returned.
+     **/
+
+    public void showSubscribe() throws IOException {
+        try {
+            // Load home overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Controller_Subscribe.fxml"));
+            AnchorPane subscribeOverview = (AnchorPane) loader.load();
+
+            this.primaryStage.setTitle("Subscribe to Sharin");
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(subscribeOverview);
+
+            // Give the controller access to the main app.
+            Controller_Subscribe controller = loader.getController();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -22,7 +22,7 @@ public class Bdd {
 
     public Bdd(){
 
-        this.fileName = "D:\\java\\sharin\\properties\\bddConf.properties";
+        this.fileName = "properties\\bddConf.properties";
         //lecture du fichier texte
         Properties properties=new Properties();
         try {

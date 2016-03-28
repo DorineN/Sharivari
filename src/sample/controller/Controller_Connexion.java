@@ -4,7 +4,12 @@ package sample.controller;
  */
 
 //import appli
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import sample.Main;
 import sample.modele.Bdd;
 
@@ -15,6 +20,7 @@ import sample.modele.User;
 
 //other import
 import javax.naming.NamingException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -124,6 +130,16 @@ public class Controller_Connexion {
 
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////   SUBSCRIBE   //////////////////////////////////////////////////////////////////////
+
+    /**
+     * Opens a dialog to create a new user. If the user clicks Confirm
+     * the fields are checked and if it's valid the user created are saved
+     * and injected in the database and true is returned.
+     *
+     * @return true if the user clicked confirm, false otherwise.
+     */
 
 
     /**
