@@ -1,2 +1,0 @@
-# Sharivari
-# Par les meilleurs
