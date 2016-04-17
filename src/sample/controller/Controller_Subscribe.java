@@ -1,13 +1,12 @@
 package sample.controller;
 import sample.Main;
-import sample.modele.Bdd;
-import sample.modele.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.MySQLConnexion;
 
 import java.sql.*;
 
@@ -36,13 +35,12 @@ public class Controller_Subscribe {
     @FXML
     private TextField password;
 
-
-
     private Stage dialogStage;
     private boolean okClicked = false;
 
     @FXML
     private void initialize() {
+        // Empty
     }
 
     /** Sets the stage of this dialog.*/
@@ -67,24 +65,37 @@ public class Controller_Subscribe {
             String varMail = mail.getText();
             String varPassword = password.getText();
 
-            Connection con;
+            Connection connection = null;
+            Statement myStmt;
+            ResultSet myRs;
+
 
             try {
-                Bdd bdd = new Bdd();
+                connection = new MySQLConnexion("localhost", "root", "").getConnexion();
+            }catch(ClassNotFoundException e){
+                e.printStackTrace();
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
 
-                Connection connection = bdd.getConnexion();
-                Statement myStmt = connection.createStatement();
+            try {
+                if(connection != null) {
+                    myStmt = connection.createStatement();
 
-                //SQL query to insert new user
-                String sql = "INSERT INTO user (lastNameUser, firstNameUser, loginUser, mailUser, typeUser, pwdUser) VALUES ('"+varName+"', '"+varFirstname+"', '"+varUsername+"', '"+varMail+"','basic', '"+varPassword+"');";
-                myStmt.executeUpdate(sql);
+                    //SQL query to insert new user
+                    String sql = "INSERT INTO user (lastNameUser, firstNameUser, loginUser, mailUser, typeUser, pwdUser) VALUES ('" + varName + "', '" + varFirstname + "', '" + varUsername + "', '" + varMail + "','basic', '" + varPassword + "');";
+                    myStmt.executeUpdate(sql);
 
-                //SQL query to display all users
-                ResultSet myRs = myStmt.executeQuery("SELECT * from user");
-                while(myRs.next()){
-                    System.out.println(myRs.getString("lastNameUser") + " , " + myRs.getString("firstNameUser") + " , " + myRs.getString("loginUser")+ " , " + myRs.getString("mailUser")+ " , " + myRs.getString("pwdUser"));
+                    //SQL query to display all users
+                    myRs = myStmt.executeQuery("SELECT * from user");
+                    while (myRs.next()) {
+                        System.out.println(myRs.getString("lastNameUser") + " , " + myRs.getString("firstNameUser") + " , " + myRs.getString("loginUser") + " , " + myRs.getString("mailUser") + " , " + myRs.getString("pwdUser"));
+                    }
+
+                    myRs.close();
+                    myStmt.close();
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

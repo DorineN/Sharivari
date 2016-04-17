@@ -1,37 +1,34 @@
 package sample.controller;
-/**
- * Created by 9403929M on 21/03/2016.
- */
 
-//import appli
+// Imports appli
 import javafx.scene.input.KeyCode;
 import sample.Main;
-import sample.modele.Bdd;
+import sample.MySQLConnexion;
 
-//import javafx
+// Imports of javafx
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import sample.modele.User;
+import sample.User;
 
-//other import
+// Other imports
 import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-
 
 public class Controller_Connexion {
-
-    //Attributes
+    // Attributes
     private Main mainApp;
 
+    int id;
     String firstName;
     String lastName;
     String mail;
     String type;
-
+    int phone;
+    String company;
 
     //Link FXML
     @FXML
@@ -42,27 +39,25 @@ public class Controller_Connexion {
     private Label msgError;
 
 
-
-
     public Controller_Connexion() {
-
+        // Empty constructor
     }
 
     @FXML
     //Methode to press ENTER
     private void handleEnterLoginPwd(){
 
-        this.pwd.setOnKeyPressed((event) -> {
-           if(event.getCode() == KeyCode.ENTER){
-               try {
-                   handleBtnConnexion();
-               } catch (NamingException e) {
-                   e.printStackTrace();
-               }
-           }
+        this.pwd.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                try {
+                    handleBtnConnexion();
+                } catch (NamingException e) {
+                    e.printStackTrace();
+                }
+            }
         });
 
-       this.login.setOnKeyPressed((event2) -> {
+        this.login.setOnKeyPressed((event2) -> {
             if(event2.getCode() == KeyCode.ENTER){
                 try {
                     handleBtnConnexion();
@@ -82,49 +77,53 @@ public class Controller_Connexion {
         if (user.equals("") | password.equals("")){
             this.msgError.setText("Veuillez saisir un identifiant et un mot de passe !");
         }else {
-            Bdd bdd = new Bdd();
 
-                    try {
-                        Connection connection = bdd.getConnexion();
-                        Statement statement = connection.createStatement();
+            Connection connection = null;
 
-                        ResultSet resultat = statement.executeQuery("SELECT COUNT(idUser) as rsCount, lastNameUser, firstNameUser , mailUser, typeUser " +
-                                "FROM user WHERE loginUser ='" + user + "' AND pwdUser = '" +password+"'");
+            try {
+                connection = new MySQLConnexion("localhost", "root", "").getConnexion();
+            }catch(ClassNotFoundException e){
+                this.msgError.setText("An error occured...");
+            }catch(SQLException e){
+                this.msgError.setText("Un problème est survenu lors de la connexion à la base de données...");
+            }
 
+            try {
+                if(connection != null) {
+                    Statement statement = connection.createStatement();
 
-                        while (resultat.next()) {
+                    ResultSet resultat = statement.executeQuery("SELECT COUNT(idUser) as rsCount, lastNameUser, firstNameUser , mailUser, phoneUser, companyUser, typeUser " +
+                            "FROM user WHERE loginUser ='" + user + "' AND pwdUser = '" + password + "'");
 
-
-                            //No user
-                            if (resultat.getInt("rsCount") == 0) {
-                                this.msgError.setText("Combinaison identifiant/mot de passe incorrecte");
-                            }
-                                //Connexion
-                                else {
-                                firstName = resultat.getString("firstNameUser");
-                                lastName = resultat.getString("lastNameUser");
-                                mail = resultat.getString("mailUser");
-                                type = resultat.getString("typeUser");
-
-                                //create object User
-                                mainApp.myUser = new User(user, firstName, lastName, mail, type);
-
-                                //GO HOME
-                                mainApp.showHome();
-
-                            }
+                    if (resultat.next()) {
+                        //No user
+                        if (resultat.getInt("rsCount") == 0) {
+                            this.msgError.setText("Combinaison identifiant/mot de passe incorrecte");
                         }
+                        //Connection
+                        else {
+                            id = resultat.getInt("idUser");
+                            firstName = resultat.getString("firstNameUser");
+                            lastName = resultat.getString("lastNameUser");
+                            mail = resultat.getString("mailUser");
+                            company = resultat.getString("companyUser");
+                            type = resultat.getString("typeUser");
+                            phone = resultat.getInt("phoneUser");
 
+                            //create object User
+                            mainApp.setMyUser(new User(id, user, firstName, lastName, mail, phone, company, type));
 
-
-
-                    } catch (Exception e) {
-                        System.out.println("Code erreur 1 : " + e);
+                            //GO HOME
+                            mainApp.showHome();
+                        }
                     }
 
-
-
-
+                    resultat.close();
+                    statement.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Code erreur 1 : " + e);
+            }
         }
     }
 
@@ -138,14 +137,10 @@ public class Controller_Connexion {
 
     }
 
-
     /**
      * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
      */
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
-
 }
