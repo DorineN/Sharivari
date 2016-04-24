@@ -37,6 +37,8 @@ public class Controller_Connexion {
     private PasswordField pwd;
     @FXML
     private Label msgError;
+    @FXML
+    private Hyperlink btnInscription;
 
 
     public Controller_Connexion() {
@@ -74,14 +76,14 @@ public class Controller_Connexion {
         String user = login.getText();
         String password = pwd.getText();
 
-        if (user.equals("") | password.equals("")){
+        if ("".equals(user) || "".equals(password)){
             this.msgError.setText("Veuillez saisir un identifiant et un mot de passe !");
         }else {
 
             Connection connection = null;
 
             try {
-                connection = new MySQLConnexion("localhost", "root", "").getConnexion();
+                connection = new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion();
             }catch(ClassNotFoundException e){
                 this.msgError.setText("An error occured...");
             }catch(SQLException e){
@@ -92,8 +94,11 @@ public class Controller_Connexion {
                 if(connection != null) {
                     Statement statement = connection.createStatement();
 
-                    ResultSet resultat = statement.executeQuery("SELECT COUNT(idUser) as rsCount, lastNameUser, firstNameUser , mailUser, phoneUser, companyUser, typeUser " +
+                    ResultSet resultat = statement.executeQuery("SELECT COUNT(idUser) as rsCount, idUser, lastNameUser, firstNameUser , mailUser, phoneUser, companyUser, typeUser " +
                             "FROM user WHERE loginUser ='" + user + "' AND pwdUser = '" + password + "'");
+
+                    System.out.println(user);
+                    System.out.println(password);
 
                     if (resultat.next()) {
                         //No user
@@ -111,7 +116,7 @@ public class Controller_Connexion {
                             phone = resultat.getInt("phoneUser");
 
                             //create object User
-                            mainApp.setMyUser(new User(id, user, firstName, lastName, mail, phone, company, type));
+                            Main.setMyUser(new User(id, user, firstName, lastName, mail, phone, company, type));
 
                             //GO HOME
                             mainApp.showHome();
@@ -134,7 +139,6 @@ public class Controller_Connexion {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**

@@ -32,6 +32,6 @@
          </font>
       </Label>
       <Button layoutX="265.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#handleBtnConnexion" text="Connexion" />
-      <Hyperlink fx:id="btnInscription" layoutX="268.0" layoutY="248.0" onMouseClicked="#handleBtnInscription" text="Inscription" />
+      <Hyperlink fx:id="btnInscription" layoutX="268.0" layoutY="248.0" onAction="#handleBtnInscription" onMouseClicked="#handleBtnInscription" text="Inscription" />
    </children>
 </AnchorPane>
