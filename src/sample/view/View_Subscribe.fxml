@@ -7,10 +7,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller_Subscribe">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller_Subscribe">
     <children>
-        <Pane>
-            <children>
                 <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="CONFIRM SUBSCRIBE" textFill="WHITE">
                     <font>
                         <Font name="Browallia New Italic" size="24.0" />
@@ -43,7 +41,5 @@
                         <TextField fx:id="confirmpassword" prefHeight="78.0" prefWidth="267.0" promptText="CONFIRM PASSWORD" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
-            </children>
-        </Pane>
     </children>
 </AnchorPane>

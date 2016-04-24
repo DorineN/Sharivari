@@ -83,7 +83,7 @@ public class Controller_Connexion {
             Connection connection = null;
 
             try {
-                connection = new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion();
+                connection = new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion();
             }catch(ClassNotFoundException e){
                 this.msgError.setText("An error occured...");
             }catch(SQLException e){

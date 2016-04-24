@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import sample.Main;
 
+import java.io.IOException;
+
 public class Controller_Home {
     //Attributes
     private Main mainApp;
@@ -17,6 +19,14 @@ public class Controller_Home {
         System.out.println(mainApp.getMyUser().toString());
     }
 
+    @FXML
+    private void linkAccount() {
+        try {
+            mainApp.showMyAccount();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Is called by the main application to give a reference back to itself.
      *

@@ -14,24 +14,32 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller_Connexion">
    <children>
-      <Label layoutX="193.0" layoutY="118.0" text="Identifiant : ">
+      <Label layoutX="180.0" layoutY="39.0" text="CONNECT TO SHARIN" textFill="#f07600">
          <font>
-            <Font size="18.0" />
+            <Font name="Browallia New Italic" size="40.0" />
          </font>
       </Label>
-      <TextField fx:id="login" layoutX="300.0" layoutY="119.0" onKeyPressed="#handleEnterLoginPwd" />
-      <Label layoutX="172.0" layoutY="145.0" text="Mot de passe :">
+      <Label layoutX="192.0" layoutY="112.0" text="IDENTIFIANT" textFill="#f07400">
          <font>
-            <Font size="18.0" />
+            <Font name="Browallia New" size="24.0" />
          </font>
       </Label>
-      <PasswordField fx:id="pwd" layoutX="300.0" layoutY="146.0" onKeyPressed="#handleEnterLoginPwd" />
-      <Label fx:id="msgError" alignment="CENTER" layoutX="5.0" layoutY="226.0" prefHeight="44.0" prefWidth="593.0" textAlignment="CENTER">
+      <TextField fx:id="login" layoutX="299.0" layoutY="113.0" onKeyPressed="#handleEnterLoginPwd" />
+      <Label layoutX="193.0" layoutY="162.0" text="PASSWORD" textFill="#f07600">
+         <font>
+            <Font name="Browallia New" size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="pwd" layoutX="297.0" layoutY="164.0" onKeyPressed="#handleEnterLoginPwd" />
+      <Label fx:id="msgError" alignment="CENTER" layoutX="4.0" layoutY="259.0" prefHeight="44.0" prefWidth="593.0" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="265.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#handleBtnConnexion" text="Connexion" />
-      <Hyperlink fx:id="btnInscription" layoutX="268.0" layoutY="248.0" onAction="#handleBtnInscription" onMouseClicked="#handleBtnInscription" text="Inscription" />
+      <Button layoutX="192.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#handleBtnConnexion" prefHeight="7.0" prefWidth="255.0" style="-fx-background-color: #f07600;" text="Connexion" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Browallia New" size="20.0" />
+         </font></Button>
+      <Hyperlink fx:id="btnInscription" layoutX="239.0" layoutY="292.0" onAction="#handleBtnInscription" onMouseClicked="#handleBtnInscription" text="Vous n'avez pas de compte ?" />
    </children>
 </AnchorPane>

@@ -38,11 +38,6 @@ public class Controller_Subscribe {
     private Stage dialogStage;
     private boolean okClicked = false;
 
-    @FXML
-    private void initialize() {
-        // Empty
-    }
-
     /** Sets the stage of this dialog.*/
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -71,7 +66,7 @@ public class Controller_Subscribe {
 
 
             try {
-                connection = new MySQLConnexion("localhost", "root", "").getConnexion();
+                connection = new MySQLConnexion("localhost", "root", "sharin").getConnexion();
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
             }catch(SQLException e){
