@@ -27,7 +27,7 @@ public class SubscribeController {
     @FXML
     private TextField username;
     @FXML
-    private TextField enterprise;
+    private TextField company;
     @FXML
     private TextField mail;
     @FXML
@@ -38,9 +38,9 @@ public class SubscribeController {
     private Stage dialogStage;
     private boolean okClicked = false;
 
-    @FXML
-    private void initialize() {
-        // Empty
+    public SubscribeController()
+    {
+        // Empty constructor
     }
 
     /** Sets the stage of this dialog.*/
@@ -61,7 +61,7 @@ public class SubscribeController {
             String varName = name.getText();
             String varUsername = username.getText();
             double varPhone = Integer.parseInt(phone.getText());
-            String varEnterprise = enterprise.getText();
+            String varEnterprise = company.getText();
             String varMail = mail.getText();
             String varPassword = password.getText();
 
@@ -135,8 +135,8 @@ public class SubscribeController {
             }
         }
 
-        if (enterprise.getText() == null || enterprise.getText().length() == 0) {
-            errorMessage += "No valid enterprise's name!\n";
+        if (company.getText() == null || company.getText().length() == 0) {
+            errorMessage += "No valid company's name!\n";
         }
 
         if (mail.getText() == null || mail.getText().length() == 0) {

@@ -28,7 +28,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showConnexion();
+        showMyAccount();
     }
 
     // Routes

@@ -13,7 +13,7 @@ public class HomeController {
     private Button testBtn;
 
     @FXML
-    private void testClic(){
+    public void testClic(){
         System.out.println(Main.getMyUser().toString());
     }
 

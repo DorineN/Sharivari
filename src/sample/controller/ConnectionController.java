@@ -47,7 +47,7 @@ public class ConnectionController {
 
     @FXML
     //Methode to press ENTER
-    private void handleEnterLoginPwd(){
+    public void handleEnterLoginPwd(){
 
         this.pwd.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER){
@@ -59,7 +59,7 @@ public class ConnectionController {
             }
         });
 
-        this.login.setOnKeyPressed((event2) -> {
+        this.login.setOnKeyPressed(event2 -> {
             if(event2.getCode() == KeyCode.ENTER){
                 try {
                     handleBtnConnexion();
@@ -116,7 +116,7 @@ public class ConnectionController {
                             Main.setMyUser(new User(id, user, firstName, lastName, mail, phone, company, type));
 
                             //GO HOME
-                            mainApp.showHome();
+                            mainApp.showMyAccount();
                         }
                     }
 
@@ -130,7 +130,7 @@ public class ConnectionController {
     }
 
     @FXML
-    private void handleBtnInscription() throws NamingException {
+    public void handleBtnInscription() throws NamingException {
         try {
             mainApp.showSubscribe();
         } catch (IOException e) {

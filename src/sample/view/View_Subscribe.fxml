@@ -36,7 +36,7 @@
                         <TextField fx:id="name" prefHeight="78.0" prefWidth="267.0" promptText="NAME" style="-fx-border-color: #e1e5cd;" />
                         <TextField fx:id="firstname" prefHeight="78.0" prefWidth="267.0" promptText="FIRSTNAME" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" />
                         <TextField fx:id="username" prefHeight="78.0" prefWidth="267.0" promptText="USERNAME" style="-fx-border-color: #e1e5cd;" GridPane.rowIndex="1" />
-                        <TextField fx:id="enterprise" prefHeight="78.0" prefWidth="267.0" promptText="ENTERPRISE" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="company" prefHeight="78.0" prefWidth="267.0" promptText="ENTERPRISE" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="mail" prefHeight="78.0" prefWidth="267.0" promptText="MAIL" style="-fx-border-color: #e1e5cd;" GridPane.rowIndex="2" />
                         <TextField fx:id="phone" prefHeight="78.0" prefWidth="267.0" promptText="PHONE" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="password" prefHeight="78.0" prefWidth="267.0" promptText="PASSWORD" style="-fx-border-color: #e1e5cd;" GridPane.rowIndex="3" />

@@ -62,7 +62,12 @@ public class MyAccountController {
     private Button cancelButton;
 
     public MyAccountController(){
-        // Empty constructor
+        System.out.println("Cons");
+    }
+
+    @FXML
+    public void initialize(){
+        pwdInput.setPromptText("test");
     }
 
    /* @Override
