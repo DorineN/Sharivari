@@ -56,7 +56,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Connexion.fxml"));
+            loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
             AnchorPane connexionOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Connexion");
@@ -65,7 +65,7 @@ public class Main extends Application {
             rootLayout.setCenter(connexionOverview);
 
             // Give the controller access to the main app.
-            Controller_Connexion controller = loader.getController();
+            ConnectionController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -78,7 +78,7 @@ public class Main extends Application {
         try {
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Home.fxml"));
+            loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Accueil");
@@ -87,7 +87,7 @@ public class Main extends Application {
             rootLayout.setCenter(homeOverview);
 
             // Give the controller access to the main app.
-            Controller_Home controller = loader.getController();
+            HomeController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -109,7 +109,7 @@ public class Main extends Application {
             rootLayout.setCenter(inscriptionOverview);
 
             // Give the controller access to the main app.
-            Controller_Subscribe controller = loader.getController();
+            SubscribeController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
