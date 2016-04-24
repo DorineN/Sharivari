@@ -100,7 +100,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Subscribe.fxml"));
+            loader.setLocation(Main.class.getResource("view/SubscribeView.fxml"));
             AnchorPane inscriptionOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Inscription");
