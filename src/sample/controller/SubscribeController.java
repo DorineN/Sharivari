@@ -7,8 +7,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.MySQLConnexion;
+import sample.UserDAO;
 
+import java.io.IOException;
 import java.sql.*;
+
+import static java.lang.Integer.parseInt;
 
 /*************************************************************
  *************** Dialog to create a new user *****************
@@ -38,9 +42,9 @@ public class SubscribeController {
     private Stage dialogStage;
     private boolean okClicked = false;
 
-    public SubscribeController()
-    {
-        // Empty constructor
+    @FXML
+    private void initialize() {
+        // Empty
     }
 
     /** Sets the stage of this dialog.*/
@@ -60,49 +64,33 @@ public class SubscribeController {
             String varFirstname = firstname.getText();
             String varName = name.getText();
             String varUsername = username.getText();
-            double varPhone = Integer.parseInt(phone.getText());
+            int varPhone =parseInt(phone.getText());
             String varEnterprise = company.getText();
             String varMail = mail.getText();
             String varPassword = password.getText();
 
-            Connection connection = null;
-            Statement myStmt;
-            ResultSet myRs;
-
 
             try {
-                connection = new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion();
-            }catch(ClassNotFoundException e){
+                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+                user.insert(varUsername,varPassword,varName, varFirstname, varMail, varPhone, varEnterprise);
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            }catch(SQLException e){
-                e.printStackTrace();
-            }
-
-            try {
-                if(connection != null) {
-                    myStmt = connection.createStatement();
-
-                    //SQL query to insert new user
-                    String sql = "INSERT INTO user (lastNameUser, firstNameUser, loginUser, mailUser, typeUser, pwdUser) VALUES ('" + varName + "', '" + varFirstname + "', '" + varUsername + "', '" + varMail + "','basic', '" + varPassword + "');";
-                    myStmt.executeUpdate(sql);
-
-                    //SQL query to display all users
-                    myRs = myStmt.executeQuery("SELECT * from user");
-                    while (myRs.next()) {
-                        System.out.println(myRs.getString("lastNameUser") + " , " + myRs.getString("firstNameUser") + " , " + myRs.getString("loginUser") + " , " + myRs.getString("mailUser") + " , " + myRs.getString("pwdUser"));
-                    }
-
-                    myRs.close();
-                    myStmt.close();
-                }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("YEAH FIRST STEP");
+            alert.setTitle("Inscription validée !");
+            alert.setContentText("Votre inscription a bien été prise en compteé");
+            alert.showAndWait();
 
-            //TODO LINK TO THE APP
+            //GO HOME
+            try {
+                mainApp.showConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -129,14 +117,14 @@ public class SubscribeController {
         } else {
             // try to parse the postal code into an int.
             try {
-                Integer.parseInt(phone.getText());
+                parseInt(phone.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid phone number (must be an integer)!\n";
             }
         }
 
         if (company.getText() == null || company.getText().length() == 0) {
-            errorMessage += "No valid company's name!\n";
+            errorMessage += "No valid enterprise's name!\n";
         }
 
         if (mail.getText() == null || mail.getText().length() == 0) {
@@ -164,6 +152,9 @@ public class SubscribeController {
     }
 
 
+    /**
+     * Is called by the main application to give a reference back to itself.
+     */
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }

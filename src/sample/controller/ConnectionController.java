@@ -9,6 +9,7 @@ import sample.MySQLConnexion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import sample.User;
+import sample.UserDAO;
 
 // Other imports
 import javax.naming.NamingException;
@@ -73,59 +74,35 @@ public class ConnectionController {
 
     @FXML
     private void handleBtnConnexion() throws NamingException {
-        String user = login.getText();
+        String login = this.login.getText();
         String password = pwd.getText();
 
-        if ("".equals(user) || "".equals(password)){
+        if ("".equals(login) || "".equals(password)){
             this.msgError.setText("Veuillez saisir un identifiant et un mot de passe !");
         }else {
 
-            Connection connection = null;
-
             try {
-                connection = new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion();
-            }catch(ClassNotFoundException e){
-                this.msgError.setText("An error occured...");
-            }catch(SQLException e){
-                this.msgError.setText("Un problème est survenu lors de la connexion à la base de données...");
-            }
-
-            try {
-                if(connection != null) {
-                    Statement statement = connection.createStatement();
-
-                    ResultSet resultat = statement.executeQuery("SELECT COUNT(idUser) as rsCount, idUser, lastNameUser, firstNameUser , mailUser, phoneUser, companyUser, typeUser " +
-                            "FROM user WHERE loginUser ='" + user + "' AND pwdUser = '" + password + "'");
-
-                    if (resultat.next()) {
-                        //No user
-                        if (resultat.getInt("rsCount") == 0) {
-                            this.msgError.setText("Combinaison identifiant/mot de passe incorrecte");
-                        }
-                        //Connection
-                        else {
-                            id = resultat.getInt("idUser");
-                            firstName = resultat.getString("firstNameUser");
-                            lastName = resultat.getString("lastNameUser");
-                            mail = resultat.getString("mailUser");
-                            company = resultat.getString("companyUser");
-                            type = resultat.getString("typeUser");
-                            phone = resultat.getInt("phoneUser");
-
-                            //create object User
-                            Main.setMyUser(new User(id, user, firstName, lastName, mail, phone, company, type));
-
-                            //GO HOME
-                            mainApp.showMyAccount();
-                        }
+                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+                User user = userDao.findConnection(login,password);
+                if (user.getUserLogin()!=""){
+                    Main.setMyUser(user);
+                    //GO HOME
+                    try {
+                        mainApp.showHome();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-                    resultat.close();
-                    statement.close();
+                }else{
+                    this.msgError.setText("Erreur combinaison identifiant / mot de passe !");
                 }
-            } catch (Exception e) {
-                System.out.println("Code erreur 1 : " + e);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
+
+          /*  */
+
         }
     }
 

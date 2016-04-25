@@ -28,7 +28,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showMyAccount();
+        showConnection();
     }
 
     // Routes
@@ -52,17 +52,17 @@ public class Main extends Application {
         }
     }
 
-    public void showConnexion() throws IOException {
+    public void showConnection() throws IOException {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
-            AnchorPane connexionOverview = loader.load();
+            AnchorPane connectionOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Connexion");
 
             // Set person overview into the center of root layout.
-            rootLayout.setCenter(connexionOverview);
+            rootLayout.setCenter(connectionOverview);
 
             // Give the controller access to the main app.
             ConnectionController controller = loader.getController();
