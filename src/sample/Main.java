@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.image.Image;
 import sample.controller.*;
 
 import javafx.application.Application;
@@ -44,6 +45,9 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+            // Show the icon app
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
+            primaryStage.setTitle("Sharin");
             primaryStage.setScene(scene);
             primaryStage.show();
 
