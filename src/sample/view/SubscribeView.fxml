@@ -40,7 +40,7 @@
                         <TextField fx:id="mail" prefHeight="78.0" prefWidth="267.0" promptText="MAIL" style="-fx-border-color: #e1e5cd;" GridPane.rowIndex="2" />
                         <TextField fx:id="phone" prefHeight="78.0" prefWidth="267.0" promptText="PHONE" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <PasswordField fx:id="password" prefHeight="78.0" prefWidth="267.0" promptText="PASSWORD" style="-fx-border-color: #e1e5cd;" GridPane.rowIndex="3" />
-                        <PasswordField fx:id="confirmpassword" prefHeight="78.0" prefWidth="267.0" promptText="CONFIRM PASSWORD" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <PasswordField fx:id="confirmPassword" prefHeight="78.0" prefWidth="267.0" promptText="CONFIRM PASSWORD" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
             </children>

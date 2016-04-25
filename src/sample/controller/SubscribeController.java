@@ -39,7 +39,7 @@ public class SubscribeController {
     @FXML
     private TextField password;
     @FXML
-    private TextField confirmpassword;
+    private TextField confirmPassword;
 
 
     private Stage dialogStage;
@@ -136,7 +136,7 @@ public class SubscribeController {
         if (password.getText() == null || password.getText().length() == 0) {
             errorMessage += "No valid password!\n";
 
-        }if(!password.getText().equals(confirmpassword.getText())){
+        }if(!password.getText().equals(confirmPassword.getText())){
             errorMessage += "Passwords aren't the same!\n";
         }
 
