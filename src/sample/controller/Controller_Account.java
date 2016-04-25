@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Controller_Account {
+public class MyAccountController {
 
     private Main mainApp;
 
@@ -61,8 +61,13 @@ public class Controller_Account {
     @FXML
     private Button cancelButton;
 
-    public Controller_Account(){
-        // Empty constructor
+    public MyAccountController(){
+        System.out.println("Cons");
+    }
+
+    @FXML
+    public void initialize(){
+        pwdInput.setPromptText("test");
     }
 
    /* @Override
@@ -94,7 +99,7 @@ public class Controller_Account {
             Main.getMyUser().setUserCompany(company);
 
             try {
-                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                 user.update(Main.getMyUser());
             }catch(ClassNotFoundException | SQLException e) {
                 System.out.println("Error controlleur !");

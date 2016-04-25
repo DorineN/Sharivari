@@ -91,6 +91,19 @@ public class User {
         this.userType = userType;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userLogin='" + userLogin + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userFirstName='" + userFirstName + '\'' +
+                ", userMail='" + userMail + '\'' +
+                ", userPhone=" + userPhone +
+                ", userCompany='" + userCompany + '\'' +
+                ", userType='" + userType + '\'' +
+                '}';
+    }
 
     // Inherited methods
     @Override

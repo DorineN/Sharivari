@@ -10,6 +10,61 @@ public class UserDAO extends DAO<User> {
         super(connection);
     }
 
+
+
+    public void insert(String login, String pwd, String lastName, String firstName, String mail, int phone, String company){
+
+        try{
+
+            PreparedStatement prepare = connection.prepareStatement("INSERT INTO user(loginUser, pwdUser, lastNameUser, firstNameUser, mailUser, phoneUser, companyUser, typeUser) VALUES(" +
+                    "?, ?, ?, ?, ?, ?, ?,'user') ");
+
+
+            prepare.setString(1, login);
+            prepare.setString(2, pwd);
+            prepare.setString(3, lastName);
+            prepare.setString(4, firstName);
+            prepare.setString(5, mail);
+            prepare.setInt(6, phone);
+            prepare.setString(7, company);
+            prepare.executeUpdate();
+
+            prepare.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public User findConnection(String login, String pwd){
+        User user = new User();
+
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM user WHERE loginUser=? AND pwdUser=? ");
+            ResultSet res;
+
+            prepare.setString(1, login);
+            prepare.setString(2, pwd);
+            res = prepare.executeQuery();
+
+            if(res.first()){
+                user = new User(res.getInt("idUser"), res.getString("loginUser"), res.getString("lastNameUser"),
+                        res.getString("firstNameUser"), res.getString("mailUser"), res.getInt("phoneUser"), res.getString("companyUser"),
+                        res.getString("typeUser"));
+            }
+
+            prepare.close();
+            res.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+
     @Override
     public User find(int id){
         User user = new User();
@@ -35,6 +90,9 @@ public class UserDAO extends DAO<User> {
 
         return user;
     }
+
+
+
 
     @Override
     public boolean update(User user){

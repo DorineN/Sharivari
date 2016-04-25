@@ -29,7 +29,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showConnexion();
+        showConnection();
     }
 
     // Routes
@@ -55,20 +55,20 @@ public class Main extends Application {
         }
     }
 
-    public void showConnexion() throws IOException {
+    public void showConnection() throws IOException {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Connexion.fxml"));
-            AnchorPane connexionOverview = loader.load();
+            loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
+            AnchorPane connectionOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Connexion");
 
             // Set person overview into the center of root layout.
-            rootLayout.setCenter(connexionOverview);
+            rootLayout.setCenter(connectionOverview);
 
             // Give the controller access to the main app.
-            Controller_Connexion controller = loader.getController();
+            ConnectionController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -81,7 +81,7 @@ public class Main extends Application {
         try {
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Home.fxml"));
+            loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Accueil");
@@ -90,7 +90,7 @@ public class Main extends Application {
             rootLayout.setCenter(homeOverview);
 
             // Give the controller access to the main app.
-            Controller_Home controller = loader.getController();
+            HomeController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -125,7 +125,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Subscribe.fxml"));
+            loader.setLocation(Main.class.getResource("view/SubscribeView.fxml"));
             AnchorPane inscriptionOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Inscription");
@@ -134,7 +134,7 @@ public class Main extends Application {
             rootLayout.setCenter(inscriptionOverview);
 
             // Give the controller access to the main app.
-            Controller_Subscribe controller = loader.getController();
+            SubscribeController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
