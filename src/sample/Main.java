@@ -112,7 +112,7 @@ public class Main extends Application {
             rootLayout.setCenter(dashboardOverview);
 
             // Give the controller access to the main app.
-            Controller_Home controller = loader.getController();
+            HomeController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
