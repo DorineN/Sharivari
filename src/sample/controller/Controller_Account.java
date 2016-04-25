@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class MyAccountController {
+public class Controller_Account {
 
     private Main mainApp;
 
@@ -61,7 +61,7 @@ public class MyAccountController {
     @FXML
     private Button cancelButton;
 
-    public MyAccountController(){
+    public Controller_Account(){
         System.out.println("Cons");
     }
 
@@ -99,10 +99,10 @@ public class MyAccountController {
             Main.getMyUser().setUserCompany(company);
 
             try {
-                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
                 user.update(Main.getMyUser());
             }catch(ClassNotFoundException | SQLException e) {
-                System.out.println("Error controlleur !");
+                System.out.println("Error controller !");
             }
         }else{
             errorLabel.setText("Un champ a été mal rempli...");
