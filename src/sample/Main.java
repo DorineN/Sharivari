@@ -45,7 +45,7 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
-            // Show the icon app
+            // Show the Sharin icon
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
             primaryStage.setTitle("Sharin");
             primaryStage.setScene(scene);
