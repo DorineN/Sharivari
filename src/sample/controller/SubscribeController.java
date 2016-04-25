@@ -38,6 +38,9 @@ public class SubscribeController {
     private TextField phone;
     @FXML
     private TextField password;
+    @FXML
+    private TextField confirmpassword;
+
 
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -84,7 +87,7 @@ public class SubscribeController {
             alert.setContentText("Votre inscription a bien été prise en compteé");
             alert.showAndWait();
 
-            //GO HOME
+            //GO CONNECTION
             try {
                 mainApp.showConnection();
             } catch (IOException e) {
@@ -111,7 +114,6 @@ public class SubscribeController {
         if (username.getText() == null || username.getText().length() == 0) {
             errorMessage += "No valid username!\n";
         }
-
         if (phone.getText() == null || phone.getText().length() == 0) {
             errorMessage += "No valid phone number!\n";
         } else {
@@ -133,6 +135,9 @@ public class SubscribeController {
 
         if (password.getText() == null || password.getText().length() == 0) {
             errorMessage += "No valid password!\n";
+
+        }if(!password.getText().equals(confirmpassword.getText())){
+            errorMessage += "Passwords aren't the same!\n";
         }
 
         if (errorMessage.length() == 0) {
