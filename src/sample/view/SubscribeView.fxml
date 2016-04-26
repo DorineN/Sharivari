@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.SubscribeController">
     <children>
         <Pane>
@@ -12,7 +15,7 @@
                         <Font name="Calibri" size="24.0" />
                     </font>
                 </Button>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="27.0" text="SHARIN' INSCRIPTION" textAlignment="CENTER" textFill="#f07600">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="27.0" text="SHARIN' INSCRIPTION" textAlignment="CENTER" textFill="#f07600">
                     <font>
                         <Font name="Calibri" size="40.0" />
                     </font>
@@ -39,6 +42,10 @@
                         <PasswordField fx:id="confirmPassword" prefHeight="78.0" prefWidth="267.0" promptText="CONFIRM PASSWORD" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
+            <Button layoutX="28.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: #44C2D9;" text="Retour" textFill="WHITE">
+               <font>
+                  <Font name="Calibri" size="12.0" />
+               </font></Button>
             </children>
         </Pane>
     </children>

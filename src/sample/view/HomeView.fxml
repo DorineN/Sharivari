@@ -73,10 +73,8 @@
                </children>
            </GridPane>
        </left>
-       <top>
-           <ComboBox prefWidth="150.0" promptText="Projet 1" BorderPane.alignment="CENTER" />
-       </top>
        </BorderPane>
        <Button fx:id="testBtn" layoutX="229.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#testClic" text="Qui est tu dans le game" />
+     <ComboBox layoutX="225.0" layoutY="2.0" prefWidth="150.0" promptText="Projet 1" />
    </children>
 </AnchorPane>
