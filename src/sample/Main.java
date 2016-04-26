@@ -45,6 +45,7 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+            // Show the Sharin icon
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
             primaryStage.setTitle("Sharin");
             primaryStage.setScene(scene);
@@ -62,7 +63,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
             AnchorPane connectionOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Connexion");
+            this.primaryStage.setTitle("Sharin - Connection");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(connectionOverview);
@@ -84,32 +85,10 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Accueil");
+            this.primaryStage.setTitle("Sharin - Home");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(homeOverview);
-
-            // Give the controller access to the main app.
-            HomeController controller = loader.getController();
-            controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Dashboard
-    public void showDashboard() throws IOException {
-        try {
-            // Load home overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Home.fxml"));
-            AnchorPane dashboardOverview = loader.load();
-
-            this.primaryStage.setTitle("Sharin - Tableau de bord");
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(dashboardOverview);
 
             // Give the controller access to the main app.
             HomeController controller = loader.getController();
@@ -147,7 +126,7 @@ public class Main extends Application {
         try {
             // Load my account overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Account.fxml"));
+            loader.setLocation(Main.class.getResource("view/MyAccountView.fxml"));
             AnchorPane myAccountOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Mon compte");
@@ -156,7 +135,7 @@ public class Main extends Application {
             rootLayout.setCenter(myAccountOverview);
 
             // Give the controller access to the main app.
-            Controller_Account controller = loader.getController();
+            MyAccountController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {

@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.MySQLConnexion;
 import sample.UserDAO;
-
 import java.io.IOException;
 import java.sql.*;
 
@@ -40,6 +39,7 @@ public class SubscribeController {
     private TextField password;
     @FXML
     private TextField confirmPassword;
+    @FXML
 
 
     private Stage dialogStage;
@@ -84,7 +84,6 @@ public class SubscribeController {
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Inscription validée !");
-            alert.setContentText("Votre inscription a bien été prise en compteé");
             alert.showAndWait();
 
             //GO CONNECTION
@@ -153,6 +152,15 @@ public class SubscribeController {
             alert.showAndWait();
 
             return false;
+        }
+    }
+
+    @FXML
+    private void handleBtnBack() {
+        try {
+            mainApp.showConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
