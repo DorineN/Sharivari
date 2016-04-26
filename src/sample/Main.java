@@ -63,7 +63,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
             AnchorPane connectionOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Connexion");
+            this.primaryStage.setTitle("Sharin - Connection");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(connectionOverview);
@@ -85,7 +85,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Accueil");
+            this.primaryStage.setTitle("Sharin - Home");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(homeOverview);
