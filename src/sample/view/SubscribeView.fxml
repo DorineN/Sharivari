@@ -42,11 +42,12 @@
                         <PasswordField fx:id="confirmPassword" prefHeight="78.0" prefWidth="267.0" promptText="CONFIRM PASSWORD" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
-            <Button layoutX="28.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: #44C2D9;" text="Retour" textFill="WHITE">
+            <Button fx:id="back" layoutX="28.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#handleBtnBack" style="-fx-background-color: #44C2D9;" text="Retour" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="12.0" />
                </font></Button>
             </children>
         </Pane>
+
     </children>
 </AnchorPane>

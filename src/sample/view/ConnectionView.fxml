@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ConnectionController">
    <children>
       <Label layoutX="104.0" layoutY="34.0" text="CONNECT TO SHARIN" textFill="#f07600">
@@ -22,7 +25,7 @@
          </font>
       </Label>
       <PasswordField fx:id="pwd" layoutX="297.0" layoutY="164.0" onKeyPressed="#handleEnterLoginPwd" />
-      <Label fx:id="msgError" alignment="CENTER" layoutX="4.0" layoutY="259.0" prefHeight="44.0" prefWidth="593.0" textAlignment="CENTER">
+      <Label fx:id="msgError" alignment="CENTER" layoutX="1.0" layoutY="312.0" prefHeight="44.0" prefWidth="593.0" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
@@ -31,6 +34,6 @@
          <font>
             <Font name="Calibri" size="20.0" />
          </font></Button>
-      <Hyperlink fx:id="btnInscription" layoutX="217.0" layoutY="303.0" onAction="#handleBtnInscription" onMouseClicked="#handleBtnInscription" text="Vous n'avez pas de compte ?" />
+      <Hyperlink fx:id="btnInscription" layoutX="218.0" layoutY="289.0" onAction="#handleBtnInscription" onMouseClicked="#handleBtnInscription" text="Vous n'avez pas de compte ?" />
    </children>
 </AnchorPane>
