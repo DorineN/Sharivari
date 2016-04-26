@@ -121,6 +121,28 @@ public class Main extends Application {
         }
     }
 
+    // Task
+    public void showProject() throws IOException {
+        try {
+            // Load connexion overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/View_Create_Project.fxml"));
+            AnchorPane projectOverview = loader.load();
+
+            this.primaryStage.setTitle("Sharin - Inscription");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(projectOverview);
+
+            // Give the controller access to the main app.
+            Controller_Project controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // My Account
     public void showMyAccount() throws IOException {
         try {
@@ -135,7 +157,7 @@ public class Main extends Application {
             rootLayout.setCenter(myAccountOverview);
 
             // Give the controller access to the main app.
-            MyAccountController controller = loader.getController();
+            Controller_Account controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {

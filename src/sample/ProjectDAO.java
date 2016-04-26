@@ -4,11 +4,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
-/*
+
 public class ProjectDAO extends DAO<Project> {
 
-    public ProjectDAO(Connection connection){
-        super(connection);
+    public ProjectDAO(Connection connection){super(connection); }
+
+    public void insert(int id, String name, String description, Date startDate, Date realEndDaTeEnd, Date estimateEndDate){
+
+        try{
+
+            PreparedStatement prepare = connection.prepareStatement("INSERT INTO project(idProject, nameProject, descriptionProject, startDateProject, realEndDaTeEndProject, estimateEndDateProject) VALUES(" +
+                    "?, ?, ?, ?, ?, ?, ?, ?) ");
+
+
+            prepare.setInt(1, id);
+            prepare.setString(2, name);
+            prepare.setString(3, description);
+            prepare.setDate(4, startDate);
+            prepare.setDate(5, realEndDaTeEnd);
+            prepare.setDate(6, estimateEndDate);
+            prepare.executeUpdate();
+
+            prepare.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -23,7 +45,7 @@ public class ProjectDAO extends DAO<Project> {
             res = prepare.executeQuery();
 
             if(res.first()){
-                project = new Project(res.getInt("idProject"), res.getDate("descriptionProject"), res.getDate("startDateProject"),
+                project = new Project(res.getInt("idProject"), res.getString("nameProject"), res.getString("descriptionProject"), res.getDate("startDateProject"),
                         res.getDate("realEndDaTeEndProject"), res.getDate("estimateEndDateProject"));
             }
 
@@ -41,14 +63,15 @@ public class ProjectDAO extends DAO<Project> {
         boolean result = false;
 
         try{
-            String query = "UPDATE project SET idProject = ?, descriptionProject = ?, firstNameUser = ?, startDateProject = ?, realEndDaTeEndProject = ?, estimateEndDateProject = ? WHERE idProject = ?";
+            String query = "UPDATE project SET idProject = ?, nameProject = ?, descriptionProject = ?,, startDateProject = ?, realEndDaTeEndProject = ?, estimateEndDateProject = ? WHERE idProject = ?";
             PreparedStatement prepare = connection.prepareStatement(query);
 
             prepare.setInt(1, project.getProjectId());
-            prepare.setString(2, project.getProjectDesc());
-            prepare.setDate(3, project.getProjectStart());
-            prepare.setDate(4, project.getProjectDeadline());
-            prepare.setDate(5, project.getProjectEnd());
+            prepare.setString(2, project.getProjectName());
+            prepare.setString(3, project.getProjectDesc());
+            prepare.setDate(4, (Date) project.getProjectStart());
+            prepare.setDate(5, (Date) project.getProjectDeadline());
+            prepare.setDate(6, (Date) project.getProjectEnd());
 
             if(prepare.executeUpdate() == 1)
                 result = true;
@@ -60,4 +83,4 @@ public class ProjectDAO extends DAO<Project> {
 
         return result;
     }
-}*/
+}

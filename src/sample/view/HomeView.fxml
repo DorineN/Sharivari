@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -44,7 +45,7 @@
                         <Font name="Calibri" size="12.0" />
                      </font>
                    </Button>
-                   <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #69d3e8;" text="Projet" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                   <Button fx:id="btnProject" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuProject" style="-fx-background-color: #69d3e8;" text="Projet" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>

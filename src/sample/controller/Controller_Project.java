@@ -54,12 +54,17 @@ public class Controller_Project {
     /** Called when the user clicks on the button New User*/
     @FXML
     public void handleOk() {
-        if (isInputValid()) {
-            String varName = nameProject.getText();
+
+        //if (isInputValid()) {
+            String varName = this.nameProject.getText();
             String varDesc = descriptionProject.getText();
-            int varStart = startDateProject.getDate();
-            int varDeadline = realEndDaTeEndProject.getDate();
-            int varEnd = estimateEndDateProject.getDate();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(startDateProject);
+            int varStart = cal.get(Calendar.DATE);
+            cal.setTime(realEndDaTeEndProject);
+            int varDeadline = cal.get(Calendar.DATE);
+            cal.setTime(estimateEndDateProject);
+            int varEnd = cal.get(Calendar.DATE);
 
             Connection connection = null;
             Statement myStmt;
@@ -70,8 +75,10 @@ public class Controller_Project {
                 connection = new MySQLConnexion("localhost", "root", "sharin").getConnexion();
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
+                System.out.print("Step 1");
             }catch(SQLException e){
                 e.printStackTrace();
+                System.out.print("Step 2");
             }
 
             try {
@@ -93,6 +100,7 @@ public class Controller_Project {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.print("Step 3");
             }
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -100,14 +108,14 @@ public class Controller_Project {
 
             //TODO LINK TO THE APP
         }
-    }
+    //}
 
     /**
      * Validates the user input in the text fields.
      *
      * @return true if the input is valid
      */
-    private boolean isInputValid() {
+    /*private boolean isInputValid() {
         String errorMessage = "";
 
         if (nameProject.getText() == null || nameProject.getText().length() == 0) {
@@ -130,15 +138,15 @@ public class Controller_Project {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setTitle("Champs invalides");
+            alert.setHeaderText("Veuillez corriger les champs invalides");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();
 
             return false;
         }
-    }
+    }*/
 
 
     public void setMainApp(Main mainApp) {
