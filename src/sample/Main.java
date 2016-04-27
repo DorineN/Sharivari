@@ -126,7 +126,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/View_Create_Project.fxml"));
+            loader.setLocation(Main.class.getResource("view/CreateProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Inscription");
@@ -135,7 +135,7 @@ public class Main extends Application {
             rootLayout.setCenter(projectOverview);
 
             // Give the controller access to the main app.
-            Controller_Project controller = loader.getController();
+            ProjectController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -148,7 +148,7 @@ public class Main extends Application {
         try {
             // Load my account overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/MyAccountView.fxml"));
+            loader.setLocation(Main.class.getResource("view/AccountView.fxml"));
             AnchorPane myAccountOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Mon compte");
@@ -157,7 +157,7 @@ public class Main extends Application {
             rootLayout.setCenter(myAccountOverview);
 
             // Give the controller access to the main app.
-            Controller_Account controller = loader.getController();
+            AccountController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {

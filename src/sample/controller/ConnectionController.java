@@ -14,10 +14,7 @@ import sample.UserDAO;
 // Other imports
 import javax.naming.NamingException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ConnectionController {
     // Attributes
@@ -74,17 +71,17 @@ public class ConnectionController {
 
     @FXML
     private void handleBtnConnexion() throws NamingException {
-        String login = this.login.getText();
+        String loginContent = this.login.getText();
         String password = pwd.getText();
 
-        if ("".equals(login) || "".equals(password)){
+        if ("".equals(loginContent) || "".equals(password)){
             this.msgError.setText("Veuillez saisir un identifiant et un mot de passe !");
         }else {
 
             try {
                 UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-                User user = userDao.findConnection(login,password);
-                if (user.getUserLogin()!=""){
+                User user = userDao.findConnection(loginContent,password);
+                if (!"".equals(user.getUserLogin())){
                     Main.setMyUser(user);
                     //GO HOME
                     try {

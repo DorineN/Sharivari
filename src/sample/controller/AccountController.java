@@ -2,20 +2,18 @@ package sample.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import sample.Main;
 import sample.MySQLConnexion;
 import sample.User;
 import sample.UserDAO;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Controller_Account {
+public class AccountController {
 
     private Main mainApp;
 
@@ -39,17 +37,17 @@ public class Controller_Account {
     private  Label errorLabel;
 
     @FXML
-    private TextField loginInput;
+    private TextArea loginInput;
     @FXML
-    private TextField nameInput;
+    private TextArea nameInput;
     @FXML
-    private TextField firstNameInput;
+    private TextArea firstNameInput;
     @FXML
-    private TextField emailInput;
+    private TextArea emailInput;
     @FXML
-    private TextField phoneInput;
+    private TextArea phoneInput;
     @FXML
-    private TextField companyInput;
+    private TextArea companyInput;
 
     @FXML
     private PasswordField pwdInput;
@@ -61,25 +59,16 @@ public class Controller_Account {
     @FXML
     private Button cancelButton;
 
-    public Controller_Account(){
-        System.out.println("Cons");
+    public AccountController(){
+        // Empty constructor
     }
 
     @FXML
     public void initialize(){
-        pwdInput.setPromptText("test");
+
     }
 
-   /* @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.loginInput.setPromptText(Main.getMyUser().getUserLogin());
-        this.nameInput.setPromptText(Main.getMyUser().getUserName());
-        this.firstNameInput.setPromptText(Main.getMyUser().getUserFirstName());
-        this.emailInput.setPromptText(Main.getMyUser().getUserMail());
-        this.phoneInput.setPromptText(Integer.toString(Main.getMyUser().getUserPhone()));
-        this.companyInput.setPromptText(Main.getMyUser().getUserCompany());
-    }*/
-
+    @FXML
     public void handleSaveButton(){
         String login = this.loginInput.getText();
         String pwd = this.pwdInput.getText();
@@ -138,6 +127,19 @@ public class Controller_Account {
         return !"".equals(Integer.toString(phone));
     }
 
+    @FXML
+    public void backHome(){
+        try{
+            mainApp.showHome();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public Main getMainApp() {
+        return mainApp;
+    }
+
     public Label getLoginLabel() {
         return loginLabel;
     }
@@ -150,7 +152,9 @@ public class Controller_Account {
         return pwdLabel;
     }
 
-    public void setPwdLabel(Label pwdLabel) { this.pwdLabel = pwdLabel; }
+    public void setPwdLabel(Label pwdLabel) {
+        this.pwdLabel = pwdLabel;
+    }
 
     public Label getConfirmPwdLabel() {
         return confirmPwdLabel;
@@ -184,36 +188,76 @@ public class Controller_Account {
         this.emailLabel = emailLabel;
     }
 
-    public TextField getLoginInput() {
+    public Label getPhoneLabel() {
+        return phoneLabel;
+    }
+
+    public void setPhoneLabel(Label phoneLabel) {
+        this.phoneLabel = phoneLabel;
+    }
+
+    public Label getCompanyLabel() {
+        return companyLabel;
+    }
+
+    public void setCompanyLabel(Label companyLabel) {
+        this.companyLabel = companyLabel;
+    }
+
+    public Label getErrorLabel() {
+        return errorLabel;
+    }
+
+    public void setErrorLabel(Label errorLabel) {
+        this.errorLabel = errorLabel;
+    }
+
+    public TextArea getLoginInput() {
         return loginInput;
     }
 
-    public void setLoginInput(TextField loginInput) {
+    public void setLoginInput(TextArea loginInput) {
         this.loginInput = loginInput;
     }
 
-    public TextField getNameInput() {
+    public TextArea getNameInput() {
         return nameInput;
     }
 
-    public void setNameInput(TextField nameInput) {
+    public void setNameInput(TextArea nameInput) {
         this.nameInput = nameInput;
     }
 
-    public TextField getFirstNameInput() {
+    public TextArea getFirstNameInput() {
         return firstNameInput;
     }
 
-    public void setFirstNameInput(TextField firstNameInput) {
+    public void setFirstNameInput(TextArea firstNameInput) {
         this.firstNameInput = firstNameInput;
     }
 
-    public TextField getEmailInput() {
+    public TextArea getEmailInput() {
         return emailInput;
     }
 
-    public void setEmailInput(TextField emailInput) {
+    public void setEmailInput(TextArea emailInput) {
         this.emailInput = emailInput;
+    }
+
+    public TextArea getPhoneInput() {
+        return phoneInput;
+    }
+
+    public void setPhoneInput(TextArea phoneInput) {
+        this.phoneInput = phoneInput;
+    }
+
+    public TextArea getCompanyInput() {
+        return companyInput;
+    }
+
+    public void setCompanyInput(TextArea companyInput) {
+        this.companyInput = companyInput;
     }
 
     public PasswordField getPwdInput() {
@@ -232,14 +276,6 @@ public class Controller_Account {
         this.confirmPwdInput = confirmPwdInput;
     }
 
-    public Button getCancelButton() {
-        return cancelButton;
-    }
-
-    public void setCancelButton(Button cancelButton) {
-        this.cancelButton = cancelButton;
-    }
-
     public Button getSaveButton() {
         return saveButton;
     }
@@ -248,40 +284,12 @@ public class Controller_Account {
         this.saveButton = saveButton;
     }
 
-    public Label getPhoneLabel() {
-        return phoneLabel;
+    public Button getCancelButton() {
+        return cancelButton;
     }
 
-    public void setPhoneLabel(Label phoneLabel) {
-        this.phoneLabel = phoneLabel;
-    }
-
-    public Label getCompanyLabel() {
-        return companyLabel;
-    }
-
-    public void setCompanyLabel(Label companyLabel) {
-        this.companyLabel = companyLabel;
-    }
-
-    public TextField getPhoneInput() {
-        return phoneInput;
-    }
-
-    public void setPhoneInput(TextField phoneInput) {
-        this.phoneInput = phoneInput;
-    }
-
-    public TextField getCompanyInput() {
-        return companyInput;
-    }
-
-    public void setCompanyInput(TextField companyInput) {
-        this.companyInput = companyInput;
-    }
-
-    public Main getMainApp() {
-        return mainApp;
+    public void setCancelButton(Button cancelButton) {
+        this.cancelButton = cancelButton;
     }
 
     public void setMainApp(Main mainApp) {

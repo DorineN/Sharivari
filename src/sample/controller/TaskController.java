@@ -20,7 +20,7 @@ import java.util.Date;
  *********** Created by Dorine on 24/04/2016.*****************
  ************************************************************/
 
-public class Controller_Task {
+public class TaskController {
 
     //Attributes
     private Main mainApp;

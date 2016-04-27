@@ -65,7 +65,7 @@
                            <Insets />
                        </GridPane.margin>
                    </Button>
-                   <Button fx:id="linkAccount" minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #fa6900;" text="Compte" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                   <Button fx:id="linkAccount" minWidth="80.0" mnemonicParsing="false" onAction="#showAccount" style="-fx-background-color: #fa6900;" text="Compte" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
@@ -77,6 +77,5 @@
            <ComboBox prefWidth="150.0" promptText="Projet 1" BorderPane.alignment="CENTER" />
          </top>
        </BorderPane>
-       <Button fx:id="testBtn" layoutX="229.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#testClic" text="Qui est tu dans le game" />
    </children>
 </AnchorPane>

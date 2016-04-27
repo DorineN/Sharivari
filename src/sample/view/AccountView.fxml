@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.Controller_Account">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.AccountController">
     <children>
-                <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="UPDATE MY INFOS" textFill="WHITE">
+                <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
                     <font>
                         <Font name="Browallia New Italic" size="24.0" />
                     </font>
                 </Button>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="205.0" layoutY="28.0" text="YOUR ACCOUNT" textAlignment="CENTER" textFill="#f07600">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="183.0" layoutY="29.0" text="Mon Compte" textAlignment="CENTER" textFill="#f07600">
                     <font>
                         <Font name="Browallia New Italic" size="40.0" />
                     </font>
@@ -37,7 +37,6 @@
                     </rowConstraints>
                     <children>
             <TextArea fx:id="loginInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" />
-            <TextArea fx:id="pwdInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="loginLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="LOGIN" textAlignment="CENTER" textFill="#f07b0e">
                <GridPane.margin>
                   <Insets />
@@ -92,7 +91,6 @@
             </Label>
             <TextArea fx:id="firstNameInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextArea fx:id="emailInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextArea fx:id="confirmPwdInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextArea fx:id="nameInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextArea fx:id="phoneInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextArea fx:id="companyInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -100,6 +98,6 @@
             <PasswordField fx:id="pwdInput" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
-      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" text="Retour" />
+      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#backHome" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE" />
     </children>
 </AnchorPane>

@@ -17,7 +17,7 @@ import java.util.Date;
  *************************************************************
  *********** Created by Dorine on 23/04/2016.*****************
  ************************************************************/
-public class Controller_Project {
+public class ProjectController {
 
     //Attributes
     private Main mainApp;
