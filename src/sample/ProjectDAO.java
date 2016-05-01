@@ -63,7 +63,7 @@ public class ProjectDAO extends DAO<Project> {
         boolean result = false;
 
         try{
-            String query = "UPDATE project SET idProject = ?, nameProject = ?, descriptionProject = ?,, startDateProject = ?, realEndDaTeEndProject = ?, estimateEndDateProject = ? WHERE idProject = ?";
+            String query = "UPDATE project SET idProject = ?, nameProject = ?, descriptionProject = ?, startDateProject = ?, realEndDaTeEndProject = ?, estimateEndDateProject = ? WHERE idProject = ?";
             PreparedStatement prepare = connection.prepareStatement(query);
 
             prepare.setInt(1, project.getProjectId());

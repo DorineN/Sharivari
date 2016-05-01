@@ -3,12 +3,21 @@ package sample.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.MySQLConnexion;
+import sample.ProjectDAO;
 
+import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.Date;
 
@@ -23,15 +32,13 @@ public class ProjectController {
     private Main mainApp;
 
     @FXML
-    private TextField nameProject;
+    private TextField name;
     @FXML
-    private TextField descriptionProject;
+    private TextField description;
     @FXML
-    private Date startDateProject;
+    private DatePicker start;
     @FXML
-    private Date realEndDaTeEndProject;
-    @FXML
-    private Date estimateEndDateProject;
+    private DatePicker estimateEnd;
 
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -53,26 +60,56 @@ public class ProjectController {
 
     /** Called when the user clicks on the button New User*/
     @FXML
-    public void handleOk() {
+    public void handleOk() throws ParseException {
 
         //if (isInputValid()) {
-            String varName = this.nameProject.getText();
-            String varDesc = descriptionProject.getText();
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(startDateProject);
-            int varStart = cal.get(Calendar.DATE);
-            cal.setTime(realEndDaTeEndProject);
-            int varDeadline = cal.get(Calendar.DATE);
-            cal.setTime(estimateEndDateProject);
-            int varEnd = cal.get(Calendar.DATE);
+            String varName = name.getText();
+            String varDesc = description.getText();
 
-            Connection connection = null;
+            /**Retrieve values of datepickers **/
+            LocalDate date1 = start.getValue();
+            LocalDate date2 = estimateEnd.getValue();
+
+            /**Transform date to a specific format**/
+            Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
+            Date varStart1 = Date.from(instant);
+            Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
+            Date varEnd1 = Date.from(instant2);
+
+            /**Specific transformed date to string to retrieve it in sql format **/
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String varStart = sdf.format(varStart1);
+
+            java.text.SimpleDateFormat sdf2 = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String varEnd = sdf2.format(varEnd1);
+
+
+            try {
+                ProjectDAO user = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+                project.insert(varName, varDesc, varStart, varEnd);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Inscription validée !");
+            alert.showAndWait();
+
+            //GO CONNECTION
+            try {
+                mainApp.showConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*Connection connection = null;
             Statement myStmt;
             ResultSet myRs;
 
 
             try {
-                connection = new MySQLConnexion("localhost", "root", "sharin").getConnexion();
+                connection = new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion();
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
                 System.out.print("Step 1");
@@ -86,13 +123,14 @@ public class ProjectController {
                     myStmt = connection.createStatement();
 
                     //SQL query to insert new user
-                    String sql = "INSERT INTO project (nameProject, descriptionProject, startDateProject, estimateEndDateProject) VALUES ('" + varName + "', '" + varDesc + "', '" + varStart + "', '" + varDeadline + "');";
+                    String sql = "INSERT INTO project (nameProject, descriptionProjet, startDateProject, estimateEndDateProject) VALUES ('" + varName + "', '" + varDesc + "', '" + varStart + "', '" + varEnd + "');";
+
                     myStmt.executeUpdate(sql);
 
                     //SQL query to display all users
                     myRs = myStmt.executeQuery("SELECT * from project");
                     while (myRs.next()) {
-                        System.out.println(myRs.getString("nameProject") + " , " + myRs.getString("descriptionProject") + " , " + myRs.getString("descriptionProject") + " , " + myRs.getString("realEndDaTeEndProject"));
+                        System.out.println(myRs.getString("nameProject") + " , " + myRs.getString("descriptionProjet") + " , " + myRs.getDate("startDateProject"));
                     }
 
                     myRs.close();
@@ -106,7 +144,7 @@ public class ProjectController {
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("YEAH FIRST STEP");
 
-            //TODO LINK TO THE APP
+            */
         }
     //}
 
@@ -118,17 +156,17 @@ public class ProjectController {
     /*private boolean isInputValid() {
         String errorMessage = "";
 
-        if (nameProject.getText() == null || nameProject.getText().length() == 0) {
+        if (name.getText() == null || name.getText().length() == 0) {
             errorMessage += "No valid project name !\n";
         }
-        if (descriptionProject.getText() == null || descriptionProject.getText().length() == 0) {
+        if (description.getText() == null || description.getText().length() == 0) {
             errorMessage += "You must describe your project !\n";
         }
-        if (startDateProject.getTime() == 0) {
+        if (start.getValue() == 0) {
             errorMessage += "No valid start date !\n";
         }
 
-        if (estimateEndDateProject.getTime() == 0 || estimateEndDateProject.getTime() < startDateProject.getTime() ) {
+        if (estimateEnd.getValue() == 0 || estimateEnd.getValue() < start.getValue() ) {
             errorMessage += "No valid end date !\n";
         }
 

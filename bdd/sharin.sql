@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `priority` (
 CREATE TABLE IF NOT EXISTS `project` (
   `idProject` int(11) NOT NULL AUTO_INCREMENT,
   `nameProject` varchar(500) DEFAULT NULL,
-  `descriptionProjet` text,
+  `descriptionProject` text,
   `startDateProject` date DEFAULT NULL,
   `realEndDateProject` date DEFAULT NULL,
   `estimateEndDateProject` date DEFAULT NULL,
