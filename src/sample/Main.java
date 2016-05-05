@@ -82,7 +82,7 @@ public class Main extends Application {
         try {
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
+            loader.setLocation(Main.class.getResource("view/ProjectView.fxml"));
             AnchorPane homeOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Home");
