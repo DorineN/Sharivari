@@ -85,7 +85,7 @@ public class ProjectController {
 
 
             try {
-                ProjectDAO user = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+                ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
                 project.insert(varName, varDesc, varStart, varEnd);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -94,12 +94,12 @@ public class ProjectController {
             }
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Inscription validée !");
+            alert.setTitle("Le projet" + varName+ " vient d'être créé !");
             alert.showAndWait();
 
-            //GO CONNECTION
+            //GO HOME
             try {
-                mainApp.showConnection();
+                mainApp.showHome();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -185,7 +185,14 @@ public class ProjectController {
             return false;
         }
     }*/
-
+    @FXML
+    private void handleBtnBack() {
+        try {
+            mainApp.showHome();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
