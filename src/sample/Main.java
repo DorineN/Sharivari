@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import sample.controller.*;
 
@@ -17,6 +19,7 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private static User myUser = new User();
+    private static Project myProject = new Project();
 
     // Main method
     public static void main(String[] args){
@@ -82,7 +85,7 @@ public class Main extends Application {
         try {
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ProjectView.fxml"));
+            loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Home");
@@ -91,8 +94,9 @@ public class Main extends Application {
             rootLayout.setCenter(homeOverview);
 
             // Give the controller access to the main app.
-            HomeController controller = loader.getController();
+            ProjectController controller = loader.getController();
             controller.setMainApp(this);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,21 +125,43 @@ public class Main extends Application {
         }
     }
 
-    // Task
-    public void showProject() throws IOException {
+    // Create Project
+    public void showCreateProject() throws IOException {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CreateProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Inscription");
+            this.primaryStage.setTitle("Sharin - Créé votre projet");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(projectOverview);
 
             // Give the controller access to the main app.
-            ProjectController controller = loader.getController();
+            CreateProjectController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Task
+    public void showProject() throws IOException {
+        try {
+            // Load connexion overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/ProjectView.fxml"));
+            AnchorPane projectOverview = loader.load();
+
+            this.primaryStage.setTitle("Sharin - Tableau de bord");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(projectOverview);
+
+            // Give the controller access to the main app.
+            HomeController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -174,6 +200,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
     }
 
+    //User
     public static User getMyUser() {
         return myUser;
     }
@@ -181,4 +208,16 @@ public class Main extends Application {
     public static void setMyUser(User myUser) {
         Main.myUser = myUser;
     }
+
+    //Project
+    public static void setMyProject(Project myProject) {
+        Main.myProject = myProject;
+    }
+
+    public static Project getMyProject() {
+        return myProject;
+    }
+
+
+
 }

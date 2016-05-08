@@ -77,5 +77,10 @@
            <ComboBox prefWidth="150.0" promptText="Projet 1" BorderPane.alignment="CENTER" />
          </top>
        </BorderPane>
+      <Label text="Label" textAlignment="CENTER" fx:id="projectName">
+         <padding>
+            <Insets left="250.0" />
+         </padding>
+      </Label>
    </children>
 </AnchorPane>

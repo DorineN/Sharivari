@@ -1,15 +1,21 @@
 package sample.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import sample.Main;
 
 import javax.naming.NamingException;
 import java.io.IOException;
+import java.text.ParseException;
 
 public class HomeController {
     //Attributes
     private Main mainApp;
+
+    @FXML
+    private Label projectName;
 
     @FXML
     public void showAccount(){
@@ -24,13 +30,23 @@ public class HomeController {
     private void handleMenuProject() throws NamingException {
         //GO HOME
         try {
-            mainApp.showProject();
+            mainApp.showCreateProject();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void setMainApp(Main mainApp) {
+        projectName.setText(mainApp.getMyProject().getProjectName());
         this.mainApp = mainApp;
+    }
+
+    @FXML
+    public void handleBtnCreate() throws ParseException {
+        try {
+            mainApp.showCreateProject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

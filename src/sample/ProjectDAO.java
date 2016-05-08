@@ -1,22 +1,20 @@
 package sample;
 
 import java.sql.*;
-import sample.Main;
-import sample.MySQLConnexion;
-import sample.User;
-import sample.UserDAO;
 
 public class ProjectDAO extends DAO<Project> {
 
     public ProjectDAO(Connection connection){super(connection); }
 
-    public void insert(String name, String description, String startDate, String estimateEndDate)throws SQLException{
+    //Retrieve the user of the current session
+    int userId = Main.getMyUser().userId;
 
+    public Project insert(String name, String description, String startDate, String estimateEndDate)throws SQLException{
+
+        Project projet = new Project();
         PreparedStatement prepare = null;
         PreparedStatement participate = null;
         int idProject = 0;
-        //Retrieve the user of the current session
-        int userId = Main.getMyUser().userId;
 
         System.out.println("L'id de l'utilisateur est " + userId);
 
@@ -24,7 +22,7 @@ public class ProjectDAO extends DAO<Project> {
         try{
             prepare = connection.prepareStatement("INSERT INTO project(nameProject, descriptionProject, startDateProject, estimateEndDateProject) VALUES(" +
                     "?, ?, ?, ?)",  Statement.RETURN_GENERATED_KEYS);
-            /* + "INSERT INTO participate(idRole, idUser, idProject) VALUES ("+"2,?,?)");*/
+
             prepare.setString(1, name);
             prepare.setString(2, description);
             prepare.setString(3, startDate);
@@ -39,6 +37,22 @@ public class ProjectDAO extends DAO<Project> {
                 // Retrieve the generated id
                 idProject = rs.getInt(1);
                 System.out.print("L'id du projet créé est : " + idProject);
+            }
+            try {
+                PreparedStatement prepare2 = connection.prepareStatement("SELECT * FROM project WHERE idProject=? ");
+                ResultSet res;
+
+                prepare2.setInt(1, idProject);
+                res = prepare2.executeQuery();
+
+                if (res.first()) {
+                    projet = new Project(res.getInt("idProject"), res.getString("nameProject"), res.getString("descriptionProject"),
+                            res.getDate("startDateProject"), res.getDate("estimateEndDateProject"), res.getDate("realEndDateProject"));
+                }
+                prepare2.close();
+                res.close();
+            }catch(Exception e){
+                e.printStackTrace();
             }
 
             //Insertion to the participate table to link the user to the project
@@ -68,6 +82,7 @@ public class ProjectDAO extends DAO<Project> {
             }
         }
 
+        return projet;
     }
 
     @Override
@@ -83,7 +98,31 @@ public class ProjectDAO extends DAO<Project> {
 
             if(res.first()){
                 project = new Project(res.getInt("idProject"), res.getString("nameProject"), res.getString("descriptionProject"), res.getDate("startDateProject"),
-                        res.getDate("realEndDaTeEndProject"), res.getDate("estimateEndDateProject"));
+                        res.getDate("realEndDateProject"), res.getDate("estimateEndDateProject"));
+            }
+
+            prepare.close();
+            res.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return project;
+    }
+
+    public Project find(String name){
+        Project project = new Project();
+
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM project WHERE nameProject=?");
+            ResultSet res;
+
+            prepare.setString(1, name);
+            res = prepare.executeQuery();
+
+            if(res.first()){
+                project = new Project(res.getInt("idProject"), res.getString("nameProject"), res.getString("descriptionProject"), res.getDate("startDateProject"),
+                        res.getDate("realEndDateProject"), res.getDate("estimateEndDateProject"));
             }
 
             prepare.close();

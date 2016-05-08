@@ -8,15 +8,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ProjectController">
    <children>
-     <ComboBox layoutX="102.0" layoutY="159.0" prefWidth="150.0" promptText="Projet 1" />
-      <Button layoutX="365.0" layoutY="123.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="168.0" style="-fx-background-color: orange;" text="Créer un projet" textAlignment="CENTER" textFill="WHITE">
+     <ComboBox fx:id="listProject" layoutX="78.0" layoutY="123.0" prefWidth="150.0" promptText="Choisissez un projet" />
+      <Button layoutX="365.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleBtnCreate" prefHeight="60.0" prefWidth="168.0" style="-fx-background-color: orange;" text="Créer un projet" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Button>
-      <Label layoutX="124.0" layoutY="136.0" text="Choisissez un projet" textFill="ORANGE" />
       <TableView layoutX="38.0" layoutY="260.0" prefHeight="112.0" prefWidth="526.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
@@ -33,10 +32,15 @@
             <Font name="Calibri Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="245.0" layoutY="39.0" text="Bonjour User" textFill="#043aff">
+      <Label fx:id="notification" layoutX="245.0" layoutY="39.0" textFill="#043aff">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
+      <Button layoutX="79.0" layoutY="153.0" mnemonicParsing="false" onAction="#goProject" prefHeight="22.0" prefWidth="149.0" style="-fx-background-color: deepskyblue;" text="Valider" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
