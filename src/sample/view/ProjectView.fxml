@@ -55,7 +55,7 @@
                            <Insets />
                        </GridPane.margin>
                    </Button>
-                   <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #e1e5cd;" text="Tâche" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                   <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleTask" style="-fx-background-color: #e1e5cd;" text="Tâche" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
@@ -77,7 +77,7 @@
            <ComboBox prefWidth="150.0" promptText="Projet 1" BorderPane.alignment="CENTER" />
          </top>
        </BorderPane>
-      <Label text="Label" textAlignment="CENTER" fx:id="projectName">
+      <Label fx:id="projectName" text="Label" textAlignment="CENTER">
          <padding>
             <Insets left="250.0" />
          </padding>

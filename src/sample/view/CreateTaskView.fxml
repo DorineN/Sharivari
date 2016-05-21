@@ -8,16 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.CreateProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.TaskController">
     <children>
-                <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="CREATE TASK" textFill="WHITE">
+                <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Créer" textFill="WHITE">
                     <font>
-                        <Font name="Browallia New Italic" size="24.0" />
+                        <Font name="Calibri" size="24.0" />
                     </font>
                 </Button>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="232.0" layoutY="29.0" text="NEW TASK" textAlignment="CENTER" textFill="#f07600">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="29.0" text="Nouvelle tâche" textAlignment="CENTER" textFill="#f07600">
                     <font>
-                        <Font name="Browallia New Italic" size="40.0" />
+                        <Font name="Calibri Italic" size="40.0" />
                     </font>
                 </Label>
                 <GridPane alignment="CENTER_LEFT" layoutX="28.0" layoutY="94.0" prefHeight="224.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
@@ -28,15 +28,14 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-            <DatePicker prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <DatePicker prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextArea prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" />
-            <TextArea prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="NAME TASK" textAlignment="CENTER" textFill="#f07b0e">
+            <DatePicker fx:id="estimateStartDateTask" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="estimateEndDateTask" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="Nom" textAlignment="CENTER" textFill="#f07b0e">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -44,7 +43,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="DESCRIPTION" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="Description" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -52,7 +51,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="START DATE" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="Date de début souhaitée" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -60,7 +59,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="DEADLINE" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="Deadline" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -68,6 +67,14 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
+            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="Priorité" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="2">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="nameTask" prefHeight="78.0" prefWidth="267.0" GridPane.columnIndex="1" />
+            <TextField fx:id="descriptionTask" prefHeight="78.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="choiceBoxListPriority" prefHeight="78.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="Définissez une priorité"  />
                     </children>
                 </GridPane>
       <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" text="Retour" />

@@ -1,8 +1,6 @@
 package sample.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import sample.Main;
 
@@ -31,6 +29,16 @@ public class HomeController {
         //GO HOME
         try {
             mainApp.showCreateProject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleTask() throws NamingException {
+        //GO TO CREATE NEW TASK
+        try {
+            mainApp.showCreateTask();
         } catch (IOException e) {
             e.printStackTrace();
         }

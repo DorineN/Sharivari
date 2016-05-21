@@ -5,32 +5,36 @@ import java.util.Date;
 /*************************************************************
  *************** Task class *****************
  *************************************************************
- *********** Created by Dorine on 24/04/2016.*****************
+ *********** Created by Dorine on 14/05/2016.*****************
  ************************************************************/
-/*
+
 public class Task {
     protected int idTask = 0;
     protected String nameTask = "";
     protected String descriptionTask = "";
+    protected int priorityTask = 0;
     protected Date estimateStartDateTask = null;
-    protected Date realStartDateTask = null;
     protected Date estimateEndDateTask = null;
+    protected Date realStartDaTeTask = null;
     protected Date realEndDateTask = null;
 
     public Task(){
         // Empty constructor
     }
 
-    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask){
+    public Task(int idTask, String nameTask, String descriptionTask,  int priorityTask, Date estimateStartDateTask, Date estimateEndDateTask, Date realStartDaTeTask, Date realEndDateTask){
         this.setTaskId(idTask);
         this.setTaskName(nameTask);
         this.setTaskDesc(descriptionTask);
-        this.setTaskStart(estimateStartDateTask);
-        this.setTaskRStart(realStartDateTask);
-        this.setTaskDeadline(estimateEndDateTask);
+        this.setTaskPriority(priorityTask);
+        this.setTaskEsStart(estimateStartDateTask);
+        this.setTaskEsEnd(estimateEndDateTask);
+        this.setTaskStart(realStartDaTeTask);
         this.setTaskEnd(realEndDateTask);
     }
 
+
+    // Getters & Setters
     public int getTaskId() {
         return idTask;
     }
@@ -47,44 +51,60 @@ public class Task {
         this.nameTask = nameTask;
     }
 
-    public String getTaskDesc() {
-        return descriptionTask;
+    public String getTaskDesc() {return descriptionTask;}
+
+    public void setTaskDesc(String descriptionTask) { this.descriptionTask = descriptionTask;    }
+
+    public int getTaskPriority() {return priorityTask;}
+
+    public void setTaskPriority(int priorityTask) {
+        this.priorityTask = priorityTask;
     }
 
-    public void setTaskDesc(String descriptionTask) {
-        this.descriptionTask = descriptionTask;
-    }
-
-    public String getTaskStart() {
+    public Date getTaskEsStart() {
         return estimateStartDateTask;
     }
 
-    public void setTaskStart(Date estimateStartDateTask) {
+    public void setTaskEsStart(Date estimateStartDateTask) {
         this.estimateStartDateTask = estimateStartDateTask;
     }
 
-    public String getTaskRStart() {
-        return realStartDateTask;
-    }
-
-    public void setTaskRStart(Date realStartDateTask) {
-        this.realStartDateTask = realStartDateTask;
-    }
-
-    public int getTaskDeadline() {
+    public Date getTaskEsEnd() {
         return estimateEndDateTask;
     }
 
-    public void setTaskDeadline(Date estimateEndDateTask) {
+    public void setTaskEsEnd(Date estimateEndDateTask) {
         this.estimateEndDateTask = estimateEndDateTask;
     }
 
-    public String getTaskEnd() {
+    public Date getTaskStart() {
+        return realStartDaTeTask;
+    }
+
+    public void setTaskStart(Date realStartDaTeTask) {
+        this.realStartDaTeTask = realStartDaTeTask;
+    }
+
+    public Date getTaskEnd() {
         return realEndDateTask;
     }
 
-    public void setTaskEnd(String realEndDateTask) {
+    public void setTaskEnd(Date realEndDateTask) {
         this.realEndDateTask = realEndDateTask;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "idTask=" + idTask +
+                ", nameTask='" + nameTask + '\'' +
+                ", descriptionTask='" + descriptionTask + '\'' +
+                ", priorityTask='" + priorityTask +
+                ", estimateStartDateTask=" + estimateStartDateTask +
+                ", estimateEndDateTask=" + estimateEndDateTask +
+                ", realStartDaTeTask=" + realStartDaTeTask +
+                ", realEndDateTask=" + realEndDateTask +
+                '}';
     }
 
     // Inherited methods
@@ -103,26 +123,30 @@ public class Task {
             return false;
         if (descriptionTask != null ? !descriptionTask.equals(task.descriptionTask) : task.descriptionTask != null)
             return false;
+        if (priorityTask != task.priorityTask)
+            return false;
         if (estimateStartDateTask != null ? !estimateStartDateTask.equals(task.estimateStartDateTask) : task.estimateStartDateTask != null)
             return false;
-        if (realStartDateTask != null ? !realStartDateTask.equals(task.realStartDateTask) : task.realStartDateTask != null)
-            return false;
         if (estimateEndDateTask != null ? !estimateEndDateTask.equals(task.estimateEndDateTask) : task.estimateEndDateTask != null)
+            return false;
+        if (realStartDaTeTask != null ? !realStartDaTeTask.equals(task.realStartDaTeTask) : task.realStartDaTeTask != null)
             return false;
         if (realEndDateTask != null ? !realEndDateTask.equals(task.realEndDateTask) : task.realEndDateTask != null)
             return false;
 
+        return false;
     }
 
     @Override
     public int hashCode() {
         int result = idTask;
+        result += priorityTask;
         result = 31 * result + (nameTask != null ? nameTask.hashCode() : 0);
         result = 31 * result + (descriptionTask != null ? descriptionTask.hashCode() : 0);
         result = 31 * result + (estimateStartDateTask != null ? estimateStartDateTask.hashCode() : 0);
-        result = 31 * result + (realStartDateTask != null ? realStartDateTask.hashCode() : 0);
         result = 31 * result + (estimateEndDateTask != null ? estimateEndDateTask.hashCode() : 0);
+        result = 31 * result + (realStartDaTeTask != null ? realStartDaTeTask.hashCode() : 0);
         result = 31 * result + (realEndDateTask != null ? realEndDateTask.hashCode() : 0);
         return result;
     }
-}*/
+}

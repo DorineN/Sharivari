@@ -1,17 +1,20 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
-import sample.MySQLConnexion;
+import sample.*;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 /*************************************************************
@@ -30,13 +33,11 @@ public class TaskController {
     @FXML
     private TextField descriptionTask;
     @FXML
-    private Date estimateStartDateTask;
+    private ComboBox choiceBoxListPriority;
     @FXML
-    private Date realStartDateTask;
+    private DatePicker estimateStartDateTask;
     @FXML
-    private Date estimateEndDateTask;
-    @FXML
-    private Date realEndDateTask;
+    private DatePicker estimateEndDateTask;
 
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -59,52 +60,89 @@ public class TaskController {
     /** Called when the user clicks on the button New User*/
     @FXML
     public void handleOk() {
-        if (isInputValid()) {
+        //if (isInputValid()) {
             String varName = nameTask.getText();
             String varDesc = descriptionTask.getText();
-            int varStart = estimateStartDateTask.getDate();
-            int varRStart = realStartDateTask.getDate();
-            int varDeadline = estimateEndDateTask.getDate();
-            int varEnd = realEndDateTask.getDate();
+            String varPrior = choiceBoxListPriority.getValue().toString();
+            LocalDate date1 = estimateStartDateTask.getValue();
+            LocalDate date2 = estimateEndDateTask.getValue();
+            int priority = 0;
+
+            //We translate the id of the priority name
+            switch(varPrior) {
+                case "Urgent":
+                    priority = 1;
+                    break;
+                case "Haute":
+                    priority = 2;
+                    break;
+                case "Normale":
+                    priority = 3;
+                    break;
+                case "Basse":
+                    priority = 4;
+                    break;
+                default:
+                    System.out.println("Erreur, la priorité ne ressemble à aucun nom de la bdd !!! ");
+            }
+
+            System.out.print("La priorité est : " + varPrior);
+            System.out.print("L'id de la priorité est : " + priority);
+
+            /**Transform date to a specific format**/
+            Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
+            Date varStart1 = Date.from(instant);
+            Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
+            Date varEnd1 = Date.from(instant2);
+
+            /**Specific transformed date to string to retrieve it in sql format **/
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String varStart = sdf.format(varStart1);
+
+            java.text.SimpleDateFormat sdf2 = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String varDeadline = sdf2.format(varEnd1);
 
             Connection connection = null;
             Statement myStmt;
             ResultSet myRs;
 
-
             try {
-                connection = new MySQLConnexion("localhost", "root", "sharin").getConnexion();
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
-            }catch(SQLException e){
-                e.printStackTrace();
-            }
+                TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+                Task task = taskDAO.insert(varName, varDesc, priority, varStart, varDeadline);
 
-            try {
-                if(connection != null) {
-                    myStmt = connection.createStatement();
-
-                    //SQL query to insert new user
-                    String sql = "INSERT INTO task (nameTask, descriptionTask, estimateStartDateTask, realStartDateTask, estimateEndDateTask, realEndDateTask) VALUES ('" + varName + "', '" + varDesc + "', '" + varStart + "', '" + varRStart + "', '" + varDeadline + "', '" + varEnd + "');";
-                    myStmt.executeUpdate(sql);
-
-                    //SQL query to display all users
-                    myRs = myStmt.executeQuery("SELECT * from task");
-                    while (myRs.next()) {
-                        System.out.println(myRs.getString("nameTask") + " , " + myRs.getString("descriptionTask") + " , " + myRs.getString("estimateStartDateTask") + " , " + myRs.getString("realStartDateTask"));
+                if (!"".equals(task.getTaskId())) {
+                    try {
+                        mainApp.showProject();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-                    myRs.close();
-                    myStmt.close();
                 }
-            } catch (Exception e) {
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-
             Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("YEAH FIRST STEP");
+            alert.setTitle("La tâche" + varName + " vient d'être créée !");
+            alert.showAndWait();
+        //}
+    }
 
-            //TODO LINK TO THE APP
+    @FXML
+    public void listingPriority()  {
+        try {
+            TaskDAO task = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            String[] list = task.findPriority();
+            choiceBoxListPriority.getItems().clear();
+            for(int i = 0; i < list.length; i++){
+                String result = list[i];
+                choiceBoxListPriority.getItems().add(
+                        result
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -113,10 +151,10 @@ public class TaskController {
      *
      * @return true if the input is valid
      */
-    private boolean isInputValid() {
+    /*private boolean isInputValid() {
         String errorMessage = "";
 
-        if (nameTask.getText() == null || nameTask.getText().length() == 0) {
+       if (nameTask.getText() == null || nameTask.getText().length() == 0) {
             errorMessage += "No valid task name !\n";
         }
         if (descriptionTask.getText() == null || descriptionTask.getText().length() == 0) {
@@ -126,17 +164,14 @@ public class TaskController {
             errorMessage += "No valid start date !\n";
         }
 
-        if (realStartDateTask.getTime() == 0) {
+        if (estimateEndDateTask.getTime() == 0) {
             errorMessage += "No valid start date !\n";
         }
 
-        if (estimateEndDateTask.getTime() == 0 || realEndDateTask.getTime() < realStartDateTask.getTime()) {
+        if (estimateEndDateTask.getTime() == 0 || estimateStartDateTask.getTime() < estimateEndDateTask.getTime()) {
             errorMessage += "No valid end date !\n";
         }
 
-        if (realEndDateTask.getTime() == 0 || realEndDateTask.getTime() < realStartDateTask.getTime() ) {
-            errorMessage += "No valid end date !\n";
-        }
 
         if (errorMessage.length() == 0) {
             return true;
@@ -152,10 +187,11 @@ public class TaskController {
 
             return false;
         }
-    }
+    }*/
 
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
+        this.listingPriority();
     }
 }

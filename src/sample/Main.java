@@ -133,13 +133,35 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/CreateProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Créé votre projet");
+            this.primaryStage.setTitle("Sharin - Créer votre projet");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(projectOverview);
 
             // Give the controller access to the main app.
             CreateProjectController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Create Task
+    public void showCreateTask() throws IOException {
+        try {
+            // Load connexion overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/CreateTaskView.fxml"));
+            AnchorPane projectOverview = loader.load();
+
+            this.primaryStage.setTitle("Sharin - Créer une nouvelle tâche");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(projectOverview);
+
+            // Give the controller access to the main app.
+            TaskController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
