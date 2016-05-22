@@ -2,14 +2,11 @@ package sample.controller;
 
 // Imports appli
 import javafx.scene.input.KeyCode;
-import sample.Main;
-import sample.MySQLConnexion;
+import sample.*;
 
 // Imports of javafx
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import sample.User;
-import sample.UserDAO;
 
 // Other imports
 import javax.naming.NamingException;
@@ -79,8 +76,9 @@ public class ConnectionController {
         }else {
 
             try {
-                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+                UserDAOInterface userDao = UserDAOFactory.newInstance(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                 User user = userDao.findConnection(loginContent,password);
+
                 if (!"".equals(user.getUserLogin())){
                     Main.setMyUser(user);
                     //GO HOME
