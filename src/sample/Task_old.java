@@ -2,9 +2,12 @@ package sample;
 
 import java.util.Date;
 
-/**
- * Created by Loïc on 21/05/2016.
- */
+/*************************************************************
+ *************** Task class *****************
+ *************************************************************
+ *********** Created by Dorine on 24/04/2016.*****************
+ ************************************************************/
+/*
 public class Task {
     protected int idTask = 0;
     protected String nameTask = "";
@@ -19,71 +22,71 @@ public class Task {
     }
 
     public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask){
-        this.idTask=idTask;
-        this.nameTask=nameTask;
-        this.descriptionTask=descriptionTask;
-        this.estimateStartDateTask = estimateStartDateTask;
-        this.realStartDateTask=realStartDateTask;
-        this.estimateEndDateTask=estimateEndDateTask;
-        this.realEndDateTask=realEndDateTask;
+        this.setTaskId(idTask);
+        this.setTaskName(nameTask);
+        this.setTaskDesc(descriptionTask);
+        this.setTaskStart(estimateStartDateTask);
+        this.setTaskRStart(realStartDateTask);
+        this.setTaskDeadline(estimateEndDateTask);
+        this.setTaskEnd(realEndDateTask);
     }
 
-    public int getIdTask() {
+    public int getTaskId() {
         return idTask;
     }
 
-    public void setIdTask(int idTask) {
+    public void setTaskId(int idTask) {
         this.idTask = idTask;
     }
 
-    public String getNameTask() {
+    public String getTaskName() {
         return nameTask;
     }
 
-    public void setNameTask(String nameTask) {
+    public void setTaskName(String nameTask) {
         this.nameTask = nameTask;
     }
 
-    public String getDescriptionTask() {
+    public String getTaskDesc() {
         return descriptionTask;
     }
 
-    public void setDescriptionTask(String descriptionTask) {
+    public void setTaskDesc(String descriptionTask) {
         this.descriptionTask = descriptionTask;
     }
 
-    public Date getEstimateStartDateTask() {
+    public String getTaskStart() {
         return estimateStartDateTask;
     }
 
-    public void setEstimateStartDateTask(Date estimateStartDateTask) {
+    public void setTaskStart(Date estimateStartDateTask) {
         this.estimateStartDateTask = estimateStartDateTask;
     }
 
-    public Date getRealStartDateTask() {
+    public String getTaskRStart() {
         return realStartDateTask;
     }
 
-    public void setRealStartDateTask(Date realStartDateTask) {
+    public void setTaskRStart(Date realStartDateTask) {
         this.realStartDateTask = realStartDateTask;
     }
 
-    public Date getEstimateEndDateTask() {
+    public int getTaskDeadline() {
         return estimateEndDateTask;
     }
 
-    public void setEstimateEndDateTask(Date estimateEndDateTask) {
+    public void setTaskDeadline(Date estimateEndDateTask) {
         this.estimateEndDateTask = estimateEndDateTask;
     }
 
-    public Date getRealEndDateTask() {
+    public String getTaskEnd() {
         return realEndDateTask;
     }
 
-    public void setRealEndDateTask(Date realEndDateTask) {
+    public void setTaskEnd(String realEndDateTask) {
         this.realEndDateTask = realEndDateTask;
     }
-/*
+
     // Inherited methods
     @Override
     public boolean equals(Object o) {
@@ -121,5 +124,5 @@ public class Task {
         result = 31 * result + (estimateEndDateTask != null ? estimateEndDateTask.hashCode() : 0);
         result = 31 * result + (realEndDateTask != null ? realEndDateTask.hashCode() : 0);
         return result;
-    }*/
-}
+    }
+}*/

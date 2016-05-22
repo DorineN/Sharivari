@@ -12,12 +12,12 @@
     <children>
                 <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="CREATE PROJECT" textFill="WHITE">
                     <font>
-                        <Font name="Browallia New Italic" size="24.0" />
+                        <Font name="Calibri" size="24.0" />
                     </font>
                 </Button>
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="205.0" layoutY="28.0" text="NEW PROJECT" textAlignment="CENTER" textFill="#f07600">
                     <font>
-                        <Font name="Browallia New Italic" size="40.0" />
+                        <Font name="Calibri" size="40.0" />
                     </font>
                 </Label>
                 <GridPane alignment="CENTER_LEFT" layoutX="28.0" layoutY="94.0" prefHeight="224.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
@@ -70,6 +70,9 @@
             </Label>
                     </children>
                 </GridPane>
-      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" text="Retour" />
+      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#backHome" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font></Button>
     </children>
 </AnchorPane>
