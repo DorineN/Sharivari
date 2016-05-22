@@ -70,7 +70,6 @@ public class ProjectDAO extends DAO<Project> {
 
     }
 
-    @Override
     public Project find(int id){
         Project project = new Project();
 
@@ -95,7 +94,6 @@ public class ProjectDAO extends DAO<Project> {
         return project;
     }
 
-    @Override
     public boolean update(Project project){
         boolean result = false;
 

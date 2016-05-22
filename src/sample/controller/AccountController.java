@@ -88,10 +88,10 @@ public class AccountController {
             Main.getMyUser().setUserCompany(company);
 
             try {
-                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
-                user.update(Main.getMyUser());
+                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+                user.update(Main.getMyUser(), pwd);
             }catch(ClassNotFoundException | SQLException e) {
-                System.out.println("Error controller !");
+                e.printStackTrace();
             }
         }else{
             errorLabel.setText("Un champ a été mal rempli...");

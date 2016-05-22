@@ -64,8 +64,6 @@ public class UserDAO extends DAO<User> {
         return user;
     }
 
-
-    @Override
     public User find(int id){
         User user = new User();
 
@@ -91,24 +89,21 @@ public class UserDAO extends DAO<User> {
         return user;
     }
 
-
-
-
-    @Override
-    public boolean update(User user){
+    public boolean update(User user, String pwd){
         boolean result = false;
 
         try{
-            String query = "UPDATE user SET loginUser = ?, lastNameUser = ?, firstNameUser = ?, mailUser = ?, phoneUser = ?, companyUser = ? WHERE idUser = ?";
+            String query = "UPDATE user SET loginUser = ?, pwdUser = ?, lastNameUser = ?, firstNameUser = ?, mailUser = ?, phoneUser = ?, companyUser = ? WHERE idUser = ?";
             PreparedStatement prepare = connection.prepareStatement(query);
 
             prepare.setString(1, user.getUserLogin());
-            prepare.setString(2, user.getUserName());
-            prepare.setString(3, user.getUserFirstName());
-            prepare.setString(4, user.getUserMail());
-            prepare.setInt(5, user.getUserPhone());
-            prepare.setString(6, user.getUserCompany());
-            prepare.setInt(7, user.getUserId());
+            prepare.setString(2, pwd);
+            prepare.setString(3, user.getUserName());
+            prepare.setString(4, user.getUserFirstName());
+            prepare.setString(5, user.getUserMail());
+            prepare.setInt(6, user.getUserPhone());
+            prepare.setString(7, user.getUserCompany());
+            prepare.setInt(8, user.getUserId());
 
             if(prepare.executeUpdate() == 1)
                 result = true;
