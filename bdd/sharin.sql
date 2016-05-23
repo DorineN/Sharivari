@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Sam 09 Avril 2016 à 15:49
+-- Généré le :  Lun 23 Mai 2016 à 07:01
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -64,6 +64,13 @@ CREATE TABLE IF NOT EXISTS `participate` (
   KEY `idProject` (`idProject`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `participate`
+--
+
+INSERT INTO `participate` (`idRole`, `idUser`, `idProject`) VALUES
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -74,7 +81,16 @@ CREATE TABLE IF NOT EXISTS `priority` (
   `idPriority` int(11) NOT NULL AUTO_INCREMENT,
   `namePriority` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idPriority`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `priority`
+--
+
+INSERT INTO `priority` (`idPriority`, `namePriority`) VALUES
+(1, 'faible'),
+(2, 'moyenne'),
+(3, 'forte');
 
 -- --------------------------------------------------------
 
@@ -85,12 +101,19 @@ CREATE TABLE IF NOT EXISTS `priority` (
 CREATE TABLE IF NOT EXISTS `project` (
   `idProject` int(11) NOT NULL AUTO_INCREMENT,
   `nameProject` varchar(500) DEFAULT NULL,
-  `descriptionProjet` text,
+  `descriptionProject` text,
   `startDateProject` date DEFAULT NULL,
   `realEndDateProject` date DEFAULT NULL,
   `estimateEndDateProject` date DEFAULT NULL,
   PRIMARY KEY (`idProject`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `project`
+--
+
+INSERT INTO `project` (`idProject`, `nameProject`, `descriptionProject`, `startDateProject`, `realEndDateProject`, `estimateEndDateProject`) VALUES
+(1, 'myProject', 'mydesc', '2016-04-24', NULL, '2016-05-24');
 
 -- --------------------------------------------------------
 
@@ -102,7 +125,15 @@ CREATE TABLE IF NOT EXISTS `role` (
   `idRole` int(11) NOT NULL AUTO_INCREMENT,
   `nameRole` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idRole`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `role`
+--
+
+INSERT INTO `role` (`idRole`, `nameRole`) VALUES
+(1, 'Chef de projet'),
+(2, 'Développeur');
 
 -- --------------------------------------------------------
 
@@ -123,7 +154,16 @@ CREATE TABLE IF NOT EXISTS `task` (
   PRIMARY KEY (`idTask`),
   KEY `idProject` (`idProject`),
   KEY `idPriority` (`idPriority`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `task`
+--
+
+INSERT INTO `task` (`idTask`, `nameTask`, `descriptionTask`, `estimateStartDateTask`, `realStartDateTask`, `estimateEndDateTask`, `realEndDateTask`, `idProject`, `idPriority`) VALUES
+(1, 't1', 'd1', NULL, NULL, NULL, NULL, 1, 1),
+(2, 't2', 'd2', NULL, NULL, NULL, NULL, 1, 2),
+(3, 't3', 'd3', NULL, NULL, NULL, NULL, 1, 3);
 
 -- --------------------------------------------------------
 
