@@ -16,6 +16,7 @@ import sample.MySQLConnexion;
 import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,6 +30,8 @@ import java.util.Date;
 public class CalendarController {
 
     //Attributes
+
+    TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
     private Main mainApp;
     Calendar date = Calendar.getInstance();;
     int month = date.get(date.MONTH);
@@ -80,9 +83,13 @@ public class CalendarController {
     Pane pane31 = new Pane();
 
     Pane[] pDays = new Pane[] { pane1,pane2,pane3,pane4,pane5,pane6,pane7,pane8,pane9,pane10,pane11,pane12,pane13,pane14,pane15,pane16,pane17,pane18,pane19,pane20,pane21,pane22,pane23,pane24,pane25,pane26,pane27,pane28,pane29,pane30,pane31};
+    Task myTask[];
 
     private Stage dialogStage;
     private boolean okClicked = false;
+
+    public CalendarController() throws SQLException, ClassNotFoundException {
+    }
 
     @FXML
     public void initialize() throws ParseException {
@@ -93,7 +100,7 @@ public class CalendarController {
         //System.out.println(month);
         System.out.println(mainApp.myProject.getProjectId());
 
-
+        System.out.print(date);
         title.setText(tMonth[month] + " " + year);
 
 
@@ -112,7 +119,6 @@ public class CalendarController {
         date.set(year, month,1);
         maxDay = date.getActualMaximum(Calendar.DAY_OF_MONTH);
         System.out.println(maxDay);
-
         title.setText(tMonth[month] + " " + year);
 
         gridPane.getChildren().clear();
@@ -149,7 +155,7 @@ public class CalendarController {
         String day = String.valueOf(firstDay).substring(0,3);
 
         int j = 0;
-
+        //compare the day with my table tDays  to find the first day of the month
         for (int i = 0; i<tDays.length; i++){
             if (day.equals(tDays[i])){
                 j = i;
@@ -167,9 +173,18 @@ public class CalendarController {
                 numSemaine++;
             }
 
-            pDays[i-1].getChildren().add(new Label("" + i));
+            String dateCase = year +"-" +(month+1)+"-"+i;
 
-            //recup event
+
+            myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
+            if(myTask.length>0){
+                System.out.println(myTask[0].getNameTask());
+            }
+            pDays[i-1].getChildren().add(new Label("" + i));
+            pDays[i-1].getChildren().add(new Label("\n" ));
+
+            //recup task
+
 
             pDays[i-1].setStyle("fx-background-color : white");
             pDays[i-1].setStyle("fx-border-color : black");

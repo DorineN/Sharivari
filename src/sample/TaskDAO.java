@@ -25,14 +25,14 @@ public class TaskDAO extends DAO<Task>{
     }
 
 
-    public Task[] findTask(Date date,int idUser, int idProject){
+    public Task[] findTask(String date,int idUser, int idProject){
 
-        Task[] tTask = new Task[50];
+
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM task WHERE estiamteStartDateTask=?, idUser=? , idProject=?");
+            PreparedStatement prepare = connection.prepareStatement("SELECT count (idTask) as nbResult, * FROM task WHERE estiamteStartDateTask=?, idUser=? , idProject=?");
             ResultSet res;
 
-            prepare.setDate(1, date);
+            prepare.setString(1, date);
             prepare.setInt(2, idUser);
             prepare.setInt(3, idProject);
             res = prepare.executeQuery();

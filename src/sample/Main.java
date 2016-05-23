@@ -16,7 +16,7 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    public static User myUser = new User();
+    private static User myUser = new User();
     public static Project myProject = new Project();
 
 
