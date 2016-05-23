@@ -20,20 +20,21 @@ public class TaskDAO extends DAO<Task> {
         PreparedStatement prepare = null;
         PreparedStatement participate = null;
         int idTask = 0;
+        int idStat = 1;
 
         System.out.println("L'id de l'utilisateur est " + userId);
 
         //Insertion to the project table to create the new project
         try{
-            prepare = connection.prepareStatement("INSERT INTO task(nameTask, descriptionTask, idPriority, estimateStartDateTask, estimateEndDateTask, idProject) VALUES(" +
-                    "?, ?, ?, ?, ?, ?)",  Statement.RETURN_GENERATED_KEYS);
-
+            prepare = connection.prepareStatement("INSERT INTO task(nameTask, descriptionTask, idPriority, estimateStartDateTask, estimateEndDateTask, idProject, idStatus) VALUES(" +
+                    "?, ?, ?, ?, ?, ?, ?)",  Statement.RETURN_GENERATED_KEYS);
             prepare.setString(1, name);
             prepare.setString(2, description);
             prepare.setInt(3, priority);
             prepare.setString(4, estimateStartDate);
             prepare.setString(5, estimateEndDate);
             prepare.setInt(6, projectId);
+            prepare.setInt(7, idStat);
             prepare.execute();
 
             //Retrieve the id of the project created

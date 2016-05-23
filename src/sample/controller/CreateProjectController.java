@@ -1,16 +1,16 @@
 package sample.controller;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.Main;
-import sample.MySQLConnexion;
-import sample.ProjectDAO;
-import sample.Project;
+import sample.*;
 
 import java.io.IOException;
 import java.sql.*;
@@ -40,6 +40,20 @@ public class CreateProjectController {
     private DatePicker start;
     @FXML
     private DatePicker estimateEnd;
+    @FXML
+    private ComboBox comboBoxSearchUser;
+    @FXML
+    private ComboBox comboBoxPriorityName;
+    @FXML
+    private Button buttonAddUser;
+    @FXML
+    private TreeTableView tableSelectUser;
+    @FXML
+    private TreeTableColumn columnUserName;
+    @FXML
+    private TreeTableColumn columnPriorityName;
+    @FXML
+    private TreeTableColumn columnSuppressUser;
 
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -153,6 +167,60 @@ public class CreateProjectController {
             return false;
         }
     }*/
+
+    @FXML
+    public void searchUser() {
+
+        final List<String> items = Arrays.asList(new String[] {
+                "aardvark", "apple", "application", "banana", "orangutang", "orange"
+        });
+
+        comboBoxSearchUser.setEditable(true);
+        comboBoxSearchUser = new ComboBox<>(
+                FXCollections.observableArrayList(items));
+        comboBoxSearchUser.setEditable(true);
+        comboBoxSearchUser.getEditor().textProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    filterItems(newValue, comboBoxSearchUser, items);
+                });
+        comboBoxSearchUser.setOnAction(event -> {
+            // Reset so all options are available:
+            comboBoxSearchUser.setItems(FXCollections.observableArrayList(items));
+        });
+
+    }
+
+    private <T> void filterItems(String filter, ComboBox<T> comboBox,
+                                 List<T> items) {
+        List<T> filteredItems = new ArrayList<>();
+        for (T item : items) {
+            if (item.toString().toLowerCase().startsWith(filter.toLowerCase())) {
+                filteredItems.add(item);
+            }
+        }
+        comboBox.setItems(FXCollections.observableArrayList(filteredItems));
+    }
+
+    //Display role available for news users
+    @FXML
+    public void listingRole()  {
+        try {
+            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            String tab[] = userDao.findPriority();
+
+            comboBoxPriorityName.getItems().clear();
+            for(int i = 0; i< tab.length; i++){
+                String result = tab[i];
+                comboBoxPriorityName.getItems().add(
+                        result
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void handleBtnBack() {
         try {
@@ -163,6 +231,8 @@ public class CreateProjectController {
     }
 
     public void setMainApp(Main mainApp) {
+        listingRole();
+        searchUser();
         this.mainApp = mainApp;
     }
 }

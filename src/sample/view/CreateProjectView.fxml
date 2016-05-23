@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.CreateProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.CreateProjectController">
     <children>
-                <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Créer projet" textFill="WHITE">
+                <Button fx:id="confirm" layoutX="114.0" layoutY="516.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Créer projet" textFill="WHITE">
                     <font>
                         <Font name="Browallia New Italic" size="24.0" />
                     </font>
                 </Button>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="205.0" layoutY="28.0" text="Nouveau Projet" textAlignment="CENTER" textFill="#f07600">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="296.0" layoutY="27.0" text="Nouveau Projet" textAlignment="CENTER" textFill="#f07600">
                     <font>
                         <Font name="Browallia New Italic" size="40.0" />
                     </font>
                 </Label>
-                <GridPane alignment="CENTER_LEFT" layoutX="28.0" layoutY="94.0" prefHeight="224.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
+                <GridPane alignment="CENTER_LEFT" layoutX="114.0" layoutY="84.0" prefHeight="278.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,6 +30,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
             <DatePicker fx:id="start" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -68,11 +70,31 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
+            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="Choisissez un participant" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="4">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <ComboBox fx:id="comboBoxSearchUser" onAction="#searchUser" prefHeight="136.0" prefWidth="295.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="Choisissez son rôle" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="5">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <ComboBox fx:id="comboBoxPriorityName" prefHeight="44.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button fx:id="buttonAddUser" mnemonicParsing="false" prefHeight="44.0" prefWidth="99.0" text="Ajouter" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
                     </children>
                 </GridPane>
       <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleBtnBack" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE">
          <font>
             <Font name="Calibri" size="12.0" />
          </font></Button>
+      <TreeTableView fx:id="tableSelectUser" layoutX="114.0" layoutY="385.0" prefHeight="118.0" prefWidth="544.0">
+        <columns>
+          <TreeTableColumn fx:id="columnUserName" prefWidth="360.0" text="Nom" />
+          <TreeTableColumn fx:id="columnPriorityName" prefWidth="113.0" text="Priorité" />
+            <TreeTableColumn fx:id="columnSuppressUser" prefWidth="70.0" text="Supprimer" />
+        </columns>
+      </TreeTableView>
     </children>
 </AnchorPane>

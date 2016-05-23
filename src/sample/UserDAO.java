@@ -126,6 +126,36 @@ public class UserDAO extends DAO<User> {
         return user;
     }
 
+    public String[] findPriority(){
+
+        String[] tab = null;
+        int i = 0;
+        int rowcount = 0;
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM role");
+            ResultSet res;
+            res = prepare.executeQuery();
+
+            if (res.last()) {
+                rowcount = res.getRow();
+                res.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+            }
+            tab = new String[rowcount];
+
+            while (res.next()) {
+                tab[i] = res.getString("nameRole");
+                i++;
+            }
+
+            res.close();
+            prepare.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return tab;
+    }
 
 
 

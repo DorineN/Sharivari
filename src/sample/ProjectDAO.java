@@ -16,8 +16,6 @@ public class ProjectDAO extends DAO<Project> {
         PreparedStatement participate = null;
         int idProject = 0;
 
-        System.out.println("L'id de l'utilisateur est " + userId);
-
         //Insertion to the project table to create the new project
         try{
             prepare = connection.prepareStatement("INSERT INTO project(nameProject, descriptionProject, startDateProject, estimateEndDateProject) VALUES(" +

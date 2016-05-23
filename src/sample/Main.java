@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import sample.controller.*;
 
@@ -12,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 
 public class Main extends Application {
 
