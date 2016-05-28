@@ -46,6 +46,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
         }
     }
 
+    @sample.Connection
     @Override
     public User findConnection(String login, String pwd){
         User user = new User();

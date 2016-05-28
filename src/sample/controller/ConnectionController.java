@@ -95,9 +95,6 @@ public class ConnectionController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-          /*  */
-
         }
     }
 
