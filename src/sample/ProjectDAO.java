@@ -46,7 +46,31 @@ public class ProjectDAO extends DAO<Project> {
 
             if(res.first()){
                 project = new Project(res.getInt("idProject"), res.getString("nameProject"), res.getString("descriptionProject"), res.getDate("startDateProject"),
-                        res.getDate("realEndDaTeEndProject"), res.getDate("estimateEndDateProject"));
+                        res.getDate("realEndDateProject"), res.getDate("estimateEndDateProject"));
+            }
+
+            prepare.close();
+            res.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return project;
+    }
+
+    public Project find(String name){
+        Project project = new Project();
+
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM project WHERE nameProject=?");
+            ResultSet res;
+
+            prepare.setString(1, name);
+            res = prepare.executeQuery();
+
+            if(res.first()){
+                project = new Project(res.getInt("idProject"), res.getString("nameProject"), res.getString("descriptionProject"), res.getDate("startDateProject"),
+                        res.getDate("realEndDateProject"), res.getDate("estimateEndDateProject"));
             }
 
             prepare.close();

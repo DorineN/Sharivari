@@ -37,9 +37,9 @@ public class AccountController {
     private  Label errorLabel;
 
     @FXML
-    private TextArea loginInput;
+    private TextField loginInput;
     @FXML
-    private TextArea nameInput;
+    private TextField nameInput;
     @FXML
     private TextArea firstNameInput;
     @FXML
@@ -212,19 +212,19 @@ public class AccountController {
         this.errorLabel = errorLabel;
     }
 
-    public TextArea getLoginInput() {
+    public TextField getLoginInput() {
         return loginInput;
     }
 
-    public void setLoginInput(TextArea loginInput) {
+    public void setLoginInput(TextField loginInput) {
         this.loginInput = loginInput;
     }
 
-    public TextArea getNameInput() {
+    public TextField getNameInput() {
         return nameInput;
     }
 
-    public void setNameInput(TextArea nameInput) {
+    public void setNameInput(TextField nameInput) {
         this.nameInput = nameInput;
     }
 

@@ -39,7 +39,7 @@ public class UserDAO extends DAO<User> {
 
 
     public User findConnection(String login, String pwd){
-        User user = new User();
+        User user = null;
 
         try{
             PreparedStatement prepare = connection.prepareStatement("SELECT * FROM user WHERE loginUser=? AND pwdUser=? ");
@@ -67,7 +67,7 @@ public class UserDAO extends DAO<User> {
 
     @Override
     public User find(int id){
-        User user = new User();
+        User user = null;
 
         try{
             PreparedStatement prepare = connection.prepareStatement("SELECT * FROM user WHERE idUser=?");
@@ -119,5 +119,40 @@ public class UserDAO extends DAO<User> {
         }
 
         return result;
+    }
+
+    public int[] findUserProject(){
+
+        //Retrieve the user of the current session
+        int userId = Main.getMyUser().userId;
+        int[] tab = null;
+        int i = 0;
+        int rowcount = 0;
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM participate WHERE idUser=? ");
+            ResultSet res;
+
+            prepare.setInt(1, userId);
+            res = prepare.executeQuery();
+
+            if (res.last()) {
+                rowcount = res.getRow();
+                res.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+            }
+            tab = new int[rowcount];
+
+            while (res.next()) {
+                tab[i] = res.getInt("idProject");
+                i++;
+            }
+
+            res.close();
+            prepare.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return tab;
     }
 }

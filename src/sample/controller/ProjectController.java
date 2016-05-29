@@ -1,13 +1,18 @@
 package sample.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.MySQLConnexion;
 
+import javax.naming.NamingException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -23,15 +28,15 @@ public class ProjectController {
     private Main mainApp;
 
     @FXML
-    private TextField nameProject;
+    private TextArea nameProject;
     @FXML
-    private TextField descriptionProject;
+    private TextArea descriptionProject;
     @FXML
-    private Date startDateProject;
+    private DatePicker startDateProject;
     @FXML
-    private Date realEndDaTeEndProject;
+    private DatePicker realEndDaTeEndProject;
     @FXML
-    private Date estimateEndDateProject;
+    private DatePicker estimateEndDateProject;
 
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -59,11 +64,11 @@ public class ProjectController {
             String varName = this.nameProject.getText();
             String varDesc = descriptionProject.getText();
             Calendar cal = Calendar.getInstance();
-            cal.setTime(startDateProject);
+            //cal.setTime(startDateProject);
             int varStart = cal.get(Calendar.DATE);
-            cal.setTime(realEndDaTeEndProject);
+            //cal.setTime(realEndDaTeEndProject);
             int varDeadline = cal.get(Calendar.DATE);
-            cal.setTime(estimateEndDateProject);
+            //cal.setTime(estimateEndDateProject);
             int varEnd = cal.get(Calendar.DATE);
 
             Connection connection = null;
@@ -108,6 +113,15 @@ public class ProjectController {
 
             //TODO LINK TO THE APP
         }
+
+    @FXML
+    public void backHome(){
+        try{
+            mainApp.showHome();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
     //}
 
     /**
@@ -148,8 +162,36 @@ public class ProjectController {
         }
     }*/
 
+    @FXML
+    public void showAccount(){
+        try{
+            mainApp.showMyAccount();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
+    @FXML
+    private void handleMenuProject() throws NamingException {
+        //GO HOME
+        try {
+            mainApp.showProject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleMenuCalendar() throws NamingException {
+        //GO HOME
+        try {
+            mainApp.showCalendar();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
+
+
 }
