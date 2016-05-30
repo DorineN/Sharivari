@@ -31,7 +31,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showConnection();
+        showPlugin();
     }
 
     // Routes
@@ -231,7 +231,7 @@ public class Main extends Application {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/PluginView.fxml"));
-            AnchorPane connectionOverview = loader.load();
+            AnchorPane pluginOverview = loader.load();
 
 
             this.primaryStage.setResizable(false);
@@ -241,7 +241,7 @@ public class Main extends Application {
             rootLayout.setCenter(pluginOverview);
 
             // Give the controller access to the main app.
-            ConnectionController controller = loader.getController();
+            PluginController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
