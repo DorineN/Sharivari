@@ -18,7 +18,7 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private static User myUser = new User();
     public static Project myProject = new Project();
-
+    public static PluginsLoader pluginsLoader;
 
     // Main method
     public static void main(String[] args){
@@ -31,7 +31,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showPlugin();
+        showConnection();
     }
 
     // Routes
@@ -72,11 +72,16 @@ public class Main extends Application {
             // Set person overview into the center of root layout.
             rootLayout.setCenter(connectionOverview);
 
+            pluginsLoader = new PluginsLoader();
+            pluginsLoader.loadAllIntPlugins();
+            pluginsLoader.loadAllStringPlugins();
             // Give the controller access to the main app.
             ConnectionController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

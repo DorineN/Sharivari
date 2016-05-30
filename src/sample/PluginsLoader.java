@@ -22,22 +22,23 @@ public class PluginsLoader {
     private ArrayList classStringPlugins;
     private ArrayList classIntPlugins;
 
-    /**
-     * Constructeur par défaut
-     *
-     */
-    public PluginsLoader(){
-        this.classIntPlugins = new ArrayList();
-        this.classStringPlugins = new ArrayList();
-    }
 
     /**
      * Constucteur initialisant le tableau de fichier à charger.
      * @param files Tableau de String contenant la liste des fichiers à charger.
      */
-    public PluginsLoader(String[] files){
-        this();
-        this.files = files;
+    public PluginsLoader(){
+
+        this.classIntPlugins = new ArrayList();
+        this.classStringPlugins = new ArrayList();
+
+        File dir = new File ("plugin/");
+        this.files=dir.list();
+        System.out.println("liste des plugins : ");
+        for (int i = 0; i<this.files.length;i++){
+            System.out.println(this.files[i]);
+        }
+
     }
 
     /**
