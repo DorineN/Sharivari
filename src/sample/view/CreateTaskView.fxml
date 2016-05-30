@@ -74,9 +74,9 @@
             </Label>
             <TextField fx:id="nameTask" prefHeight="78.0" prefWidth="267.0" GridPane.columnIndex="1" />
             <TextField fx:id="descriptionTask" prefHeight="78.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="choiceBoxListPriority" prefHeight="78.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="Définissez une priorité"  />
+            <ComboBox fx:id="choiceBoxListPriority" prefHeight="78.0" prefWidth="267.0" promptText="Définissez une priorité" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
-      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" text="Retour" />
+      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#backProject" styleClass="buttonBlue" text="Retour" />
     </children>
 </AnchorPane>

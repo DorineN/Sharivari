@@ -45,6 +45,8 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+            //Load the css file
+            scene.getStylesheets().add(getClass().getResource("style/style.css").toExternalForm());
             // Show the Sharin icon
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
             primaryStage.setTitle("Sharin");
@@ -91,7 +93,7 @@ public class Main extends Application {
             rootLayout.setCenter(homeOverview);
 
             // Give the controller access to the main app.
-            ProjectController controller = loader.getController();
+            HomeController controller = loader.getController();
             controller.setMainApp(this);
 
 
@@ -128,15 +130,37 @@ public class Main extends Application {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CreateProjectView.fxml"));
-            AnchorPane projectOverview = loader.load();
+            AnchorPane createProjectOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Créer votre projet");
 
             // Set person overview into the center of root layout.
-            rootLayout.setCenter(projectOverview);
+            rootLayout.setCenter(createProjectOverview);
 
             // Give the controller access to the main app.
             CreateProjectController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Update Project
+    public void showManageProject() throws IOException {
+        try {
+            // Load connexion overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/ManageProjectView.fxml"));
+            AnchorPane manageProjectOverview = loader.load();
+
+            this.primaryStage.setTitle("Sharin - Créer votre projet");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(manageProjectOverview);
+
+            // Give the controller access to the main app.
+            ManageProjectController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -180,7 +204,7 @@ public class Main extends Application {
             rootLayout.setCenter(projectOverview);
 
             // Give the controller access to the main app.
-            HomeController controller = loader.getController();
+            ProjectController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {

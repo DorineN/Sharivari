@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.HomeController">
    <children>
      <ComboBox fx:id="listProject" layoutX="78.0" layoutY="123.0" prefWidth="150.0" promptText="Choisissez un projet" />
       <Button layoutX="365.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleBtnCreate" prefHeight="60.0" prefWidth="168.0" style="-fx-background-color: orange;" text="Créer un projet" textAlignment="CENTER" textFill="WHITE">

@@ -1,29 +1,31 @@
 package sample.controller;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import sample.*;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Stream;
 
 /*************************************************************
- *************** Dialog to create a new project *****************
+ *************** Dialog to create a new project **************
  *************************************************************
  *********** Created by Dorine on 23/04/2016.*****************
  ************************************************************/
@@ -43,17 +45,15 @@ public class CreateProjectController {
     @FXML
     private ComboBox comboBoxSearchUser;
     @FXML
-    private ComboBox comboBoxPriorityName;
+    private ComboBox comboBoxRoleName;
     @FXML
     private Button buttonAddUser;
     @FXML
-    private TreeTableView tableSelectUser;
+    private TableView tableSelectUser;
     @FXML
-    private TreeTableColumn columnUserName;
+    private TableColumn column1;
     @FXML
-    private TreeTableColumn columnPriorityName;
-    @FXML
-    private TreeTableColumn columnSuppressUser;
+    private TableColumn column2;
 
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -130,97 +130,139 @@ public class CreateProjectController {
         }
     }
 
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
-    /*private boolean isInputValid() {
-        String errorMessage = "";
+    /**COMBOBOX SEARCHABLE and autocomplete with users of Sharin*/
+    public class ComboBoxAutoComplete<T> {
 
-        if (name.getText() == null || name.getText().length() == 0) {
-            errorMessage += "No valid project name !\n";
-        }
-        if (description.getText() == null || description.getText().length() == 0) {
-            errorMessage += "You must describe your project !\n";
-        }
-        if (start.getValue() == 0) {
-            errorMessage += "No valid start date !\n";
+        private ComboBox<T> cmb;
+        String filter = "";
+        private ObservableList<T> originalItems;
+
+        public ComboBoxAutoComplete(ComboBox<T> cmb) {
+            this.cmb = cmb;
+            originalItems = FXCollections.observableArrayList(cmb.getItems());
+            cmb.setTooltip(new Tooltip());
+            cmb.setOnKeyPressed(this::handleOnKeyPressed);
+            cmb.setOnHidden(this::handleOnHiding);
         }
 
-        if (estimateEnd.getValue() == 0 || estimateEnd.getValue() < start.getValue() ) {
-            errorMessage += "No valid end date !\n";
+        private void handleOnHiding(Event event) {
+            filter = "";
+            cmb.getTooltip().hide();
+            T s = cmb.getSelectionModel().getSelectedItem();
+            cmb.getItems().setAll(originalItems);
+            cmb.getSelectionModel().select(s);
         }
 
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            // Show the error message.
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Champs invalides");
-            alert.setHeaderText("Veuillez corriger les champs invalides");
-            alert.setContentText(errorMessage);
+        public void handleOnKeyPressed(KeyEvent e) {
+            ObservableList<T> filteredList = FXCollections.observableArrayList();
+            KeyCode code = e.getCode();
 
-            alert.showAndWait();
-
-            return false;
+            if (code.isLetterKey()) {
+                filter += e.getText();
+            }
+            if (code == KeyCode.BACK_SPACE && filter.length() > 0) {
+                filter = filter.substring(0, filter.length() - 1);
+                cmb.getItems().setAll(originalItems);
+            }
+            if (code == KeyCode.ESCAPE) {
+                filter = "";
+            }
+            if (filter.length() == 0) {
+                filteredList = originalItems;
+                cmb.getTooltip().hide();
+            } else {
+                Stream<T> itens = cmb.getItems().stream();
+                String txtUsr = filter.toString().toLowerCase();
+                itens.filter(el -> el.toString().toLowerCase().contains(txtUsr)).forEach(filteredList::add);
+                cmb.getTooltip().setText(txtUsr);
+                Window stage = cmb.getScene().getWindow();
+                double posX = stage.getX() + cmb.localToScene(cmb.getBoundsInLocal()).getMinX();
+                double posY = stage.getY() + cmb.localToScene(cmb.getBoundsInLocal()).getMinY();
+                cmb.getTooltip().show(stage, posX, posY);
+                cmb.show();
+            }
+            cmb.getItems().setAll(filteredList);
         }
-    }*/
 
+    }
+
+    /**SEARCH USERS IN COMBOBOX**/
     @FXML
     public void searchUser() {
+        //Retrieve users from database
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            String tab[] = userDAO.findUsersName();
 
-        final List<String> items = Arrays.asList(new String[] {
-                "aardvark", "apple", "application", "banana", "orangutang", "orange"
-        });
-
-        comboBoxSearchUser.setEditable(true);
-        comboBoxSearchUser = new ComboBox<>(
-                FXCollections.observableArrayList(items));
-        comboBoxSearchUser.setEditable(true);
-        comboBoxSearchUser.getEditor().textProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    filterItems(newValue, comboBoxSearchUser, items);
-                });
-        comboBoxSearchUser.setOnAction(event -> {
-            // Reset so all options are available:
-            comboBoxSearchUser.setItems(FXCollections.observableArrayList(items));
-        });
-
-    }
-
-    private <T> void filterItems(String filter, ComboBox<T> comboBox,
-                                 List<T> items) {
-        List<T> filteredItems = new ArrayList<>();
-        for (T item : items) {
-            if (item.toString().toLowerCase().startsWith(filter.toLowerCase())) {
-                filteredItems.add(item);
+            //Inject users in combobox
+            List<String> items = new ArrayList<String>();
+            for(int i = 0; i< tab.length; i++){
+                items.add(
+                        tab[i]
+                );
             }
+            comboBoxSearchUser.setTooltip(new Tooltip());
+            comboBoxSearchUser.getItems().addAll(items);
+            new ComboBoxAutoComplete<String>(comboBoxSearchUser);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        comboBox.setItems(FXCollections.observableArrayList(filteredItems));
     }
 
-    //Display role available for news users
+    @FXML
+    public void handleAddUser() {
+
+        String userName = String.valueOf(comboBoxSearchUser.getValue());
+        String roleName = String.valueOf(comboBoxRoleName.getValue());
+
+
+        ObservableList<String> list = FXCollections.observableArrayList("Do", "Test", "X");
+
+        //tableSelectUser.setItems(list);
+        tableSelectUser.getItems().clear();
+        tableSelectUser.getItems().addAll(list);
+        //tableSelectUser.getItems().addAll(list);
+
+           /* ADD USERS TO DATABASE
+           //Retrieve Project ID
+            ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            int projectId =  mainApp.getMyProject().getProjectId();
+
+            //Retrieve User ID
+            UserDAO userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            int userId = userDAO.find(userName);
+
+            //Retrieve Role ID
+            int roleId = userDAO.findRoleId(roleName);
+
+            //Insert new users to project
+            projectDAO.addUserToProject(userId, roleId, projectId);*/
+
+    }
+
+    /** Display role available for news users */
     @FXML
     public void listingRole()  {
         try {
             UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
-            String tab[] = userDao.findPriority();
+            String tab[] = userDao.findRole();
 
-            comboBoxPriorityName.getItems().clear();
+            //comboBoxRoleName.getItems().clear();
             for(int i = 0; i< tab.length; i++){
                 String result = tab[i];
-                comboBoxPriorityName.getItems().add(
+                comboBoxRoleName.getItems().add(
                         result
                 );
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /** Return button */
     @FXML
     private void handleBtnBack() {
         try {

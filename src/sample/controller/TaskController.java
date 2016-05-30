@@ -189,6 +189,14 @@ public class TaskController {
         }
     }*/
 
+    @FXML
+    public void backProject(){
+        try{
+            mainApp.showProject();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;

@@ -8,11 +8,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ProjectController">
    <children>
        <BorderPane>
        <left>
-           <GridPane BorderPane.alignment="CENTER">
+           <GridPane prefHeight="394.0" prefWidth="106.0" BorderPane.alignment="CENTER">
                <columnConstraints>
                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -27,17 +27,17 @@
                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                   <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #FFB800;" text="Document" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                   <Button fx:id="btnDocument" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuDocument" style="-fx-background-color: #FFB800;" text="Document" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
                    </Button>
-                   <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #f3872c;" text="Plugin" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                   <Button fx:id="btnPlugin" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuPlugin" style="-fx-background-color: #f3872c;" text="Plugin" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
                    </Button>
-                   <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #44C2D9;" text="Accueil" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                   <Button fx:id="btnHome" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuHome" style="-fx-background-color: #44C2D9;" text="Accueil" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
@@ -50,17 +50,17 @@
                            <Insets />
                        </GridPane.margin>
                    </Button>
-                   <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #a9dcd9;" text="Calendrier" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                   <Button fx:id="btnCalendar" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuCalendar" style="-fx-background-color: #a9dcd9;" text="Calendrier" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
                    </Button>
-                   <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleTask" style="-fx-background-color: #e1e5cd;" text="Tâche" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                   <Button fx:id="btnTask" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuTask" style="-fx-background-color: #e1e5cd;" text="Tâche" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
                    </Button>
-                   <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #F2D280;" text="Tchat" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                   <Button fx:id="btnTchat" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuTchat" style="-fx-background-color: #F2D280;" text="Tchat" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                        <GridPane.margin>
                            <Insets />
                        </GridPane.margin>
@@ -73,11 +73,8 @@
                </children>
            </GridPane>
        </left>
-         <top>
-           <ComboBox prefWidth="150.0" promptText="Projet 1" BorderPane.alignment="CENTER" />
-         </top>
        </BorderPane>
-      <Label fx:id="projectName" text="Label" textAlignment="CENTER">
+      <Label fx:id="projectName" alignment="CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="14.0" text="Label" textAlignment="CENTER">
          <padding>
             <Insets left="250.0" />
          </padding>

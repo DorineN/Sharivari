@@ -1,0 +1,165 @@
+/*********************************************************/
+/**************** STYLE CSS FOR SHARIN *******************/
+/*************** Last change : 28/05/2016 ****************/
+/******************  by Dorine Niel **********************/
+/*********************************************************/
+
+.root{
+    -fx-font-family: "Calibri";
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    /*-fx-base: rgb(132, 145, 47);
+     -fx-font-size: 16pt;
+    -fx-background: rgb(225, 228, 203);*/
+}
+
+.label {
+    -fx-font-family: "Calibri";
+}
+
+.labelOrange {
+    -fx-font-color: #f3872b;
+    -fx-font-size: 10pt;
+    -fx-border-color: #e1e5cd;
+}
+
+.labelBlue {
+    -fx-font-color: #68d3e8;
+    -fx-font-size: 10pt;
+    -fx-border-color: #e1e5cd;
+}
+/*
+.label-bright {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Calibri";
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Calibri";
+}*/
+
+.table-view {
+    /*-fx-base: #1d1d1d;*/
+    -fx-control-inner-background: orange;
+    /*-fx-background-color: #1d1d1d;*/
+    -fx-table-cell-border-color: black;
+    -fx-table-header-border-color: black;
+    -fx-padding: 5;
+    -fx-font-color: black;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: white;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Calibri";
+   /* -fx-text-fill: black;*/
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view .table-row-cell .column {
+    -fx-font-color: black;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d,20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#1d1d1d,20%);
+}
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d,50%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Calibri";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+/*.menu .left-container {
+    -fx-background-color: black;
+}*/
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Calibri";
+}
+
+/*
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-width: 2;
+    -fx-background-radius: 4;
+    -fx-font-family: "Calibri", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-font-color: white;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+button:hover{
+    -fx-opacity: 0.5;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-text-fill: #1d1d1d;
+}
+
+.button:focused {
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-text-fill: white;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.buttonBlue {
+     -fx-background-color: #68d3e8;
+    -fx-font-color: white;
+ }
+
+ .buttonOrange {
+     -fx-background-color: #f3872b;
+     -fx-font-color: white;
+ }
+
+ .btnHome, .btnProject, .btnCalendar, .btnTask, .btnTchat, btnDocument, btnPlugin, btnAccount {
+     -fx-text-alignement: center;
+ }

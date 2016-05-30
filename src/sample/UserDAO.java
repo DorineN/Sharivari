@@ -126,7 +126,62 @@ public class UserDAO extends DAO<User> {
         return user;
     }
 
-    public String[] findPriority(){
+    public int find(String name){
+        int idUser = 0;
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT idUser FROM user WHERE loginUser=?");
+            ResultSet res;
+            prepare.setString(1, name);
+            res = prepare.executeQuery();
+
+            if(res.first()){
+                idUser = res.getInt("idUser");
+            }
+
+            prepare.close();
+            res.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return idUser;
+    }
+
+    /** SEARCH USERS NAME IN SHARIN **/
+    public String[] findUsersName(){
+
+        //Retrieve the user of the current session
+        int userId = Main.getMyUser().userId;
+        String[] tab = null;
+        int i = 0;
+        int rowcount = 0;
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT loginUser FROM user ");
+            ResultSet res;
+            res = prepare.executeQuery();
+
+            if (res.last()) {
+                rowcount = res.getRow();
+                res.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+            }
+            tab = new String[rowcount];
+
+            while (res.next()) {
+                tab[i] = res.getString("loginUser");
+                i++;
+            }
+
+            res.close();
+            prepare.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return tab;
+    }
+
+    public String[] findRole(){
 
         String[] tab = null;
         int i = 0;
@@ -157,7 +212,27 @@ public class UserDAO extends DAO<User> {
         return tab;
     }
 
+    public int findRoleId(String roleName){
+        int roleId = 0;
+        try{
+            PreparedStatement prepare = connection.prepareStatement("SELECT roleId FROM role WHERE roleName=?");
+            ResultSet res;
+            prepare.setString(1, roleName);
+            res = prepare.executeQuery();
 
+            if(res.first()){
+                roleId = res.getInt("roleId");
+            }
+
+            res.close();
+            prepare.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return roleId;
+    }
 
     @Override
     public boolean update(User user){

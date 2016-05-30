@@ -157,4 +157,23 @@ public class ProjectDAO extends DAO<Project> {
 
         return result;
     }
+
+    public void addUserToProject(int userId, int roleId, int projectId){
+
+        try{
+            PreparedStatement prepare = connection.prepareStatement("INSERT INTO participate(idRole, idUser, idProject) VALUES(" +
+                    "?, ?, ?) ");
+
+            prepare.setInt(1, roleId);
+            prepare.setInt(2, userId);
+            prepare.setInt(3, projectId);
+            prepare.executeUpdate();
+
+            prepare.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
