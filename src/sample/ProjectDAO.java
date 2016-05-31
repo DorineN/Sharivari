@@ -1,6 +1,8 @@
 package sample;
 
 import java.sql.*;
+import java.sql.Connection;
+
 import sample.Main;
 import sample.MySQLConnexion;
 import sample.User;

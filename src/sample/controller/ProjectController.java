@@ -85,7 +85,7 @@ public class ProjectController {
 
 
             try {
-                ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+                ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                 project.insert(varName, varDesc, varStart, varEnd);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
