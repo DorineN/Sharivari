@@ -1,6 +1,11 @@
 package sample;
 
 import java.sql.*;
+import java.sql.Connection;
+import sample.Main;
+import sample.MySQLConnexion;
+import sample.User;
+import sample.UserDAO;
 
 public class ProjectDAO extends DAO<Project> {
 
@@ -8,6 +13,8 @@ public class ProjectDAO extends DAO<Project> {
 
     //Retrieve the user of the current session
     int userId = Main.getMyUser().userId;
+
+    public void insert(String name, String description, String startDate, String estimateEndDate)throws SQLException{
 
     public Project insert(String name, String description, String startDate, String estimateEndDate)throws SQLException{
 
@@ -20,7 +27,7 @@ public class ProjectDAO extends DAO<Project> {
         try{
             prepare = connection.prepareStatement("INSERT INTO project(nameProject, descriptionProject, startDateProject, estimateEndDateProject) VALUES(" +
                     "?, ?, ?, ?)",  Statement.RETURN_GENERATED_KEYS);
-
+            /* + "INSERT INTO participate(idRole, idUser, idProject) VALUES ("+"2,?,?)");*/
             prepare.setString(1, name);
             prepare.setString(2, description);
             prepare.setString(3, startDate);
@@ -83,7 +90,6 @@ public class ProjectDAO extends DAO<Project> {
         return projet;
     }
 
-    @Override
     public Project find(int id){
         Project project = new Project();
 
@@ -132,7 +138,6 @@ public class ProjectDAO extends DAO<Project> {
         return project;
     }
 
-    @Override
     public boolean update(Project project){
         boolean result = false;
 

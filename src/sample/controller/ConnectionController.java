@@ -2,6 +2,7 @@ package sample.controller;
 
 // Imports appli
 import javafx.scene.input.KeyCode;
+import sample.*;
 import sample.Main;
 import sample.MySQLConnexion;
 
@@ -79,7 +80,7 @@ public class ConnectionController {
         }else {
 
             try {
-                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
+                UserDAOInterface userDao = UserDAOFactory.newInstance(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                 User user = userDao.findConnection(loginContent,password);
                 if (!"".equals(user.getUserLogin())){
                     Main.setMyUser(user);

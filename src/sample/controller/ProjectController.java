@@ -1,23 +1,44 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import sample.Main;
+import sample.MySQLConnexion;
+import sample.ProjectDAO;
 import sample.UserDAO;
 
 import javax.naming.NamingException;
 import java.io.IOException;
+import java.sql.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.Date;
 
+/*************************************************************
+ *************** Dialog to create a new project *****************
+ *************************************************************
+ *********** Created by Dorine on 23/04/2016.*****************
+ ************************************************************/
 public class ProjectController {
+
     //Attributes
     private Main mainApp;
     private UserDAO user = null;
 
     @FXML
     private Label projectName;
-
-    /** Menu links */
+    @FXML
+    private TextField name;
     @FXML
     public void handleMenuHome() throws ParseException {
         //GO HOME

@@ -7,10 +7,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import sample.Main;
 import sample.MySQLConnexion;
+import sample.User;
 import sample.UserDAO;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class AccountController {
 
@@ -87,10 +90,10 @@ public class AccountController {
             Main.getMyUser().setUserCompany(company);
 
             try {
-                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
+                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
                 user.update(Main.getMyUser());
             }catch(ClassNotFoundException | SQLException e) {
-                System.out.println("Error controller !");
+                e.printStackTrace();
             }
         }else{
             errorLabel.setText("Un champ a été mal rempli...");
