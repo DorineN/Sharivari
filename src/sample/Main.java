@@ -73,7 +73,6 @@ public class Main extends Application {
             rootLayout.setCenter(connectionOverview);
 
             pluginsLoader = new PluginsLoader();
-            pluginsLoader.loadAllIntPlugins();
             pluginsLoader.loadAllStringPlugins();
             // Give the controller access to the main app.
             ConnectionController controller = loader.getController();

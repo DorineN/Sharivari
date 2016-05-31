@@ -7,6 +7,7 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.jar.JarFile;
 
@@ -25,7 +26,6 @@ public class PluginsLoader {
 
     /**
      * Constucteur initialisant le tableau de fichier à charger.
-     * @param files Tableau de String contenant la liste des fichiers à charger.
      */
     public PluginsLoader(){
 
@@ -33,10 +33,13 @@ public class PluginsLoader {
         this.classStringPlugins = new ArrayList();
 
         File dir = new File ("plugin/");
+        System.out.println(dir.getName());
         this.files=dir.list();
         System.out.println("liste des plugins : ");
-        for (int i = 0; i<this.files.length;i++){
-            System.out.println(this.files[i]);
+        if(this.files.length>0) {
+            for (int i = 0; i < this.files.length; i++) {
+                System.out.println(this.files[i]);
+            }
         }
 
     }
@@ -60,12 +63,14 @@ public class PluginsLoader {
 
         StringPlugins[] tmpPlugins = new StringPlugins[this.classStringPlugins.size()];
 
+        System.out.println(tmpPlugins.length);
+
         for(int index = 0 ; index < tmpPlugins.length; index ++ ){
 
             //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
             //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
             tmpPlugins[index] = (StringPlugins)((Class)this.classStringPlugins.get(index)).newInstance() ;
-
+            //System.out.println(tmpPlugins[index].getLibelle());
         }
 
         return tmpPlugins;
@@ -119,9 +124,10 @@ public class PluginsLoader {
 
             f[index] = new File(this.files[index]);
 
-            if( !f[index].exists() ) {
+           /* if(!f[index].exists() ) {
+                System.out.println("break pour "+index);
                 break;
-            }
+            }*/
 
             URL u = f[index].toURL();
             //On créer un nouveau URLClassLoader pour charger le jar qui se trouve ne dehors du CLASSPATH
@@ -143,18 +149,21 @@ public class PluginsLoader {
                     tmp = tmp.substring(0,tmp.length()-6);
                     tmp = tmp.replaceAll("/",".");
 
-                    tmpClass = Class.forName(tmp ,true,loader);
+                    tmpClass = Class.forName(tmp ,true, loader);
+
+                    System.out.println(tmpClass.getInterfaces().length);
 
                     for(int i = 0 ; i < tmpClass.getInterfaces().length; i ++ ){
+
 
                         //Une classe ne doit pas appartenir à deux catégories de plugins différents.
                         //Si tel est le cas on ne la place que dans la catégorie de la première interface correct
                         // trouvée
-                        if(tmpClass.getInterfaces()[i].getName().toString().equals("tutoPlugins.plugins.StringPlugins") ) {
+                        if(tmpClass.getInterfaces()[i].getName().toString().equals("sample.StringPlugins") ) {
                             this.classStringPlugins.add(tmpClass);
                         }
                         else {
-                            if( tmpClass.getInterfaces()[i].getName().toString().equals("tutoPlugins.plugins.IntPlugins") ) {
+                            if( tmpClass.getInterfaces()[i].getName().toString().equals("sample.IntPlugins") ) {
                                 this.classIntPlugins.add(tmpClass);
                             }
                         }

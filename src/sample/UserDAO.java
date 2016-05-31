@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 
 public class UserDAO extends DAO<User> {
 
+
+
     public UserDAO(Connection connection){
         super(connection);
     }
@@ -135,6 +137,7 @@ public class UserDAO extends DAO<User> {
             prepare.setInt(1, userId);
             res = prepare.executeQuery();
 
+
             if (res.last()) {
                 rowcount = res.getRow();
                 res.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
@@ -155,4 +158,6 @@ public class UserDAO extends DAO<User> {
 
         return tab;
     }
+
+
 }
