@@ -129,6 +129,7 @@ public class UserDAO extends DAO<User> {
         int i = 0;
         int rowcount = 0;
         try{
+            System.out.println(userId);
             PreparedStatement prepare = connection.prepareStatement("SELECT * FROM participate WHERE idUser=? ");
             ResultSet res;
 

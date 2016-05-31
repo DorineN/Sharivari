@@ -56,6 +56,7 @@ public class HomeController {
             ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
 
             listProject.getItems().clear();
+            System.out.println( tab.length);
             for(int i = 0; i< tab.length; i++){
                 String result = project.find(tab[i]).getProjectName();
                 listProject.getItems().add(

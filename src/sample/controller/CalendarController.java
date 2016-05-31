@@ -176,10 +176,10 @@ public class CalendarController {
             String dateCase = year +"-" +(month+1)+"-"+i;
 
 
-            myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
+          /*  myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
             if(myTask.length>0){
                 System.out.println(myTask[0].getNameTask());
-            }
+            }*/
             pDays[i-1].getChildren().add(new Label("" + i));
             pDays[i-1].getChildren().add(new Label("\n" ));
 

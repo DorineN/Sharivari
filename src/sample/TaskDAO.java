@@ -26,7 +26,7 @@ public class TaskDAO extends DAO<Task>{
 
 
     public Task[] findTask(String date,int idUser, int idProject){
-
+       Task[] tTask = null;
 
         try{
             PreparedStatement prepare = connection.prepareStatement("SELECT count (idTask) as nbResult, * FROM task WHERE estiamteStartDateTask=?, idUser=? , idProject=?");
