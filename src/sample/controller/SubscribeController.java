@@ -74,7 +74,7 @@ public class SubscribeController {
 
 
             try {
-                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                 user.insert(varUsername,varPassword,varName, varFirstname, varMail, varPhone, varEnterprise);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

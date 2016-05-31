@@ -1,16 +1,17 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import sample.Main;
 import sample.MySQLConnexion;
+import sample.User;
 import sample.UserDAO;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class AccountController {
 
@@ -36,9 +37,9 @@ public class AccountController {
     private  Label errorLabel;
 
     @FXML
-    private TextArea loginInput;
+    private TextField loginInput;
     @FXML
-    private TextArea nameInput;
+    private TextField nameInput;
     @FXML
     private TextArea firstNameInput;
     @FXML
@@ -88,9 +89,9 @@ public class AccountController {
 
             try {
                 UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
-                user.update(Main.getMyUser(), pwd);
+                user.update(Main.getMyUser());
             }catch(ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
+                System.out.println("Error controller !");
             }
         }else{
             errorLabel.setText("Un champ a été mal rempli...");
@@ -211,19 +212,19 @@ public class AccountController {
         this.errorLabel = errorLabel;
     }
 
-    public TextArea getLoginInput() {
+    public TextField getLoginInput() {
         return loginInput;
     }
 
-    public void setLoginInput(TextArea loginInput) {
+    public void setLoginInput(TextField loginInput) {
         this.loginInput = loginInput;
     }
 
-    public TextArea getNameInput() {
+    public TextField getNameInput() {
         return nameInput;
     }
 
-    public void setNameInput(TextArea nameInput) {
+    public void setNameInput(TextField nameInput) {
         this.nameInput = nameInput;
     }
 

@@ -3,18 +3,21 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
+<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.AccountController">
     <children>
-                <Button fx:id="saveButton" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
+                <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
                     <font>
-                        <Font name="Browallia New Italic" size="24.0" />
+                        <Font name="Calibri" size="24.0" />
                     </font>
                 </Button>
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="183.0" layoutY="29.0" text="Mon Compte" textAlignment="CENTER" textFill="#f07600">
                     <font>
-                        <Font name="Browallia New Italic" size="40.0" />
+                        <Font name="Calibri" size="40.0" />
                     </font>
                 </Label>
                 <GridPane alignment="CENTER_LEFT" layoutX="28.0" layoutY="94.0" prefHeight="224.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
@@ -33,7 +36,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-            <TextArea fx:id="loginInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" />
             <Label fx:id="loginLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="LOGIN" textAlignment="CENTER" textFill="#f07b0e">
                <GridPane.margin>
                   <Insets />
@@ -86,13 +88,14 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextArea fx:id="firstNameInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextArea fx:id="emailInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextArea fx:id="nameInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextArea fx:id="phoneInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextArea fx:id="companyInput" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <PasswordField fx:id="confirmPwdInput" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <PasswordField fx:id="pwdInput" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="firstNameInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextArea fx:id="emailInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextArea fx:id="phoneInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextArea fx:id="companyInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <PasswordField fx:id="confirmPwdInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="pwdInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="loginInput" prefHeight="26.0" prefWidth="267.0" GridPane.columnIndex="1" />
+            <TextField fx:id="nameInput" prefHeight="26.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
       <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#backHome" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE" />

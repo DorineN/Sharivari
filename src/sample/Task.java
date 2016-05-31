@@ -2,111 +2,88 @@ package sample;
 
 import java.util.Date;
 
-/*************************************************************
- *************** Task class *****************
- *************************************************************
- *********** Created by Dorine on 14/05/2016.*****************
- ************************************************************/
-
+/**
+ * Created by Loïc on 21/05/2016.
+ */
 public class Task {
     protected int idTask = 0;
     protected String nameTask = "";
     protected String descriptionTask = "";
-    protected int priorityTask = 0;
     protected Date estimateStartDateTask = null;
+    protected Date realStartDateTask = null;
     protected Date estimateEndDateTask = null;
-    protected Date realStartDaTeTask = null;
     protected Date realEndDateTask = null;
 
     public Task(){
         // Empty constructor
     }
 
-    public Task(int idTask, String nameTask, String descriptionTask,  int priorityTask, Date estimateStartDateTask, Date estimateEndDateTask, Date realStartDaTeTask, Date realEndDateTask){
-        this.setTaskId(idTask);
-        this.setTaskName(nameTask);
-        this.setTaskDesc(descriptionTask);
-        this.setTaskPriority(priorityTask);
-        this.setTaskEsStart(estimateStartDateTask);
-        this.setTaskEsEnd(estimateEndDateTask);
-        this.setTaskStart(realStartDaTeTask);
-        this.setTaskEnd(realEndDateTask);
+    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask){
+        this.idTask=idTask;
+        this.nameTask=nameTask;
+        this.descriptionTask=descriptionTask;
+        this.estimateStartDateTask = estimateStartDateTask;
+        this.realStartDateTask=realStartDateTask;
+        this.estimateEndDateTask=estimateEndDateTask;
+        this.realEndDateTask=realEndDateTask;
     }
 
-
-    // Getters & Setters
-    public int getTaskId() {
+    public int getIdTask() {
         return idTask;
     }
 
-    public void setTaskId(int idTask) {
+    public void setIdTask(int idTask) {
         this.idTask = idTask;
     }
 
-    public String getTaskName() {
+    public String getNameTask() {
         return nameTask;
     }
 
-    public void setTaskName(String nameTask) {
+    public void setNameTask(String nameTask) {
         this.nameTask = nameTask;
     }
 
-    public String getTaskDesc() {return descriptionTask;}
-
-    public void setTaskDesc(String descriptionTask) { this.descriptionTask = descriptionTask;    }
-
-    public int getTaskPriority() {return priorityTask;}
-
-    public void setTaskPriority(int priorityTask) {
-        this.priorityTask = priorityTask;
+    public String getDescriptionTask() {
+        return descriptionTask;
     }
 
-    public Date getTaskEsStart() {
+    public void setDescriptionTask(String descriptionTask) {
+        this.descriptionTask = descriptionTask;
+    }
+
+    public Date getEstimateStartDateTask() {
         return estimateStartDateTask;
     }
 
-    public void setTaskEsStart(Date estimateStartDateTask) {
+    public void setEstimateStartDateTask(Date estimateStartDateTask) {
         this.estimateStartDateTask = estimateStartDateTask;
     }
 
-    public Date getTaskEsEnd() {
+    public Date getRealStartDateTask() {
+        return realStartDateTask;
+    }
+
+    public void setRealStartDateTask(Date realStartDateTask) {
+        this.realStartDateTask = realStartDateTask;
+    }
+
+    public Date getEstimateEndDateTask() {
         return estimateEndDateTask;
     }
 
-    public void setTaskEsEnd(Date estimateEndDateTask) {
+    public void setEstimateEndDateTask(Date estimateEndDateTask) {
         this.estimateEndDateTask = estimateEndDateTask;
     }
 
-    public Date getTaskStart() {
-        return realStartDaTeTask;
-    }
-
-    public void setTaskStart(Date realStartDaTeTask) {
-        this.realStartDaTeTask = realStartDaTeTask;
-    }
-
-    public Date getTaskEnd() {
+    public Date getRealEndDateTask() {
         return realEndDateTask;
     }
 
-    public void setTaskEnd(Date realEndDateTask) {
+    public void setRealEndDateTask(Date realEndDateTask) {
         this.realEndDateTask = realEndDateTask;
     }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "idTask=" + idTask +
-                ", nameTask='" + nameTask + '\'' +
-                ", descriptionTask='" + descriptionTask + '\'' +
-                ", priorityTask='" + priorityTask +
-                ", estimateStartDateTask=" + estimateStartDateTask +
-                ", estimateEndDateTask=" + estimateEndDateTask +
-                ", realStartDaTeTask=" + realStartDaTeTask +
-                ", realEndDateTask=" + realEndDateTask +
-                '}';
-    }
-
+/*
     // Inherited methods
     @Override
     public boolean equals(Object o) {
@@ -123,30 +100,26 @@ public class Task {
             return false;
         if (descriptionTask != null ? !descriptionTask.equals(task.descriptionTask) : task.descriptionTask != null)
             return false;
-        if (priorityTask != task.priorityTask)
-            return false;
         if (estimateStartDateTask != null ? !estimateStartDateTask.equals(task.estimateStartDateTask) : task.estimateStartDateTask != null)
             return false;
-        if (estimateEndDateTask != null ? !estimateEndDateTask.equals(task.estimateEndDateTask) : task.estimateEndDateTask != null)
+        if (realStartDateTask != null ? !realStartDateTask.equals(task.realStartDateTask) : task.realStartDateTask != null)
             return false;
-        if (realStartDaTeTask != null ? !realStartDaTeTask.equals(task.realStartDaTeTask) : task.realStartDaTeTask != null)
+        if (estimateEndDateTask != null ? !estimateEndDateTask.equals(task.estimateEndDateTask) : task.estimateEndDateTask != null)
             return false;
         if (realEndDateTask != null ? !realEndDateTask.equals(task.realEndDateTask) : task.realEndDateTask != null)
             return false;
 
-        return false;
     }
 
     @Override
     public int hashCode() {
         int result = idTask;
-        result += priorityTask;
         result = 31 * result + (nameTask != null ? nameTask.hashCode() : 0);
         result = 31 * result + (descriptionTask != null ? descriptionTask.hashCode() : 0);
         result = 31 * result + (estimateStartDateTask != null ? estimateStartDateTask.hashCode() : 0);
+        result = 31 * result + (realStartDateTask != null ? realStartDateTask.hashCode() : 0);
         result = 31 * result + (estimateEndDateTask != null ? estimateEndDateTask.hashCode() : 0);
-        result = 31 * result + (realStartDaTeTask != null ? realStartDaTeTask.hashCode() : 0);
         result = 31 * result + (realEndDateTask != null ? realEndDateTask.hashCode() : 0);
         return result;
-    }
+    }*/
 }

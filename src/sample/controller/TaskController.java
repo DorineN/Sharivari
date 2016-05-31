@@ -66,70 +66,70 @@ public class TaskController {
     @FXML
     public void handleOk() {
         //if (isInputValid()) {
-            String varName = nameTask.getText();
-            String varDesc = descriptionTask.getText();
-            String varPrior = choiceBoxListPriority.getValue().toString();
-            LocalDate date1 = estimateStartDateTask.getValue();
-            LocalDate date2 = estimateEndDateTask.getValue();
-            int priority = 0;
+        String varName = nameTask.getText();
+        String varDesc = descriptionTask.getText();
+        String varPrior = choiceBoxListPriority.getValue().toString();
+        LocalDate date1 = estimateStartDateTask.getValue();
+        LocalDate date2 = estimateEndDateTask.getValue();
+        int priority = 0;
 
-            //We translate the id of the priority name
-            switch(varPrior) {
-                case "Urgent":
-                    priority = 1;
-                    break;
-                case "Haute":
-                    priority = 2;
-                    break;
-                case "Normale":
-                    priority = 3;
-                    break;
-                case "Basse":
-                    priority = 4;
-                    break;
-                default:
-                    System.out.println("Erreur, la priorité ne ressemble à aucun nom de la bdd !!! ");
-            }
+        //We translate the id of the priority name
+        switch(varPrior) {
+            case "Urgent":
+                priority = 1;
+                break;
+            case "Haute":
+                priority = 2;
+                break;
+            case "Normale":
+                priority = 3;
+                break;
+            case "Basse":
+                priority = 4;
+                break;
+            default:
+                System.out.println("Erreur, la priorité ne ressemble à aucun nom de la bdd !!! ");
+        }
 
-            System.out.print("La priorité est : " + varPrior);
-            System.out.print("L'id de la priorité est : " + priority);
+        System.out.print("La priorité est : " + varPrior);
+        System.out.print("L'id de la priorité est : " + priority);
 
-            /**Transform date to a specific format**/
-            Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
-            Date varStart1 = Date.from(instant);
-            Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
-            Date varEnd1 = Date.from(instant2);
+        /**Transform date to a specific format**/
+        Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
+        Date varStart1 = Date.from(instant);
+        Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
+        Date varEnd1 = Date.from(instant2);
 
-            /**Specific transformed date to string to retrieve it in sql format **/
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            String varStart = sdf.format(varStart1);
+        /**Specific transformed date to string to retrieve it in sql format **/
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String varStart = sdf.format(varStart1);
 
-            java.text.SimpleDateFormat sdf2 = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            String varDeadline = sdf2.format(varEnd1);
+        java.text.SimpleDateFormat sdf2 = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String varDeadline = sdf2.format(varEnd1);
 
-            Connection connection = null;
-            Statement myStmt;
-            ResultSet myRs;
+        Connection connection = null;
+        Statement myStmt;
+        ResultSet myRs;
 
-            try {
-                TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
-                Task task = taskDAO.insert(varName, varDesc, priority, varStart, varDeadline);
+        try {
+            TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            Task task = taskDAO.insert(varName, varDesc, priority, varStart, varDeadline);
 
-                if (!"".equals(task.getTaskId())) {
-                    try {
-                        mainApp.showProject();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            if (!"".equals(task.getTaskId())) {
+                try {
+                    mainApp.showProject();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("La tâche" + varName + " vient d'être créée !");
-            alert.showAndWait();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("La tâche" + varName + " vient d'être créée !");
+        alert.showAndWait();
         //}
     }
 
