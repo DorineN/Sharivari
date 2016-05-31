@@ -98,7 +98,7 @@ public class CalendarController {
         //System.out.println(maxDay);
         //System.out.println(year);
         //System.out.println(month);
-        System.out.println(mainApp.myProject.getProjectId());
+        System.out.println(mainApp.getMyProject().getProjectId());
 
         System.out.print(date);
         title.setText(tMonth[month] + " " + year);

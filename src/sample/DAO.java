@@ -6,8 +6,8 @@ public abstract class DAO<T> {
     protected Connection connection = null;
 
     // Constructors
-    public DAO(Connection p_connection){
-        this.setConnection(p_connection);
+    public DAO(Connection connection){
+        this.setConnection(connection);
     }
 
     // Getters and Setters

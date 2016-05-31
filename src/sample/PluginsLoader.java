@@ -18,7 +18,7 @@ import java.util.jar.JarFile;
  */
 public class PluginsLoader {
 
-    private String[] files;
+    private String[] files = null;
 
     private ArrayList classStringPlugins;
     private ArrayList classIntPlugins;
@@ -35,10 +35,12 @@ public class PluginsLoader {
         File dir = new File ("plugin/");
         System.out.println(dir.getName());
         this.files=dir.list();
-        System.out.println("liste des plugins : ");
-        if(this.files.length>0) {
-            for (int i = 0; i < this.files.length; i++) {
-                System.out.println(this.files[i]);
+        if (this.files!=null) {
+            System.out.println("liste des plugins : ");
+            if (this.files.length > 0) {
+                for (int i = 0; i < this.files.length; i++) {
+                    System.out.println(this.files[i]);
+                }
             }
         }
 
@@ -58,22 +60,24 @@ public class PluginsLoader {
      * @throws Exception si file = null ou file.length = 0
      */
     public StringPlugins[] loadAllStringPlugins() throws Exception {
+        StringPlugins[] tmpPlugins = null;
+        if (this.files.length != 0) {
+            this.initializeLoader();
 
-        this.initializeLoader();
+                tmpPlugins = new StringPlugins[this.classStringPlugins.size()];
 
-        StringPlugins[] tmpPlugins = new StringPlugins[this.classStringPlugins.size()];
+            System.out.println("LENGTH : " + tmpPlugins.length);
 
-        System.out.println("LENGTH : "+ tmpPlugins.length);
-
-        for(int index = 0 ; index < tmpPlugins.length; index ++ ){
-            System.out.println(" index : " + index);
-            //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
-            //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
-            tmpPlugins[index] = (StringPlugins)((Class)this.classStringPlugins.get(index)).newInstance() ;
-            System.out.println(tmpPlugins[index].getCategorie());
+            for (int index = 0; index < tmpPlugins.length; index++) {
+                System.out.println(" index : " + index);
+                //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
+                //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
+                tmpPlugins[index] = (StringPlugins) ((Class) this.classStringPlugins.get(index)).newInstance();
+                System.out.println(tmpPlugins[index].getCategorie());
+            }
         }
-
         return tmpPlugins;
+
     }
 
     /**

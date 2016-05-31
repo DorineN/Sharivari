@@ -16,8 +16,8 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private static User myUser = new User();
-    public static Project myProject = new Project();
-    public static PluginsLoader pluginsLoader;
+    private static Project myProject = new Project();
+    private static PluginsLoader pluginsLoader;
 
     // Main method
     public static void main(String[] args){
