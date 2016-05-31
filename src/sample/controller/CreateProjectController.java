@@ -217,11 +217,12 @@ public class CreateProjectController {
         String userName = String.valueOf(comboBoxSearchUser.getValue());
         String roleName = String.valueOf(comboBoxRoleName.getValue());
 
-        ObservableList<String> list = FXCollections.observableArrayList("Do", "Test", "X");
+       /* ObservableList<String> list = FXCollections.observableArrayList("Do", "Test", "X");
         tableSelectUser.setItems(FXCollections.observableArrayList(list));
 
         tableSelectUser.getItems().clear();
-        tableSelectUser.getItems().addAll(list);
+        tableSelectUser.getItems().addAll(list);*/
+
         /*final Button addButton = new Button("Add");
         addButton.setOnAction((ActionEvent e) -> {
             list.add("Lo", "Test");
