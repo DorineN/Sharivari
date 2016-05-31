@@ -63,14 +63,14 @@ public class PluginsLoader {
 
         StringPlugins[] tmpPlugins = new StringPlugins[this.classStringPlugins.size()];
 
-        System.out.println(tmpPlugins.length);
+        System.out.println("LENGTH : "+ tmpPlugins.length);
 
         for(int index = 0 ; index < tmpPlugins.length; index ++ ){
-
+            System.out.println(" index : " + index);
             //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
             //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
             tmpPlugins[index] = (StringPlugins)((Class)this.classStringPlugins.get(index)).newInstance() ;
-            //System.out.println(tmpPlugins[index].getLibelle());
+            System.out.println(tmpPlugins[index].getCategorie());
         }
 
         return tmpPlugins;
@@ -92,6 +92,7 @@ public class PluginsLoader {
             //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
             //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
             tmpPlugins[index] = (IntPlugins)((Class)this.classIntPlugins.get(index)).newInstance() ;
+
 
         }
 
@@ -150,17 +151,18 @@ public class PluginsLoader {
                     tmp = tmp.replaceAll("/",".");
 
                     tmpClass = Class.forName(tmp ,true, loader);
-
-                    System.out.println(tmpClass.getInterfaces().length);
+                    System.out.println("interface : " + tmpClass.getInterfaces().length);
 
                     for(int i = 0 ; i < tmpClass.getInterfaces().length; i ++ ){
 
+                        System.out.println(tmpClass.getInterfaces()[i].getName().toString());
 
                         //Une classe ne doit pas appartenir à deux catégories de plugins différents.
                         //Si tel est le cas on ne la place que dans la catégorie de la première interface correct
                         // trouvée
                         if(tmpClass.getInterfaces()[i].getName().toString().equals("sample.StringPlugins") ) {
                             this.classStringPlugins.add(tmpClass);
+
                         }
                         else {
                             if( tmpClass.getInterfaces()[i].getName().toString().equals("sample.IntPlugins") ) {
@@ -168,6 +170,9 @@ public class PluginsLoader {
                             }
                         }
                     }
+
+                  //  System.out.println(this.classStringPlugins.get(0));
+
                 }
             }
         }
