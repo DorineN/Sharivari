@@ -1,14 +1,12 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import sample.*;
+import sample.Main;
+import sample.UserDAO;
 
 import javax.naming.NamingException;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 
 public class ProjectController {
@@ -32,7 +30,7 @@ public class ProjectController {
 
     @FXML
     public void handleMenuProject() throws ParseException {
-        //GO PROJECT CREATION
+        //GO TO MANAGE PROJECT
         try {
             mainApp.showManageProject();
         } catch (IOException e) {
@@ -42,7 +40,7 @@ public class ProjectController {
 
     @FXML
     public void handleMenuCalendar() throws ParseException {
-        //GO PROJECT CREATION
+        //GO SEE MONTH CALENDAR
         try {
             mainApp.showCreateProject();
         } catch (IOException e) {
@@ -62,7 +60,7 @@ public class ProjectController {
 
     @FXML
     public void handleMenuTchat() throws NamingException {
-        //GO TO CREATE NEW TASK
+        //GO TO CHAT
         try {
             mainApp.showCreateTask();
         } catch (IOException e) {
@@ -72,7 +70,7 @@ public class ProjectController {
 
     @FXML
     public void handleMenuDocument() throws NamingException {
-        //GO TO CREATE NEW TASK
+        //GO SEE AND ADD DOCUMENTS
         try {
             mainApp.showCreateTask();
         } catch (IOException e) {
@@ -82,7 +80,7 @@ public class ProjectController {
 
     @FXML
     public void handleMenuPlugin() throws NamingException {
-        //GO TO CREATE NEW TASK
+        //GO TO DL PLUGIN
         try {
             mainApp.showCreateTask();
         } catch (IOException e) {
@@ -92,6 +90,7 @@ public class ProjectController {
 
     @FXML
     public void showAccount(){
+        //GO TO ACCOUNT MANAGER
         try{
             mainApp.showMyAccount();
         }catch(IOException e){

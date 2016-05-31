@@ -1,17 +1,22 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.*;
+import sample.Main;
+import sample.MySQLConnexion;
+import sample.Task;
+import sample.TaskDAO;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -131,7 +136,7 @@ public class TaskController {
     @FXML
     public void listingPriority()  {
         try {
-            TaskDAO task = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            TaskDAO task = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
             String[] list = task.findPriority();
             choiceBoxListPriority.getItems().clear();
             for(int i = 0; i < list.length; i++){

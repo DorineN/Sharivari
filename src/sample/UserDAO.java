@@ -10,8 +10,6 @@ public class UserDAO extends DAO<User> {
         super(connection);
     }
 
-
-
     public void insert(String login, String pwd, String lastName, String firstName, String mail, int phone, String company){
 
         try{
@@ -72,7 +70,6 @@ public class UserDAO extends DAO<User> {
         return tab;
     }
 
-
     public User findConnection(String login, String pwd){
         User user = new User();
 
@@ -98,7 +95,6 @@ public class UserDAO extends DAO<User> {
 
         return user;
     }
-
 
     @Override
     public User find(int id){

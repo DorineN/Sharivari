@@ -1,27 +1,11 @@
 package sample.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import sample.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import sample.Main;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Stream;
 
 /*************************************************************
  ********************* Update a project **********************
@@ -50,7 +34,7 @@ public class ManageProjectController {
         Main.getMyUser().setUserName(startProject);
         Main.getMyUser().setUserMail(estimateEndProject);
         try {
-            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
             project.update(Main.getMyProject());
         }catch(ClassNotFoundException | SQLException e) {
             System.out.println("Error controller !");

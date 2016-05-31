@@ -65,7 +65,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
             AnchorPane connectionOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Connection");
+            this.primaryStage.setTitle("Sharin - ConnectionAnnot");
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(connectionOverview);

@@ -36,9 +36,9 @@ public class HomeController {
     @FXML
     public void listingProject()  {
         try {
-            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
             int tab[] = userDao.findUserProject();
-            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
 
             listProject.getItems().clear();
             for(int i = 0; i< tab.length; i++){
@@ -56,7 +56,7 @@ public class HomeController {
     @FXML
     public void goProject() throws ParseException {
         try {
-            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
             if (listProject.getValue() != null && !listProject.getValue().toString().isEmpty()) {
 
                 String name = listProject.getValue().toString();

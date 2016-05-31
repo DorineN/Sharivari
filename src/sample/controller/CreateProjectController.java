@@ -19,7 +19,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
@@ -100,7 +99,7 @@ public class CreateProjectController {
 
 
         try {
-            ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
             Project project = projectDAO.insert(varName, varDesc, varStart, varEnd);
 
             if (!"".equals(project.getProjectId())) {
@@ -192,7 +191,7 @@ public class CreateProjectController {
         //Retrieve users from database
         UserDAO userDAO = null;
         try {
-            userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
             String tab[] = userDAO.findUsersName();
 
             //Inject users in combobox
@@ -218,12 +217,17 @@ public class CreateProjectController {
         String userName = String.valueOf(comboBoxSearchUser.getValue());
         String roleName = String.valueOf(comboBoxRoleName.getValue());
 
-
         ObservableList<String> list = FXCollections.observableArrayList("Do", "Test", "X");
+        tableSelectUser.setItems(FXCollections.observableArrayList(list));
 
-        //tableSelectUser.setItems(list);
         tableSelectUser.getItems().clear();
         tableSelectUser.getItems().addAll(list);
+        /*final Button addButton = new Button("Add");
+        addButton.setOnAction((ActionEvent e) -> {
+            list.add("Lo", "Test");
+        });*/
+        //tableSelectUser.getItems().clear();
+        //tableSelectUser.getItems().addAll(list);
         //tableSelectUser.getItems().addAll(list);
 
            /* ADD USERS TO DATABASE
@@ -247,7 +251,7 @@ public class CreateProjectController {
     @FXML
     public void listingRole()  {
         try {
-            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
             String tab[] = userDao.findRole();
 
             //comboBoxRoleName.getItems().clear();
