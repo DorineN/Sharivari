@@ -191,7 +191,7 @@ public class CreateProjectController {
         //Retrieve users from database
         UserDAO userDAO = null;
         try {
-            userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
+            userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
             String tab[] = userDAO.findUsersName();
 
             //Inject users in combobox

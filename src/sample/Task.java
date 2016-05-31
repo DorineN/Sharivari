@@ -6,19 +6,21 @@ import java.util.Date;
  * Created by Loïc on 21/05/2016.
  */
 public class Task {
-    protected int idTask = 0;
-    protected String nameTask = "";
-    protected String descriptionTask = "";
-    protected Date estimateStartDateTask = null;
-    protected Date realStartDateTask = null;
-    protected Date estimateEndDateTask = null;
-    protected Date realEndDateTask = null;
+
+    protected int idTask;
+    protected String nameTask;
+    protected String descriptionTask;
+    protected int idPriority;
+    protected Date estimateStartDateTask;
+    protected Date realStartDateTask;
+    protected Date estimateEndDateTask;
+    protected Date realEndDateTask;
 
     public Task(){
         // Empty constructor
     }
 
-    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask){
+    public Task(int idTask, String nameTask, String descriptionTask,  int idPriority, Date estimateStartDateTask, Date estimateEndDateTask, Date realStartDateTask, Date realEndDateTask){
         this.idTask=idTask;
         this.nameTask=nameTask;
         this.descriptionTask=descriptionTask;
@@ -26,6 +28,7 @@ public class Task {
         this.realStartDateTask=realStartDateTask;
         this.estimateEndDateTask=estimateEndDateTask;
         this.realEndDateTask=realEndDateTask;
+        this.idPriority = idPriority;
     }
 
     public int getIdTask() {
@@ -83,7 +86,16 @@ public class Task {
     public void setRealEndDateTask(Date realEndDateTask) {
         this.realEndDateTask = realEndDateTask;
     }
-/*
+
+    public int getIdPriority() {
+        return idPriority;
+    }
+
+    public void setIdPriority(int idPriority) {
+        this.idPriority = idPriority;
+    }
+
+    /*
     // Inherited methods
     @Override
     public boolean equals(Object o) {

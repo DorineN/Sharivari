@@ -112,10 +112,10 @@ public class TaskController {
         ResultSet myRs;
 
         try {
-            TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
+            TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
             Task task = taskDAO.insert(varName, varDesc, priority, varStart, varDeadline);
 
-            if (!"".equals(task.getTaskId())) {
+            if (!"".equals(task.getIdTask())) {
                 try {
                     mainApp.showProject();
                 } catch (IOException e) {
@@ -136,7 +136,7 @@ public class TaskController {
     @FXML
     public void listingPriority()  {
         try {
-            TaskDAO task = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
+            TaskDAO task = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
             String[] list = task.findPriority();
             choiceBoxListPriority.getItems().clear();
             for(int i = 0; i < list.length; i++){

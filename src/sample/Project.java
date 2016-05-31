@@ -2,90 +2,84 @@ package sample;
 
 import java.util.Date;
 
-/**
- * Created by Loïc on 21/05/2016.
- */
-public class Task {
-    protected int idTask = 0;
-    protected String nameTask = "";
-    protected String descriptionTask = "";
-    protected Date estimateStartDateTask = null;
-    protected Date realStartDateTask = null;
-    protected Date estimateEndDateTask = null;
-    protected Date realEndDateTask = null;
+/*************************************************************
+ *************** Project class *****************
+ *************************************************************
+ *********** Created by Dorine on 24/04/2016.*****************
+ ************************************************************/
 
-    public Task(){
+public class Project {
+    protected int idProject = 0;
+    protected String nameProject = "";
+    protected String descriptionProject = "";
+    protected Date startDateProject = null;
+    protected Date realEndDaTeEndProject = null;
+    protected Date estimateEndDateProject = null;
+
+    public Project(){
         // Empty constructor
     }
 
-    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask){
-        this.idTask=idTask;
-        this.nameTask=nameTask;
-        this.descriptionTask=descriptionTask;
-        this.estimateStartDateTask = estimateStartDateTask;
-        this.realStartDateTask=realStartDateTask;
-        this.estimateEndDateTask=estimateEndDateTask;
-        this.realEndDateTask=realEndDateTask;
+    public Project(int idProject, String nameProject, String descriptionProject, Date startDateProject, Date realEndDaTeEndProject, Date estimateEndDateProject){
+        this.setProjectId(idProject);
+        this.setProjectName(nameProject);
+        this.setProjectDesc(descriptionProject);
+        this.setProjectStart(startDateProject);
+        this.setProjectDeadline(realEndDaTeEndProject);
+        this.setProjectEnd(estimateEndDateProject);
     }
 
-    public int getIdTask() {
-        return idTask;
+
+    // Getters & Setters
+    public int getProjectId() {
+        return idProject;
     }
 
-    public void setIdTask(int idTask) {
-        this.idTask = idTask;
+    public void setProjectId(int idProject) {
+        this.idProject = idProject;
     }
 
-    public String getNameTask() {
-        return nameTask;
+    public String getProjectName() {
+        return nameProject;
     }
 
-    public void setNameTask(String nameTask) {
-        this.nameTask = nameTask;
+    public void setProjectName(String nameProject) {
+        this.nameProject = nameProject;
     }
 
-    public String getDescriptionTask() {
-        return descriptionTask;
+    public String getProjectDesc() {
+        return descriptionProject;
     }
 
-    public void setDescriptionTask(String descriptionTask) {
-        this.descriptionTask = descriptionTask;
+    public void setProjectDesc(String descriptionProject) {
+        this.descriptionProject = descriptionProject;
     }
 
-    public Date getEstimateStartDateTask() {
-        return estimateStartDateTask;
+    public Date getProjectStart() {
+        return startDateProject;
     }
 
-    public void setEstimateStartDateTask(Date estimateStartDateTask) {
-        this.estimateStartDateTask = estimateStartDateTask;
+    public void setProjectStart(Date startDateProject) {
+        this.startDateProject = startDateProject;
     }
 
-    public Date getRealStartDateTask() {
-        return realStartDateTask;
+    public Date getProjectDeadline() {
+        return realEndDaTeEndProject;
     }
 
-    public void setRealStartDateTask(Date realStartDateTask) {
-        this.realStartDateTask = realStartDateTask;
+    public void setProjectDeadline(Date realEndDaTeEndProject) {
+        this.realEndDaTeEndProject = realEndDaTeEndProject;
     }
 
-    public Date getEstimateEndDateTask() {
-        return estimateEndDateTask;
+    public Date getProjectEnd() {
+        return estimateEndDateProject;
     }
 
-    public void setEstimateEndDateTask(Date estimateEndDateTask) {
-        this.estimateEndDateTask = estimateEndDateTask;
+    public void setProjectEnd(Date estimateEndDateProject) {
+        this.estimateEndDateProject = estimateEndDateProject;
     }
 
-    public Date getRealEndDateTask() {
-        return realEndDateTask;
-    }
-
-    public void setRealEndDateTask(Date realEndDateTask) {
-        this.realEndDateTask = realEndDateTask;
-    }
-/*
-
-     @Override
+    @Override
     public String toString() {
         return "Project{" +
                 "idProject=" + idProject +
@@ -104,31 +98,33 @@ public class Task {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Task task = (Task) o;
-        if (idTask != task.idTask)
+
+        Project project = (Project) o;
+
+        if (idProject != project.idProject)
             return false;
-        if (nameTask != null ? !nameTask.equals(task.nameTask) : task.nameTask != null)
+        if (nameProject != null ? !nameProject.equals(project.nameProject) : project.nameProject != null)
             return false;
-        if (descriptionTask != null ? !descriptionTask.equals(task.descriptionTask) : task.descriptionTask != null)
+        if (descriptionProject != null ? !descriptionProject.equals(project.descriptionProject) : project.descriptionProject != null)
             return false;
-        if (estimateStartDateTask != null ? !estimateStartDateTask.equals(task.estimateStartDateTask) : task.estimateStartDateTask != null)
+        if (startDateProject != null ? !startDateProject.equals(project.startDateProject) : project.startDateProject != null)
             return false;
-        if (realStartDateTask != null ? !realStartDateTask.equals(task.realStartDateTask) : task.realStartDateTask != null)
+        if (realEndDaTeEndProject != null ? !realEndDaTeEndProject.equals(project.realEndDaTeEndProject) : project.realEndDaTeEndProject != null)
             return false;
-        if (estimateEndDateTask != null ? !estimateEndDateTask.equals(task.estimateEndDateTask) : task.estimateEndDateTask != null)
+        if (estimateEndDateProject != null ? !estimateEndDateProject.equals(project.estimateEndDateProject) : project.estimateEndDateProject != null)
             return false;
-        if (realEndDateTask != null ? !realEndDateTask.equals(task.realEndDateTask) : task.realEndDateTask != null)
-            return false;
+
+        return false;
     }
+
     @Override
     public int hashCode() {
-        int result = idTask;
-        result = 31 * result + (nameTask != null ? nameTask.hashCode() : 0);
-        result = 31 * result + (descriptionTask != null ? descriptionTask.hashCode() : 0);
-        result = 31 * result + (estimateStartDateTask != null ? estimateStartDateTask.hashCode() : 0);
-        result = 31 * result + (realStartDateTask != null ? realStartDateTask.hashCode() : 0);
-        result = 31 * result + (estimateEndDateTask != null ? estimateEndDateTask.hashCode() : 0);
-        result = 31 * result + (realEndDateTask != null ? realEndDateTask.hashCode() : 0);
+        int result = idProject;
+        result = 31 * result + (nameProject != null ? nameProject.hashCode() : 0);
+        result = 31 * result + (descriptionProject != null ? descriptionProject.hashCode() : 0);
+        result = 31 * result + (startDateProject != null ? startDateProject.hashCode() : 0);
+        result = 31 * result + (realEndDaTeEndProject != null ? realEndDaTeEndProject.hashCode() : 0);
+        result = 31 * result + (estimateEndDateProject != null ? estimateEndDateProject.hashCode() : 0);
         return result;
-    }*/
+    }
 }

@@ -3,10 +3,8 @@ package sample;
 /**
  * Created by Loïc on 21/05/2016.
  **/
+import java.sql.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Date;
 
 public class TaskDAO extends DAO<Task>{
 
@@ -75,14 +73,14 @@ public class TaskDAO extends DAO<Task>{
             String query = "UPDATE task SET idTask = ?, nameTask = ?, descriptionTask = ?, idPriority = ?, estimateStartDateTask = ?, estimateEndDateTask = ?, realStartDateTask = ?, realEndDateTask = ? WHERE idTask = ?";
             PreparedStatement prepare = connection.prepareStatement(query);
 
-            prepare.setInt(1, task.getTaskId());
-            prepare.setString(2, task.getTaskName());
-            prepare.setString(3, task.getTaskDesc());
-            prepare.setInt(4, task.getTaskPriority());
-            prepare.setDate(5, (Date) task.getTaskEsStart());
-            prepare.setDate(6, (Date) task.getTaskEsEnd());
-            prepare.setDate(7, (Date) task.getTaskStart());
-            prepare.setDate(8, (Date) task.getTaskEnd());
+            prepare.setInt(1, task.getIdTask());
+            prepare.setString(2, task.getNameTask());
+            prepare.setString(3, task.getDescriptionTask());
+            prepare.setInt(4, task.getIdPriority());
+            prepare.setDate(5, (Date) task.getEstimateStartDateTask());
+            prepare.setDate(6, (Date) task.getEstimateEndDateTask());
+            prepare.setDate(7, (Date) task.getRealStartDateTask());
+            prepare.setDate(8, (Date) task.getRealEndDateTask());
 
             if(prepare.executeUpdate() == 1)
                 result = true;
@@ -157,7 +155,7 @@ public class TaskDAO extends DAO<Task>{
         return tTask;
     }
 
-    public Task insert(String name, String description, int priority, String estimateStartDate, String estimateEndDate)throws SQLException{
+    public Task insert(String name, String description, int priority, String estimateStartDate, String estimateEndDate)throws SQLException {
 
         Task task = new Task();
         PreparedStatement prepare = null;

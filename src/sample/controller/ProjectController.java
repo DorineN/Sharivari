@@ -63,7 +63,7 @@ public class ProjectController {
     public void handleMenuCalendar() throws ParseException {
         //GO SEE MONTH CALENDAR
         try {
-            mainApp.showCreateProject();
+            mainApp.showCalendar();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,11 +82,11 @@ public class ProjectController {
     @FXML
     public void handleMenuTchat() throws NamingException {
         //GO TO CHAT
-        try {
-            mainApp.showCreateTask();
+       /* try {
+           // mainApp.showTchat();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @FXML
@@ -103,7 +103,7 @@ public class ProjectController {
     public void handleMenuPlugin() throws NamingException {
         //GO TO DL PLUGIN
         try {
-            mainApp.showCreateTask();
+            mainApp.showPlugin();
         } catch (IOException e) {
             e.printStackTrace();
         }

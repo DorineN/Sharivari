@@ -16,7 +16,8 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private static User myUser = new User();
-    private static Project myProject = new Project();
+    public static Project myProject = new Project();
+    public static PluginsLoader pluginsLoader;
 
     // Main method
     public static void main(String[] args){
@@ -72,11 +73,17 @@ public class Main extends Application {
             // Set person overview into the center of root layout.
             rootLayout.setCenter(connectionOverview);
 
+            pluginsLoader = new PluginsLoader();
+            pluginsLoader.loadAllStringPlugins();
+
+
             // Give the controller access to the main app.
             ConnectionController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -265,6 +272,29 @@ public class Main extends Application {
 
             // Give the controller access to the main app.
             AccountController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showPlugin() throws IOException {
+        try {
+            // Load connexion overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/PluginView.fxml"));
+            AnchorPane pluginOverview = loader.load();
+
+
+            this.primaryStage.setResizable(false);
+            this.primaryStage.setTitle("Sharin - Plugin");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(pluginOverview);
+
+            // Give the controller access to the main app.
+            PluginController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
