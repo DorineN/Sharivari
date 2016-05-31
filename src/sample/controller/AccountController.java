@@ -7,13 +7,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import sample.Main;
 import sample.MySQLConnexion;
-import sample.User;
 import sample.UserDAO;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class AccountController {
 
@@ -91,7 +88,7 @@ public class AccountController {
 
             try {
                 UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "sharin").getConnexion());
-                user.update(Main.getMyUser());
+                user.update(Main.getMyUser(), pwd);
             }catch(ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }

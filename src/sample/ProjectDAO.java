@@ -1,11 +1,7 @@
 package sample;
 
-import java.sql.*;
 import java.sql.Connection;
-import sample.Main;
-import sample.MySQLConnexion;
-import sample.User;
-import sample.UserDAO;
+import java.sql.*;
 
 public class ProjectDAO extends DAO<Project> {
 
@@ -13,8 +9,6 @@ public class ProjectDAO extends DAO<Project> {
 
     //Retrieve the user of the current session
     int userId = Main.getMyUser().userId;
-
-    public void insert(String name, String description, String startDate, String estimateEndDate)throws SQLException{
 
     public Project insert(String name, String description, String startDate, String estimateEndDate)throws SQLException{
 

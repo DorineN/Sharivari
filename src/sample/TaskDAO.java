@@ -1,12 +1,11 @@
 package sample;
 
-import java.lang.reflect.*;
 import java.sql.*;
-import java.sql.Array;
+import java.sql.Connection;
 
 public class TaskDAO extends DAO<Task> {
 
-    public TaskDAO(Connection connection){super(connection); }
+    public TaskDAO(Connection connection){super((java.sql.Connection) connection); }
 
     //Retrieve the user of the current session
     int userId = Main.getMyUser().userId;
@@ -88,7 +87,6 @@ public class TaskDAO extends DAO<Task> {
         return task;
     }
 
-    @Override
     public Task find(int id){
         Task task = new Task();
 
@@ -137,7 +135,6 @@ public class TaskDAO extends DAO<Task> {
         return task;
     }
 
-    @Override
     public boolean update(Task task){
         boolean result = false;
 
