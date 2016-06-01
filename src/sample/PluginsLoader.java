@@ -30,15 +30,12 @@ public class PluginsLoader {
         File dir = new File ("plugin/");
         System.out.println(dir.getName());
         this.files=dir.list();
-        if (this.files!=null) {
+        if (this.files != null) {
             System.out.println("liste des plugins : ");
-            if (this.files.length > 0) {
-                for (int i = 0; i < this.files.length; i++) {
-                    System.out.println(this.files[i]);
+                for (String file : this.files) {
+                    System.out.println(file);
                 }
-            }
         }
-
     }
 
     /**
@@ -111,7 +108,7 @@ public class PluginsLoader {
         }
 
         File[] f = new File[this.files.length];
-//		Pour charger le .jar en memoire
+		// Pour charger le .jar en memoire
         URLClassLoader loader;
         //Pour la comparaison de chaines
         String tmp = "";
@@ -123,11 +120,6 @@ public class PluginsLoader {
         for(int index = 0 ; index < f.length ; index ++ ){
 
             f[index] = new File(this.files[index]);
-
-           /* if(!f[index].exists() ) {
-                System.out.println("break pour "+index);
-                break;
-            }*/
 
             URL u = f[index].toURL();
             //On créer un nouveau URLClassLoader pour charger le jar qui se trouve ne dehors du CLASSPATH
@@ -154,24 +146,21 @@ public class PluginsLoader {
 
                     for(int i = 0 ; i < tmpClass.getInterfaces().length; i ++ ){
 
-                        System.out.println(tmpClass.getInterfaces()[i].getName().toString());
+                        System.out.println(tmpClass.getInterfaces()[i].getName());
 
                         //Une classe ne doit pas appartenir à deux catégories de plugins différents.
                         //Si tel est le cas on ne la place que dans la catégorie de la première interface correct
                         // trouvée
-                        if(tmpClass.getInterfaces()[i].getName().toString().equals("sample.StringPlugins") ) {
+                        if(tmpClass.getInterfaces()[i].getName().equals("sample.StringPlugins") ) {
                             this.classStringPlugins.add(tmpClass);
 
                         }
                         else {
-                            if( tmpClass.getInterfaces()[i].getName().toString().equals("sample.IntPlugins") ) {
+                            if( tmpClass.getInterfaces()[i].getName().equals("sample.IntPlugins") ) {
                                 this.classIntPlugins.add(tmpClass);
                             }
                         }
                     }
-
-                  //  System.out.println(this.classStringPlugins.get(0));
-
                 }
             }
         }
