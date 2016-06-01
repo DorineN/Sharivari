@@ -2,20 +2,15 @@ package sample;
 
 /**
  * Created by Loïc on 28/05/2016.
- */
+ **/
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.jar.JarFile;
 
-/**
- * Classe gérant le chargement et la validation des plugins
- * @author Lainé Vincent (dev01, http://vincentlaine.developpez.com/ )
- *
- */
+
 public class PluginsLoader {
 
     private String[] files = null;
@@ -73,7 +68,7 @@ public class PluginsLoader {
                 //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
                 //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
                 tmpPlugins[index] = (StringPlugins) ((Class) this.classStringPlugins.get(index)).newInstance();
-                System.out.println(tmpPlugins[index].getCategorie());
+                System.out.println(tmpPlugins[index].getLibelle());
             }
         }
         return tmpPlugins;

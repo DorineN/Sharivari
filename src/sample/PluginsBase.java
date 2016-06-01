@@ -6,9 +6,7 @@ package sample;
 
 
 /**
- * Interface de base pour les plugins de notre application.
- * @author Lainé Vincent (dev01, http://vincentlaine.developpez.com/ )
- *
+
  * Cette interface n'est destinée à être directement implémenté dans un plugins,
  * elle sert à définir un comportement commun à toutes les interfaces de plugins.
  *
