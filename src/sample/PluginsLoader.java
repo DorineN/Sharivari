@@ -15,21 +15,20 @@ public class PluginsLoader {
 
     private String[] files = null;
 
-    private ArrayList classStringPlugins;
-    private ArrayList classIntPlugins;
+    private ArrayList<Class> classStringPlugins;
+    private ArrayList<Class> classIntPlugins;
 
 
     /**
      * Constucteur initialisant le tableau de fichier à charger.
      */
     public PluginsLoader(){
-
-        this.classIntPlugins = new ArrayList();
-        this.classStringPlugins = new ArrayList();
+        this.classIntPlugins = new ArrayList<>();
+        this.classStringPlugins = new ArrayList<>();
 
         File dir = new File ("plugin/");
         System.out.println(dir.getName());
-        this.files=dir.list();
+        this.files = dir.list();
         if (this.files != null) {
             System.out.println("liste des plugins : ");
                 for (String file : this.files) {
@@ -38,10 +37,6 @@ public class PluginsLoader {
         }
     }
 
-    /**
-     * Défini l'ensemble des fichiers à charger
-     * @param files
-     */
     public void setFiles(String[] files ){
         this.files = files;
     }
@@ -64,36 +59,12 @@ public class PluginsLoader {
                 System.out.println(" index : " + index);
                 //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
                 //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
-                tmpPlugins[index] = (StringPlugins) ((Class) this.classStringPlugins.get(index)).newInstance();
+                tmpPlugins[index] = (StringPlugins) (this.classStringPlugins.get(index)).newInstance();
                 System.out.println(tmpPlugins[index].getLibelle());
             }
         }
-        return tmpPlugins;
-
-    }
-
-    /**
-     * Fonction de chargement de tout les plugins de type IntPlugins
-     * @return Une collection de IntPlugins contenant les instances des plugins
-     * @throws Exception si file = null ou file.length = 0
-     */
-    public IntPlugins[] loadAllIntPlugins() throws Exception {
-
-        this.initializeLoader();
-
-        IntPlugins[] tmpPlugins = new IntPlugins[this.classIntPlugins.size()];
-
-        for(int index = 0 ; index < tmpPlugins.length; index ++ ){
-
-            //On créer une nouvelle instance de l'objet contenu dans la liste grâce à newInstance()
-            //et on le cast en StringPlugins. Vu que la classe implémente StringPlugins, le cast est toujours correct
-            tmpPlugins[index] = (IntPlugins)((Class)this.classIntPlugins.get(index)).newInstance() ;
-
-
-        }
 
         return tmpPlugins;
-
     }
 
     private void initializeLoader() throws Exception{
@@ -103,7 +74,7 @@ public class PluginsLoader {
         }
 
         //Pour eviter le double chargement des plugins
-        if(this.classIntPlugins.size() != 0 || this.classStringPlugins.size() != 0 ){
+        if(!this.classIntPlugins.isEmpty() || !this.classStringPlugins.isEmpty()){
             return ;
         }
 
@@ -111,11 +82,11 @@ public class PluginsLoader {
 		// Pour charger le .jar en memoire
         URLClassLoader loader;
         //Pour la comparaison de chaines
-        String tmp = "";
+        String tmp;
         //Pour le contenu de l'archive jar
         Enumeration enumeration;
         //Pour déterminé quels sont les interfaces implémentées
-        Class tmpClass = null;
+        Class tmpClass;
 
         for(int index = 0 ; index < f.length ; index ++ ){
 
@@ -132,34 +103,26 @@ public class PluginsLoader {
             enumeration = jar.entries();
 
             while(enumeration.hasMoreElements()){
-
                 tmp = enumeration.nextElement().toString();
 
                 //On vérifie que le fichier courant est un .class (et pas un fichier d'informations du jar )
                 if(tmp.length() > 6 && tmp.substring(tmp.length()-6).compareTo(".class") == 0) {
-
-                    tmp = tmp.substring(0,tmp.length()-6);
-                    tmp = tmp.replaceAll("/",".");
+                    tmp = tmp.substring(0,tmp.length() - 6);
+                    tmp = tmp.replaceAll("/", ".");
 
                     tmpClass = Class.forName(tmp ,true, loader);
                     System.out.println("interface : " + tmpClass.getInterfaces().length);
 
-                    for(int i = 0 ; i < tmpClass.getInterfaces().length; i ++ ){
-
+                    for(int i = 0 ; i < tmpClass.getInterfaces().length; i ++){
                         System.out.println(tmpClass.getInterfaces()[i].getName());
 
                         //Une classe ne doit pas appartenir à deux catégories de plugins différents.
                         //Si tel est le cas on ne la place que dans la catégorie de la première interface correct
                         // trouvée
-                        if(tmpClass.getInterfaces()[i].getName().equals("sample.StringPlugins") ) {
+                        if("sample.StringPlugins".equals(tmpClass.getInterfaces()[i].getName()))
                             this.classStringPlugins.add(tmpClass);
-
-                        }
-                        else {
-                            if( tmpClass.getInterfaces()[i].getName().equals("sample.IntPlugins") ) {
-                                this.classIntPlugins.add(tmpClass);
-                            }
-                        }
+                        else if("sample.IntPlugins".equals(tmpClass.getInterfaces()[i].getName()))
+                            this.classIntPlugins.add(tmpClass);
                     }
                 }
             }
