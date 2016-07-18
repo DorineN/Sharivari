@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MenuController">
     <children>
-        <BorderPane>
+        <BorderPane layoutY="14.0">
             <left>
                 <GridPane BorderPane.alignment="CENTER">
                     <columnConstraints>
@@ -23,21 +23,14 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #FFB800;" text="Document" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuDocument" style="-fx-background-color: #FFB800;" text="Document" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <Button minWidth="80.0" mnemonicParsing="false"  onAction="#handleMenuPlugin" style="-fx-background-color: #f3872c;" text="Plugin" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </Button>
-                        <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #44C2D9;" text="Accueil" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuHome" style="-fx-background-color: #44C2D9;" text="Accueil" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
@@ -55,17 +48,12 @@
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #e1e5cd;" text="Tâche" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuTask" style="-fx-background-color: #e1e5cd;" text="Tâche" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #F2D280;" text="Tchat" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </Button>
-                        <Button fx:id="linkAccount" minWidth="80.0" mnemonicParsing="false" onAction="#showAccount" style="-fx-background-color: #fa6900;" text="Compte" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                        <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuTchat" style="-fx-background-color: #F2D280;" text="Tchat" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>

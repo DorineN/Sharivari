@@ -3,9 +3,9 @@ package sample.controller;
 import javafx.fxml.FXML;
 import sample.Main;
 
-import javax.naming.NamingException;
+
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 /**
  * Created by Loïc on 18/07/2016.
@@ -17,7 +17,7 @@ public class MenuController {
 
 
     @FXML
-    public void showAccount(){
+    public void handleMenuAccount(){
         try{
             mainApp.showMyAccount();
         }catch(IOException e){
@@ -35,9 +35,8 @@ public class MenuController {
         }
     }
     @FXML
-    public void handleMenuCalendar() throws NamingException {
+    public void handleMenuCalendar(){
         //GO HOME
-
         try {
             mainApp.showCalendar();
         } catch (IOException e) {
@@ -46,15 +45,51 @@ public class MenuController {
     }
 
     @FXML
-    public void handleMenuPlugin() throws NamingException {
+    public void handleMenuPlugin(){
         //GO HOME
-
         try {
             mainApp.showPlugin();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleMenuHome(){
+        try{
+            mainApp.showHome();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleMenuTask(){
+        /*try{
+            mainApp.showTask();
+        }catch(IOException e){
+            e.printStackTrace();
+        }*/
+    }
+
+    @FXML
+    public void handleMenuTchat(){
+       /* try{
+            mainApp.showTchat();
+        }catch(IOException e){
+            e.printStackTrace();
+        }*/
+    }
+
+    @FXML
+    public void handleMenuDocument(){
+       /* try{
+            mainApp.showDocument();
+        }catch(IOException e){
+            e.printStackTrace();
+        }*/
+    }
+
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }

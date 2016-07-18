@@ -23,7 +23,8 @@ public class Main extends Application {
     private static User myUser = new User();
     public static Project myProject = new Project();
     public static PluginsLoader pluginsLoader;
-    public  AnchorPane menuOverview;
+    public  AnchorPane menuProject;
+    public  AnchorPane menuHome;
 
     // Main method
     public static void main(String[] args){
@@ -50,14 +51,22 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/sample.fxml"));
             rootLayout = loader.load();
 
-            // Load Menu overview.
+            // Load Menu Project overview.
             FXMLLoader loaderMenu = new FXMLLoader();
-            loaderMenu.setLocation(Main.class.getResource("view/MenuView.fxml"));
-            menuOverview = loaderMenu.load();
+            loaderMenu.setLocation(Main.class.getResource("view/MenuProjectView.fxml"));
+            menuProject = loaderMenu.load();
 
-            rootLayout.getChildren().add(menuOverview);
+            rootLayout.getChildren().add(menuProject);
 
-            menuOverview.setVisible(false);
+            // Load Menu Project overview.
+            FXMLLoader loaderMenuHome = new FXMLLoader();
+            loaderMenuHome.setLocation(Main.class.getResource("view/MenuHomeView.fxml"));
+            menuHome = loaderMenuHome.load();
+
+            rootLayout.getChildren().add(menuHome);
+
+            menuProject.setVisible(false);
+            menuHome.setVisible(false);
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -70,6 +79,10 @@ public class Main extends Application {
             // Give the controller access to the main app.
             MenuController controllerMenu = loaderMenu.getController();
             controllerMenu.setMainApp(this);
+
+            // Give the controller access to the main app.
+            MenuController controllerMenuHome = loaderMenuHome.getController();
+            controllerMenuHome.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,20 +128,24 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
-            this.primaryStage.setResizable(true);
+
             this.primaryStage.setMinWidth(1280);
             this.primaryStage.setMinHeight(800);
             this.primaryStage.setTitle("Sharin - Home");
+            this.primaryStage.setResizable(true);
 
-            menuOverview.setVisible(false);
-
+            menuProject.setVisible(false);
+            menuHome.setVisible(true);
             // Set person overview into the center of root layout.
             rootLayout.setCenter(homeOverview);
 
             // Give the controller access to the main app.
             HomeController controller = loader.getController();
             controller.setMainApp(this);
-            menuOverview.toFront();
+
+            //for the button Priority
+            menuHome.toFront();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,9 +159,9 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/ProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
-            menuOverview.setVisible(true);
+            menuProject.setVisible(true);
+            menuHome.setVisible(false);
 
-            this.primaryStage.setResizable(true);
             this.primaryStage.setMinWidth(1280);
             this.primaryStage.setMinHeight(800);
             this.primaryStage.setTitle("Sharin - Project");
@@ -159,7 +176,7 @@ public class Main extends Application {
             // Give the controller access to the main app.
             ProjectController controller = loader.getController();
             controller.setMainApp(this);
-
+            menuProject.toFront();
 
 
         } catch (IOException e) {
@@ -199,8 +216,6 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/SubscribeView.fxml"));
             AnchorPane inscriptionOverview = loader.load();
 
-
-            this.primaryStage.setResizable(false);
             this.primaryStage.setTitle("Sharin - Inscription");
 
             // Set person overview into the center of root layout.
@@ -267,7 +282,6 @@ public class Main extends Application {
             AnchorPane pluginOverview = loader.load();
 
 
-            this.primaryStage.setResizable(false);
             this.primaryStage.setTitle("Sharin - Plugin");
 
             // Set person overview into the center of root layout.
