@@ -21,7 +21,7 @@ public class TaskDAO extends DAO<Task> {
         // Insert request
         try {
 
-            requests[0] = this.connection.prepareStatement("SELECT DISTINCT(nameTask) as nameTask, task.idTask, descriptionTask, estimateStartDateTask, realStartDateTask, estimateEndDateTask, realEndDateTask, idProject, idPriority FROM task, execute WHERE estimateStartDateTask= ? AND idUser = ? AND idProject= ? ");
+            requests[0] = this.connection.prepareStatement("SELECT DISTINCT(nameTask) as nameTask, task.idTask, descriptionTask, estimateStartDateTask, realStartDateTask, estimateEndDateTask, realEndDateTask, idProject, idPriority FROM task, execute WHERE estimateStartDateTask= ? AND execute.idUser = ? AND idProject= ? ");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,8 +54,8 @@ public class TaskDAO extends DAO<Task> {
             res = req.executeQuery();
 
             int i = 0;
-            if(res.first()){
-
+            while(res.first()){
+                System.out.println("test");
                 tTask.add(new Task(res.getInt("idTask"), res.getString("nameTask"), res.getString("descriptionTask"), res.getDate("estimateStartDateTask"),res.getDate("realStartDateTask"), res.getDate("estimateEndDateTask"), res.getDate("realEndDateTask"),  res.getInt("idProject"), res.getInt("idPriority")));
 
 

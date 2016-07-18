@@ -38,7 +38,7 @@ public class Main extends Application {
         initRootLayout();
 
         //showConnection();
-        showSharedFiles();
+        showConnection();
     }
 
     // Routes

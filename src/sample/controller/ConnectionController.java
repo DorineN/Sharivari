@@ -79,7 +79,7 @@ public class ConnectionController {
         }else {
 
             try {
-                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "").getConnexion());
+                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
                 User user = userDao.findConnection(loginContent,password);
                 if (user != null){
                     Main.setMyUser(user);
