@@ -1,9 +1,14 @@
-package sample;
+package sample.model;
+
+import sample.Main;
+import sample.model.DAO;
+import sample.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class UserDAO extends DAO<User> implements UserDAOInterface{
     private PreparedStatement[] requests = new PreparedStatement[3];

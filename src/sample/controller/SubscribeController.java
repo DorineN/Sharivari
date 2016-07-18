@@ -6,8 +6,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.MySQLConnexion;
-import sample.UserDAO;
+import sample.model.MySQLConnexion;
+import sample.model.UserDAO;
 import java.io.IOException;
 import java.sql.*;
 

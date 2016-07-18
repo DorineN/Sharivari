@@ -1,4 +1,4 @@
-package sample;
+package sample.model;
 
 /**
  * Created by Loïc on 21/05/2016.

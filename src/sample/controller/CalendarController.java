@@ -1,17 +1,16 @@
 package sample.controller;
 
-import sample.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.Main;
-import sample.MySQLConnexion;
+import sample.model.MySQLConnexion;
+import sample.model.Task;
+import sample.model.TaskDAO;
 
 import javax.naming.NamingException;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class CalendarController {
 
     //Attributes
 
-    TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+    TaskDAO taskDAO = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
     private Main mainApp;
     Calendar date = Calendar.getInstance();;
     int month = date.get(date.MONTH);
@@ -98,7 +97,7 @@ public class CalendarController {
         //System.out.println(maxDay);
         //System.out.println(year);
         //System.out.println(month);
-        System.out.println(mainApp.getMyProject().getProjectId());
+        System.out.println(mainApp.myProject.getProjectId());
 
         System.out.print(date);
         title.setText(tMonth[month] + " " + year);
@@ -176,10 +175,10 @@ public class CalendarController {
             String dateCase = year +"-" +(month+1)+"-"+i;
 
 
-          /*  myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
-            if(myTask.length>0){
+            myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
+            if(myTask!=null){
                 System.out.println(myTask[0].getNameTask());
-            }*/
+            }
             pDays[i-1].getChildren().add(new Label("" + i));
             pDays[i-1].getChildren().add(new Label("\n" ));
 
@@ -198,46 +197,6 @@ public class CalendarController {
 
     }
 
-
-
-
-    @FXML
-    public void backHome(){
-        try{
-            mainApp.showHome();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    public void showAccount(){
-        try{
-            mainApp.showMyAccount();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleMenuProject() throws NamingException {
-        //GO HOME
-        try {
-            mainApp.showProject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void handleMenuCalendar() throws NamingException {
-        //GO HOME
-        try {
-            mainApp.showCalendar();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }

@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import sample.controller.*;
 
@@ -9,16 +8,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import sample.model.PluginsLoader;
+import sample.model.Project;
+import sample.model.User;
 
 import java.io.IOException;
+
 
 public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+
     private static User myUser = new User();
-    private static Project myProject = new Project();
-    private static PluginsLoader pluginsLoader;
+    public static Project myProject = new Project();
+    public static PluginsLoader pluginsLoader;
+    public  AnchorPane menuProject;
+    public  AnchorPane menuHome;
 
     // Main method
     public static void main(String[] args){
@@ -45,15 +51,38 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/sample.fxml"));
             rootLayout = loader.load();
 
+            // Load Menu Project overview.
+            FXMLLoader loaderMenu = new FXMLLoader();
+            loaderMenu.setLocation(Main.class.getResource("view/MenuProjectView.fxml"));
+            menuProject = loaderMenu.load();
+
+            rootLayout.getChildren().add(menuProject);
+
+            // Load Menu Project overview.
+            FXMLLoader loaderMenuHome = new FXMLLoader();
+            loaderMenuHome.setLocation(Main.class.getResource("view/MenuHomeView.fxml"));
+            menuHome = loaderMenuHome.load();
+
+            rootLayout.getChildren().add(menuHome);
+
+            menuProject.setVisible(false);
+            menuHome.setVisible(false);
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
-            //Load the css file
-            scene.getStylesheets().add(getClass().getResource("style/style.css").toExternalForm());
             // Show the Sharin icon
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
             primaryStage.setTitle("Sharin");
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            // Give the controller access to the main app.
+            MenuController controllerMenu = loaderMenu.getController();
+            controllerMenu.setMainApp(this);
+
+            // Give the controller access to the main app.
+            MenuController controllerMenuHome = loaderMenuHome.getController();
+            controllerMenuHome.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,6 +96,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
             AnchorPane connectionOverview = loader.load();
 
+
             this.primaryStage.setResizable(false);
             this.primaryStage.setTitle("Sharin - Connection");
 
@@ -75,6 +105,7 @@ public class Main extends Application {
 
             pluginsLoader = new PluginsLoader();
             pluginsLoader.loadAllStringPlugins();
+
 
 
             // Give the controller access to the main app.
@@ -88,6 +119,7 @@ public class Main extends Application {
         }
     }
 
+
     // Home
     public void showHome() throws IOException {
         try {
@@ -96,11 +128,14 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
-            this.primaryStage.setResizable(true);
+
             this.primaryStage.setMinWidth(1280);
             this.primaryStage.setMinHeight(800);
             this.primaryStage.setTitle("Sharin - Home");
+            this.primaryStage.setResizable(true);
 
+            menuProject.setVisible(false);
+            menuHome.setVisible(true);
             // Set person overview into the center of root layout.
             rootLayout.setCenter(homeOverview);
 
@@ -108,6 +143,8 @@ public class Main extends Application {
             HomeController controller = loader.getController();
             controller.setMainApp(this);
 
+            //for the button Priority
+            menuHome.toFront();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,24 +159,32 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/ProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
-            this.primaryStage.setResizable(true);
+            menuProject.setVisible(true);
+            menuHome.setVisible(false);
+
             this.primaryStage.setMinWidth(1280);
             this.primaryStage.setMinHeight(800);
             this.primaryStage.setTitle("Sharin - Project");
 
+
+
             // Set person overview into the center of root layout.
             rootLayout.setCenter(projectOverview);
+
+
 
             // Give the controller access to the main app.
             ProjectController controller = loader.getController();
             controller.setMainApp(this);
+            menuProject.toFront();
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Project
+    // Calendar
     public void showCalendar() throws IOException {
         try {
             // Load home overview.
@@ -147,9 +192,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/CalendarView.fxml"));
             AnchorPane calendarOverview = loader.load();
 
-            this.primaryStage.setResizable(true);
-            this.primaryStage.setMinWidth(1280);
-            this.primaryStage.setMinHeight(800);
+
             this.primaryStage.setTitle("Sharin - Calendar");
 
             // Set person overview into the center of root layout.
@@ -157,6 +200,31 @@ public class Main extends Application {
 
             // Give the controller access to the main app.
             CalendarController controller = loader.getController();
+            controller.setMainApp(this);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //Tchat
+    public void showTchat() throws IOException {
+        try {
+            // Load home overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/TchatView.fxml"));
+            AnchorPane tchatOverview = loader.load();
+
+
+            this.primaryStage.setTitle("Sharin - Tchat");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(tchatOverview);
+
+            // Give the controller access to the main app.
+            TchatController controller = loader.getController();
             controller.setMainApp(this);
 
 
@@ -173,8 +241,6 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/SubscribeView.fxml"));
             AnchorPane inscriptionOverview = loader.load();
 
-
-            this.primaryStage.setResizable(false);
             this.primaryStage.setTitle("Sharin - Inscription");
 
             // Set person overview into the center of root layout.
@@ -189,21 +255,21 @@ public class Main extends Application {
         }
     }
 
-    // Create Project
+    // Task
     public void showCreateProject() throws IOException {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CreateProjectView.fxml"));
-            AnchorPane createProjectOverview = loader.load();
+            AnchorPane projectOverview = loader.load();
 
-            this.primaryStage.setTitle("Sharin - Créer votre projet");
+            this.primaryStage.setTitle("Sharin - Create Project");
 
             // Set person overview into the center of root layout.
-            rootLayout.setCenter(createProjectOverview);
+            rootLayout.setCenter(projectOverview);
 
             // Give the controller access to the main app.
-            CreateProjectController controller = loader.getController();
+            ProjectController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -233,29 +299,6 @@ public class Main extends Application {
         }
     }
 
-    // Create Task
-    public void showCreateTask() throws IOException {
-        try {
-            // Load connexion overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/CreateTaskView.fxml"));
-            AnchorPane projectOverview = loader.load();
-
-            this.primaryStage.setTitle("Sharin - Créer une nouvelle tâche");
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(projectOverview);
-
-            // Give the controller access to the main app.
-            TaskController controller = loader.getController();
-            controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     // My Account
     public void showMyAccount() throws IOException {
         try {
@@ -272,6 +315,7 @@ public class Main extends Application {
             // Give the controller access to the main app.
             AccountController controller = loader.getController();
             controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -284,7 +328,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/PluginView.fxml"));
             AnchorPane pluginOverview = loader.load();
 
-            this.primaryStage.setResizable(false);
+
             this.primaryStage.setTitle("Sharin - Plugin");
 
             // Set person overview into the center of root layout.
@@ -293,6 +337,7 @@ public class Main extends Application {
             // Give the controller access to the main app.
             PluginController controller = loader.getController();
             controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

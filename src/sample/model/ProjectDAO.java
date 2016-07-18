@@ -1,4 +1,7 @@
-package sample;
+package sample.model;
+
+import sample.model.DAO;
+import sample.model.Project;
 
 import java.sql.Connection;
 import java.sql.*;
