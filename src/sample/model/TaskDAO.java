@@ -10,6 +10,7 @@ package sample.model;
  import java.sql.PreparedStatement;
  import java.sql.ResultSet;
  import java.sql.SQLException;
+ import java.util.ArrayList;
 
 public class TaskDAO extends DAO<Task> {
     private PreparedStatement[] requests = new PreparedStatement[1];
@@ -20,7 +21,7 @@ public class TaskDAO extends DAO<Task> {
         // Insert request
         try {
 
-            requests[0] = this.connection.prepareStatement("SELECT * FROM task, execute WHERE estimateStartDateTask= ? AND idUser = ? AND idProject= ? ");
+            requests[0] = this.connection.prepareStatement("SELECT DISTINCT(nameTask) as nameTask, task.idTask, descriptionTask, estimateStartDateTask, realStartDateTask, estimateEndDateTask, realEndDateTask, idProject, idPriority FROM task, execute WHERE estimateStartDateTask= ? AND idUser = ? AND idProject= ? ");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,9 +41,9 @@ public class TaskDAO extends DAO<Task> {
     }
 
 
-    public Task[] findTask(String date,int idUser, int idProject){
+    public ArrayList<Task> findTask(String date,int idUser, int idProject){
 
-        Task tTask[] = null;
+        ArrayList<Task> tTask =  new ArrayList();
         try{
             PreparedStatement req = requests[0];
             ResultSet res;
@@ -53,12 +54,11 @@ public class TaskDAO extends DAO<Task> {
             res = req.executeQuery();
 
             int i = 0;
-
             if(res.first()){
 
-                tTask[i] = new Task(res.getInt("idTask"), res.getString("nameTask"), res.getString("descriptionTask"), res.getDate("estimateStartDateTask"),
-                        res.getDate("realStartDateTask"), res.getDate("estimateEndDateTask"), res.getDate("realEndDateTask"),
-                        res.getInt("idProject"), res.getInt("idPriority"));
+                tTask.add(new Task(res.getInt("idTask"), res.getString("nameTask"), res.getString("descriptionTask"), res.getDate("estimateStartDateTask"),res.getDate("realStartDateTask"), res.getDate("estimateEndDateTask"), res.getDate("realEndDateTask"),  res.getInt("idProject"), res.getInt("idPriority")));
+
+
             }
 
 

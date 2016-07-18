@@ -20,19 +20,14 @@ public class ProjectDAO extends DAO<Project> {
             requests[0] = this.connection.prepareStatement("INSERT INTO project(nameProject, descriptionProject, startDateProject, estimateEndDateProject) VALUES(" +
                     "?, ?, ?, ?)",  Statement.RETURN_GENERATED_KEYS);
 
-
             requests[1] = this.connection.prepareStatement("SELECT * FROM project WHERE idProject=? ");
-
 
             requests[2] = this.connection.prepareStatement("INSERT INTO participate(idRole, idUser, idProject) VALUES (" +
                     "?, ?, ?)");
 
-
             requests[3] = this.connection.prepareStatement("SELECT * FROM project WHERE idProject=?");
 
-
             requests[4] = this.connection.prepareStatement("SELECT * FROM project WHERE nameProject=?");
-
 
             requests[5] = this.connection.prepareStatement("UPDATE project SET idProject = ?, nameProject = ?, descriptionProject = ?, startDateProject = ?, realEndDaTeEndProject = ?, estimateEndDateProject = ? WHERE idProject = ?");
 
