@@ -49,9 +49,9 @@ public class HomeController {
     @FXML
     public void listingProject()  {
         try {
-            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
+            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "").getConnexion());
             int tab[] = userDao.findUserProject();
-            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
+            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "").getConnexion());
 
             listProject.getItems().clear();
             for(int i = 0; i< tab.length; i++){

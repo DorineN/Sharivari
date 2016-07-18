@@ -74,11 +74,11 @@ public class MenuController {
 
     @FXML
     public void handleMenuTchat(){
-       try{
+       /*try{
             mainApp.showTchat();
         }catch(IOException e){
             e.printStackTrace();
-        }
+        }*/
     }
 
     @FXML
