@@ -11,6 +11,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import sample.*;
+import sample.model.MySQLConnexion;
+import sample.model.Project;
+import sample.model.ProjectDAO;
+import sample.model.UserDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -99,7 +103,7 @@ public class CreateProjectController {
 
 
         try {
-            ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
+            ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "root").getConnexion());
             Project project = projectDAO.insert(varName, varDesc, varStart, varEnd);
 
             if (!"".equals(project.getProjectId())) {
@@ -252,7 +256,7 @@ public class CreateProjectController {
     @FXML
     public void listingRole()  {
         try {
-            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "mdp").getConnexion());
+            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "root").getConnexion());
             String tab[] = userDao.findRole();
 
             //comboBoxRoleName.getItems().clear();

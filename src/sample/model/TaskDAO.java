@@ -9,19 +9,32 @@ package sample.model;
  import java.sql.Connection;
  import java.sql.PreparedStatement;
  import java.sql.ResultSet;
+ import java.sql.SQLException;
 
 public class TaskDAO extends DAO<Task> {
+    private PreparedStatement[] requests = new PreparedStatement[1];
+    public TaskDAO(Connection connection)  {
 
-    public TaskDAO(Connection connection){
         super(connection);
+
+        // Insert request
+        try {
+
+            requests[0] = this.connection.prepareStatement("SELECT * FROM task, execute WHERE estimateStartDateTask= ? AND idUser = ? AND idProject= ? ");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
-    @Override
+
     public Task find(int p_id) {
         return null;
     }
 
-    @Override
+
     public boolean update(Task p_obj) {
         return false;
     }
@@ -29,21 +42,26 @@ public class TaskDAO extends DAO<Task> {
 
     public Task[] findTask(String date,int idUser, int idProject){
 
-        Task tTask[] =null;
+        Task tTask[] = null;
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT count (idTask) as nbResult, * FROM task WHERE estiamteStartDateTask=?, idUser=? , idProject=?");
+            PreparedStatement req = requests[0];
             ResultSet res;
 
-            prepare.setString(1, date);
-            prepare.setInt(2, idUser);
-            prepare.setInt(3, idProject);
-            res = prepare.executeQuery();
+            req.setString(1, date);
+            req.setInt(2, idUser);
+            req.setInt(3, idProject);
+            res = req.executeQuery();
+
+            int i = 0;
 
             if(res.first()){
 
+                tTask[i] = new Task(res.getInt("idTask"), res.getString("nameTask"), res.getString("descriptionTask"), res.getDate("estimateStartDateTask"),
+                        res.getDate("realStartDateTask"), res.getDate("estimateEndDateTask"), res.getDate("realEndDateTask"),
+                        res.getInt("idProject"), res.getInt("idPriority"));
             }
 
-            prepare.close();
+
             res.close();
         }catch(Exception e){
             e.printStackTrace();

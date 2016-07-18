@@ -1,4 +1,6 @@
-package sample;
+package sample.util;
+
+import sample.model.User;
 
 public interface UserDAOInterface {
     void insert(String login, String pwd, String lastName, String firstName, String mail, int phone, String company);

@@ -13,12 +13,14 @@ public class Task {
     protected Date realStartDateTask = null;
     protected Date estimateEndDateTask = null;
     protected Date realEndDateTask = null;
+    protected int idProject  = 0;
+    protected int idPriority  = 0;
 
     public Task(){
         // Empty constructor
     }
 
-    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask){
+    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask, int idProject, int idPriority){
         this.idTask=idTask;
         this.nameTask=nameTask;
         this.descriptionTask=descriptionTask;
@@ -26,6 +28,9 @@ public class Task {
         this.realStartDateTask=realStartDateTask;
         this.estimateEndDateTask=estimateEndDateTask;
         this.realEndDateTask=realEndDateTask;
+        this.idProject=idProject;
+        this.idPriority=idPriority;
+
     }
 
     public int getIdTask() {

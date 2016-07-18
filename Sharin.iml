@@ -29,5 +29,6 @@
     </orderEntry>
     <orderEntry type="library" exported="" name="junit" level="application" />
     <orderEntry type="library" name="commons-net-3.3" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.38-bin" level="application" />
   </component>
 </module>

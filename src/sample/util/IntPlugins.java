@@ -1,4 +1,4 @@
-package sample;
+package sample.util;
 
 /**
  * Created by Loïc on 28/05/2016.

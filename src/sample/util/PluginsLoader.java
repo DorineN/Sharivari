@@ -1,8 +1,9 @@
-package sample;
+package sample.util;
 
 /**
  * Created by Loïc on 28/05/2016.
  **/
+
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -13,7 +14,7 @@ import java.util.jar.JarFile;
 
 public class PluginsLoader {
 
-    private String[] files = null;
+    public String[] files = null;
 
     private ArrayList<Class> classStringPlugins;
     private ArrayList<Class> classIntPlugins;
@@ -27,12 +28,12 @@ public class PluginsLoader {
         this.classStringPlugins = new ArrayList<>();
 
         File dir = new File ("plugin/");
-        System.out.println(dir.getName());
+        //System.out.println(dir.getName());
         this.files = dir.list();
         if (this.files != null) {
-            System.out.println("liste des plugins : ");
+            //System.out.println("liste des plugins : ");
                 for (String file : this.files) {
-                    System.out.println(file);
+                    //System.out.println(file);
                 }
         }
     }
@@ -53,7 +54,7 @@ public class PluginsLoader {
 
                 tmpPlugins = new StringPlugins[this.classStringPlugins.size()];
 
-            System.out.println("LENGTH : " + tmpPlugins.length);
+           // System.out.println("LENGTH : " + tmpPlugins.length);
 
             for (int index = 0; index < tmpPlugins.length; index++) {
                 System.out.println(" index : " + index);
@@ -90,7 +91,7 @@ public class PluginsLoader {
 
         for(int index = 0 ; index < f.length ; index ++ ){
 
-            f[index] = new File(this.files[index]);
+            f[index] = new File("plugin\\"+this.files[index]);
 
             URL u = f[index].toURL();
             //On créer un nouveau URLClassLoader pour charger le jar qui se trouve ne dehors du CLASSPATH
@@ -111,17 +112,17 @@ public class PluginsLoader {
                     tmp = tmp.replaceAll("/", ".");
 
                     tmpClass = Class.forName(tmp ,true, loader);
-                    System.out.println("interface : " + tmpClass.getInterfaces().length);
+                   // System.out.println("interface : " + tmpClass.getInterfaces().length);
 
                     for(int i = 0 ; i < tmpClass.getInterfaces().length; i ++){
-                        System.out.println(tmpClass.getInterfaces()[i].getName());
+                        //System.out.println(tmpClass.getInterfaces()[i].getName());
 
                         //Une classe ne doit pas appartenir à deux catégories de plugins différents.
                         //Si tel est le cas on ne la place que dans la catégorie de la première interface correct
                         // trouvée
-                        if("sample.StringPlugins".equals(tmpClass.getInterfaces()[i].getName()))
+                        if("sample.util.StringPlugins".equals(tmpClass.getInterfaces()[i].getName()))
                             this.classStringPlugins.add(tmpClass);
-                        else if("sample.IntPlugins".equals(tmpClass.getInterfaces()[i].getName()))
+                        else if("sample.util.IntPlugins".equals(tmpClass.getInterfaces()[i].getName()))
                             this.classIntPlugins.add(tmpClass);
                     }
                 }

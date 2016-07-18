@@ -48,40 +48,9 @@ public class CalendarController {
     @FXML
     private Label title;
 
-    //pane for calendar :
-    Pane pane1 = new Pane();
-    Pane pane2 = new Pane();
-    Pane pane3 = new Pane();
-    Pane pane4 = new Pane();
-    Pane pane5 = new Pane();
-    Pane pane6 = new Pane();
-    Pane pane7 = new Pane();
-    Pane pane8 = new Pane();
-    Pane pane9 = new Pane();
-    Pane pane10 = new Pane();
-    Pane pane11 = new Pane();
-    Pane pane12 = new Pane();
-    Pane pane13 = new Pane();
-    Pane pane14 = new Pane();
-    Pane pane15 = new Pane();
-    Pane pane16 = new Pane();
-    Pane pane17 = new Pane();
-    Pane pane18 = new Pane();
-    Pane pane19 = new Pane();
-    Pane pane20 = new Pane();
-    Pane pane21 = new Pane();
-    Pane pane22 = new Pane();
-    Pane pane23 = new Pane();
-    Pane pane24 = new Pane();
-    Pane pane25 = new Pane();
-    Pane pane26 = new Pane();
-    Pane pane27 = new Pane();
-    Pane pane28 = new Pane();
-    Pane pane29 = new Pane();
-    Pane pane30 = new Pane();
-    Pane pane31 = new Pane();
 
-    Pane[] pDays = new Pane[] { pane1,pane2,pane3,pane4,pane5,pane6,pane7,pane8,pane9,pane10,pane11,pane12,pane13,pane14,pane15,pane16,pane17,pane18,pane19,pane20,pane21,pane22,pane23,pane24,pane25,pane26,pane27,pane28,pane29,pane30,pane31};
+
+    Pane[] pDays = new Pane[31];
     Task myTask[];
 
     private Stage dialogStage;
@@ -97,9 +66,9 @@ public class CalendarController {
         //System.out.println(maxDay);
         //System.out.println(year);
         //System.out.println(month);
-        System.out.println(mainApp.myProject.getProjectId());
+       // System.out.println(mainApp.myProject.getProjectId());
 
-        System.out.print(date);
+        //System.out.print(date);
         title.setText(tMonth[month] + " " + year);
 
 
@@ -117,7 +86,7 @@ public class CalendarController {
 
         date.set(year, month,1);
         maxDay = date.getActualMaximum(Calendar.DAY_OF_MONTH);
-        System.out.println(maxDay);
+        //System.out.println(maxDay);
         title.setText(tMonth[month] + " " + year);
 
         gridPane.getChildren().clear();
@@ -136,7 +105,7 @@ public class CalendarController {
 
         date.set(year, month,1);
         maxDay = date.getActualMaximum(Calendar.DAY_OF_MONTH);
-        System.out.println(maxDay);
+        //System.out.println(maxDay);
 
         title.setText(tMonth[month] + " " + year);
 
@@ -166,6 +135,8 @@ public class CalendarController {
         int numSemaine = 0;
         gridPane.setAlignment(Pos.CENTER);
         for (int i = 1; i<=maxDay; i++){
+            pDays[i-1] = new Pane();
+            pDays[i-1].setStyle("-fx-border-color: #e1e5cd; -fx-background-color : white; -fx-padding : 10px; -fx-width:100%;");
 
             if (j==7){
                 j=0;
@@ -176,17 +147,16 @@ public class CalendarController {
 
 
             myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
+
             if(myTask!=null){
-                System.out.println(myTask[0].getNameTask());
+                System.out.println("test" + myTask[0].getNameTask());
             }
-            pDays[i-1].getChildren().add(new Label("" + i));
+            pDays[i-1].getChildren().add(new Label(" " + i));
             pDays[i-1].getChildren().add(new Label("\n" ));
 
             //recup task
 
 
-            pDays[i-1].setStyle("fx-background-color : white");
-            pDays[i-1].setStyle("fx-border-color : black");
             gridPane.add(pDays[i-1], j, numSemaine);
 
 

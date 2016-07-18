@@ -1,8 +1,10 @@
-package sample;
+package sample.util;
 
 /**
  * Created by Loïc on 28/05/2016.
  */
+
+import sample.util.PluginsBase;
 
 /**
  * Cette interface est strictement destinée à l'utilisation par des plugins et en aucun cas par des classes internes à notre application

@@ -1,8 +1,7 @@
 package sample.model;
 
 import sample.Main;
-import sample.model.DAO;
-import sample.model.User;
+import sample.util.UserDAOInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class UserDAO extends DAO<User> implements UserDAOInterface{
-    private PreparedStatement[] requests = new PreparedStatement[3];
+public class UserDAO extends DAO<User> implements UserDAOInterface {
+    private PreparedStatement[] requests = new PreparedStatement[10];
 
     public UserDAO(Connection connection){
         super(connection);
@@ -26,6 +25,23 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
 
             // Update request
             requests[2] = this.connection.prepareStatement("UPDATE user SET loginUser = ?, pwdUser = ?, lastNameUser = ?, firstNameUser = ?, mailUser = ?, phoneUser = ?, companyUser = ? WHERE idUser = ?");
+
+            //select request participate
+            requests[3] = this.connection.prepareStatement("SELECT * FROM participate WHERE idUser=? ");
+
+            //select request info user by id
+            requests[4] = this.connection.prepareStatement("SELECT * FROM user WHERE idUser=?");
+
+            //select request info user by login
+            requests[5] = this.connection.prepareStatement("SELECT * FROM user WHERE loginUser=?");
+
+            requests[6] = this.connection.prepareStatement("SELECT loginUser FROM user ");
+
+            requests[7] = this.connection.prepareStatement("SELECT * FROM role");
+
+            requests[8] = this.connection.prepareStatement("SELECT roleId FROM role WHERE roleName=?");
+
+            requests[9] = this.connection.prepareStatement("UPDATE user SET loginUser = ?, pwdUser = ?, lastNameUser = ?, firstNameUser = ?, mailUser = ?, phoneUser = ?, companyUser = ? WHERE idUser = ?");
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -45,7 +61,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
             req.setString(7, company);
 
             req.executeUpdate();
-            req.close();
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -60,11 +76,11 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
         int i = 0;
         int rowcount = 0;
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM participate WHERE idUser=? ");
+            PreparedStatement req = requests[3];
             ResultSet res;
 
-            prepare.setInt(1, userId);
-            res = prepare.executeQuery();
+            req.setInt(1, userId);
+            res = req.executeQuery();
 
             if (res.last()) {
                 rowcount = res.getRow();
@@ -78,7 +94,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
             }
 
             res.close();
-            prepare.close();
+
 
         }catch(Exception e){
             e.printStackTrace();
@@ -87,18 +103,18 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
         return tab;
     }
 
-    @sample.Connection
+    @sample.util.Connection
     @Override
     public User findConnection(String login, String pwd){
-        User user = new User();
+        User user =null;
 
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM user WHERE loginUser=? AND pwdUser=? ");
+            PreparedStatement req = requests[1];
             ResultSet res;
 
-            prepare.setString(1, login);
-            prepare.setString(2, pwd);
-            res = prepare.executeQuery();
+            req.setString(1, login);
+            req.setString(2, pwd);
+            res = req.executeQuery();
 
             if(res.first()){
                 user = new User(res.getInt("idUser"), res.getString("loginUser"), res.getString("lastNameUser"),
@@ -106,7 +122,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
                         res.getString("typeUser"));
             }
 
-            prepare.close();
+
             res.close();
         }catch(Exception e){
             e.printStackTrace();
@@ -119,11 +135,11 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
         User user = new User();
 
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM user WHERE idUser=?");
+            PreparedStatement req = requests[4];
             ResultSet res;
 
-            prepare.setInt(1, id);
-            res = prepare.executeQuery();
+            req.setInt(1, id);
+            res = req.executeQuery();
 
             if(res.first()){
                 user = new User(res.getInt("idUser"), res.getString("loginUser"), res.getString("lastNameUser"),
@@ -131,7 +147,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
                         res.getString("typeUser"));
             }
 
-            prepare.close();
+
             res.close();
         }catch(Exception e){
             e.printStackTrace();
@@ -143,16 +159,16 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
     public int find(String name){
         int idUser = 0;
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT idUser FROM user WHERE loginUser=?");
+            PreparedStatement req = requests[5];
             ResultSet res;
-            prepare.setString(1, name);
-            res = prepare.executeQuery();
+            req.setString(1, name);
+            res = req.executeQuery();
 
             if(res.first()){
                 idUser = res.getInt("idUser");
             }
 
-            prepare.close();
+
             res.close();
         }catch(Exception e){
             e.printStackTrace();
@@ -170,9 +186,9 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
         int i = 0;
         int rowcount = 0;
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT loginUser FROM user ");
+            PreparedStatement req = requests[6];
             ResultSet res;
-            res = prepare.executeQuery();
+            res = req.executeQuery();
 
             if (res.last()) {
                 rowcount = res.getRow();
@@ -186,7 +202,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
             }
 
             res.close();
-            prepare.close();
+
 
         }catch(Exception e){
             e.printStackTrace();
@@ -201,9 +217,9 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
         int i = 0;
         int rowcount = 0;
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT * FROM role");
+            PreparedStatement req = requests[7];
             ResultSet res;
-            res = prepare.executeQuery();
+            res = req.executeQuery();
 
             if (res.last()) {
                 rowcount = res.getRow();
@@ -217,7 +233,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
             }
 
             res.close();
-            prepare.close();
+
 
         }catch(Exception e){
             e.printStackTrace();
@@ -229,17 +245,17 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
     public int findRoleId(String roleName){
         int roleId = 0;
         try{
-            PreparedStatement prepare = connection.prepareStatement("SELECT roleId FROM role WHERE roleName=?");
+            PreparedStatement req = requests[6];
             ResultSet res;
-            prepare.setString(1, roleName);
-            res = prepare.executeQuery();
+            req.setString(1, roleName);
+            res = req.executeQuery();
 
             if(res.first()){
                 roleId = res.getInt("roleId");
             }
 
             res.close();
-            prepare.close();
+
 
         }catch(Exception e){
             e.printStackTrace();
@@ -253,22 +269,21 @@ public class UserDAO extends DAO<User> implements UserDAOInterface{
         boolean result = false;
 
         try{
-            String query = "UPDATE user SET loginUser = ?, pwdUser = ?, lastNameUser = ?, firstNameUser = ?, mailUser = ?, phoneUser = ?, companyUser = ? WHERE idUser = ?";
-            PreparedStatement prepare = connection.prepareStatement(query);
+            PreparedStatement req = requests[9];
 
-            prepare.setString(1, user.getUserLogin());
-            prepare.setString(2, pwd);
-            prepare.setString(3, user.getUserName());
-            prepare.setString(4, user.getUserFirstName());
-            prepare.setString(5, user.getUserMail());
-            prepare.setInt(6, user.getUserPhone());
-            prepare.setString(7, user.getUserCompany());
-            prepare.setInt(8, user.getUserId());
+            req.setString(1, user.getUserLogin());
+            req.setString(2, pwd);
+            req.setString(3, user.getUserName());
+            req.setString(4, user.getUserFirstName());
+            req.setString(5, user.getUserMail());
+            req.setInt(6, user.getUserPhone());
+            req.setString(7, user.getUserCompany());
+            req.setInt(8, user.getUserId());
 
-            if(prepare.executeUpdate() == 1)
+            if(req.executeUpdate() == 1)
                 result = true;
 
-            prepare.close();
+
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import sample.Main;
-import sample.model.PluginsLoader;
+import sample.util.PluginsLoader;
 
 import javax.naming.NamingException;
 import java.io.*;
@@ -96,7 +96,7 @@ public class PluginController {
             tButton[i] = new Button("Supprimer");
 
             tPane[i].getChildren().add(new Label(mainApp.pluginsLoader.files[i]));
-            tPane[i].setStyle("-fx-border-color: #e1e5cd; -fx-background-color : white; -fx-padding : 10px; -fx-width:100%;");
+            tPane[i].setStyle("-fx-border-color: #e1e5cd; -fx-background-color : white; -fx-padding : 10px;");
             gridPane.add(tPane[i], j, i);
             gridPane.add(tButton[i], j+1, i);
 

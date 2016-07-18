@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import sample.model.PluginsLoader;
+import sample.util.PluginsLoader;
 import sample.model.Project;
 import sample.model.User;
 

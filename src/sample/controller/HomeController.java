@@ -74,7 +74,7 @@ public class HomeController {
 
                 String name = listProject.getValue().toString();
                 System.out.println("Le nom du projet sélectionné est : " + name);
-                System.out.println("Le projet : " + project.find(name));
+                //userusSystem.out.println("Le projet : " + project.find(name));
                 mainApp.setMyProject(project.find(name));
 
                 listProject.setValue(null);

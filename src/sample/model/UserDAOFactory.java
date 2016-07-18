@@ -1,4 +1,7 @@
-package sample;
+package sample.model;
+
+import sample.util.AnnotationsParser;
+import sample.util.UserDAOInterface;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;

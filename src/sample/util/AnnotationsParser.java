@@ -1,4 +1,6 @@
-package sample;
+package sample.util;
+
+import sample.model.User;
 
 import java.io.FileWriter;
 import java.lang.reflect.InvocationHandler;

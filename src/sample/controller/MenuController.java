@@ -83,11 +83,11 @@ public class MenuController {
 
     @FXML
     public void handleMenuDocument(){
-       /* try{
-            mainApp.showDocument();
+        try{
+            mainApp.showSharedFiles();
         }catch(IOException e){
             e.printStackTrace();
-        }*/
+        }
     }
 
     public void setMainApp(Main mainApp) {
