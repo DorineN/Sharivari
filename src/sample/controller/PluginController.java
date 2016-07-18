@@ -1,10 +1,12 @@
 package sample.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -98,13 +100,29 @@ public class PluginController {
             gridPane.add(tPane[i], j, i);
             gridPane.add(tButton[i], j+1, i);
 
+            int finalI = i;
+
+            tButton[i].setOnMouseClicked(event-> deleteMyPlug(event,mainApp.pluginsLoader.files[finalI]));
+
 
         }
 
 
     }
 
+    public void deleteMyPlug(Event event, String files){
+        File myFile = new File("plugin\\"+files);
+        myFile.delete();
+        try {
+            mainApp.pluginsLoader = new PluginsLoader();
+            mainApp.pluginsLoader.loadAllStringPlugins();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        labelMsg.setText("Plugin supprimé ! Veuillez redémarrer l'application pour la prise en compte de sa suppression.");
+
+    }
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;

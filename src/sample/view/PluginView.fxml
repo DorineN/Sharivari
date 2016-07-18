@@ -29,12 +29,12 @@
       </Label>
       <ScrollPane layoutX="101.0" layoutY="332.0" prefHeight="358.0" prefWidth="989.0">
          <content>
-            <GridPane fx:id="gridPane" prefHeight="17.0" prefWidth="972.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
+            <GridPane fx:id="gridPane" prefHeight="35.0" prefWidth="987.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="20" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="25" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
          </content>
