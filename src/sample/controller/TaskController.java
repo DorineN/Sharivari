@@ -6,7 +6,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.Main;
-import sample.MySQLConnexion;
+import sample.model.MySQLConnexion;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

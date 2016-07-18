@@ -1,17 +1,13 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import sample.Main;
-import sample.MySQLConnexion;
-import sample.User;
-import sample.UserDAO;
+import sample.model.MySQLConnexion;
+import sample.model.UserDAO;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class AccountController {
 

@@ -3,13 +3,13 @@ package sample.controller;
 // Imports appli
 import javafx.scene.input.KeyCode;
 import sample.Main;
-import sample.MySQLConnexion;
+import sample.model.MySQLConnexion;
 
 // Imports of javafx
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import sample.User;
-import sample.UserDAO;
+import sample.model.User;
+import sample.model.UserDAO;
 
 // Other imports
 import javax.naming.NamingException;
@@ -79,9 +79,9 @@ public class ConnectionController {
         }else {
 
             try {
-                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
                 User user = userDao.findConnection(loginContent,password);
-                if (!"".equals(user.getUserLogin())){
+                if (user != null){
                     Main.setMyUser(user);
                     //GO HOME
                     try {

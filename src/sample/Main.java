@@ -8,6 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import sample.model.PluginsLoader;
+import sample.model.Project;
+import sample.model.User;
 
 import java.io.IOException;
 
@@ -16,9 +19,11 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+
     private static User myUser = new User();
     public static Project myProject = new Project();
     public static PluginsLoader pluginsLoader;
+    public  AnchorPane menuOverview;
 
     // Main method
     public static void main(String[] args){
@@ -45,6 +50,15 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/sample.fxml"));
             rootLayout = loader.load();
 
+            // Load Menu overview.
+            FXMLLoader loaderMenu = new FXMLLoader();
+            loaderMenu.setLocation(Main.class.getResource("view/MenuView.fxml"));
+            menuOverview = loaderMenu.load();
+
+            rootLayout.getChildren().add(menuOverview);
+
+            menuOverview.setVisible(false);
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             // Show the Sharin icon
@@ -52,6 +66,10 @@ public class Main extends Application {
             primaryStage.setTitle("Sharin");
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            // Give the controller access to the main app.
+            MenuController controllerMenu = loaderMenu.getController();
+            controllerMenu.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,8 +90,11 @@ public class Main extends Application {
             // Set person overview into the center of root layout.
             rootLayout.setCenter(connectionOverview);
 
-            pluginsLoader = new PluginsLoader();
-            pluginsLoader.loadAllStringPlugins();
+          //  pluginsLoader = new PluginsLoader();
+          //  pluginsLoader.loadAllStringPlugins();
+
+
+
             // Give the controller access to the main app.
             ConnectionController controller = loader.getController();
             controller.setMainApp(this);
@@ -99,13 +120,15 @@ public class Main extends Application {
             this.primaryStage.setMinHeight(800);
             this.primaryStage.setTitle("Sharin - Home");
 
+            menuOverview.setVisible(false);
+
             // Set person overview into the center of root layout.
             rootLayout.setCenter(homeOverview);
 
             // Give the controller access to the main app.
             HomeController controller = loader.getController();
             controller.setMainApp(this);
-
+            menuOverview.toFront();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,17 +142,25 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/ProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
+            menuOverview.setVisible(true);
+
             this.primaryStage.setResizable(true);
             this.primaryStage.setMinWidth(1280);
             this.primaryStage.setMinHeight(800);
             this.primaryStage.setTitle("Sharin - Project");
 
+
+
             // Set person overview into the center of root layout.
             rootLayout.setCenter(projectOverview);
+
+
 
             // Give the controller access to the main app.
             ProjectController controller = loader.getController();
             controller.setMainApp(this);
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,9 +175,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/CalendarView.fxml"));
             AnchorPane calendarOverview = loader.load();
 
-            this.primaryStage.setResizable(true);
-            this.primaryStage.setMinWidth(1280);
-            this.primaryStage.setMinHeight(800);
+
             this.primaryStage.setTitle("Sharin - Calendar");
 
             // Set person overview into the center of root layout.

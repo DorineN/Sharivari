@@ -1,16 +1,14 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import sample.Main;
-import sample.MySQLConnexion;
-import sample.ProjectDAO;
-import sample.UserDAO;
+import sample.model.MySQLConnexion;
+import sample.model.ProjectDAO;
+import sample.model.UserDAO;
 
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -51,9 +49,9 @@ public class HomeController {
     @FXML
     public void listingProject()  {
         try {
-            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
             int tab[] = userDao.findUserProject();
-            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "root").getConnexion());
 
             listProject.getItems().clear();
             for(int i = 0; i< tab.length; i++){
@@ -71,7 +69,7 @@ public class HomeController {
     @FXML
     public void goProject() throws ParseException, SQLException {
         try {
-            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
             if (listProject.getValue() != null && !listProject.getValue().toString().isEmpty()) {
 
                 String name = listProject.getValue().toString();

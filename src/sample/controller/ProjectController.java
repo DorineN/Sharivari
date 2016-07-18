@@ -1,22 +1,19 @@
 package sample.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.Main;
-import sample.MySQLConnexion;
+import sample.model.MySQLConnexion;
 
 
 import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 
 /*************************************************************
  *************** Dialog to create a new project *****************
@@ -163,33 +160,8 @@ public class ProjectController {
         }
     }*/
 
-    @FXML
-    public void showAccount(){
-        try{
-            mainApp.showMyAccount();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
 
-    @FXML
-    private void handleMenuProject() throws NamingException {
-        //GO HOME
-        try {
-            mainApp.showProject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private void handleMenuCalendar() throws NamingException {
-        //GO HOME
-        try {
-            mainApp.showCalendar();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
