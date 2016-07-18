@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import sample.controller.*;
 
@@ -65,7 +66,6 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
             AnchorPane connectionOverview = loader.load();
-
 
             this.primaryStage.setResizable(false);
             this.primaryStage.setTitle("Sharin - Connection");
@@ -256,7 +256,6 @@ public class Main extends Application {
     }
 
 
-
     // My Account
     public void showMyAccount() throws IOException {
         try {
@@ -273,7 +272,6 @@ public class Main extends Application {
             // Give the controller access to the main app.
             AccountController controller = loader.getController();
             controller.setMainApp(this);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -286,7 +284,6 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("view/PluginView.fxml"));
             AnchorPane pluginOverview = loader.load();
 
-
             this.primaryStage.setResizable(false);
             this.primaryStage.setTitle("Sharin - Plugin");
 
@@ -296,7 +293,25 @@ public class Main extends Application {
             // Give the controller access to the main app.
             PluginController controller = loader.getController();
             controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void showSharedFiles() throws IOException{
+        try {
+            // Load the shared files overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/SharedFiles.fxml"));
+            AnchorPane sharedFiles = loader.load();
+
+            this.primaryStage.setTitle("Sharin - Fichiers partagés");
+
+            rootLayout.setCenter(sharedFiles);
+
+            // Give the controller access to the main app.
+            FileController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
