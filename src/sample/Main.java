@@ -37,7 +37,8 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showConnection();
+        //showConnection();
+        showSharedFiles();
     }
 
     // Routes
@@ -210,7 +211,7 @@ public class Main extends Application {
 
 
     //Tchat
-    public void showTchat() throws IOException {
+    /*public void showTchat() throws IOException {
         try {
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
@@ -231,7 +232,7 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     // Subscribe
     public void showSubscribe() throws IOException {
