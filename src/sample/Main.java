@@ -103,8 +103,8 @@ public class Main extends Application {
             // Set person overview into the center of root layout.
             rootLayout.setCenter(connectionOverview);
 
-          //  pluginsLoader = new PluginsLoader();
-          //  pluginsLoader.loadAllStringPlugins();
+            pluginsLoader = new PluginsLoader();
+            pluginsLoader.loadAllStringPlugins();
 
 
 

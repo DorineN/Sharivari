@@ -18,7 +18,7 @@ import java.util.jar.JarFile;
  */
 public class PluginsLoader {
 
-    private String[] files;
+    public String[] files;
 
     private ArrayList classStringPlugins;
     private ArrayList classIntPlugins;
@@ -33,7 +33,7 @@ public class PluginsLoader {
         this.classStringPlugins = new ArrayList();
 
         File dir = new File ("plugin/");
-        System.out.println(dir.getName());
+
         this.files=dir.list();
         System.out.println("liste des plugins : ");
         if(this.files.length>0) {
@@ -102,7 +102,7 @@ public class PluginsLoader {
     private void initializeLoader() throws Exception{
         //On vérifie que la liste des plugins à charger à été initialisé
         if(this.files == null || this.files.length == 0 ){
-            throw new Exception("Pas de fichier spécifié");
+          System.out.println("0 plug found");
         }
 
         //Pour eviter le double chargement des plugins
@@ -111,6 +111,7 @@ public class PluginsLoader {
         }
 
         File[] f = new File[this.files.length];
+
 //		Pour charger le .jar en memoire
         URLClassLoader loader;
         //Pour la comparaison de chaines
@@ -122,7 +123,7 @@ public class PluginsLoader {
 
         for(int index = 0 ; index < f.length ; index ++ ){
 
-            f[index] = new File(this.files[index]);
+            f[index] = new File("plugin\\"+this.files[index]);
 
            /* if(!f[index].exists() ) {
                 System.out.println("break pour "+index);

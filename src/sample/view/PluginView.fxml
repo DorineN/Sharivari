@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.PluginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.PluginController">
    <children>
-      <Button fx:id="btnValider" layoutX="274.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleBtnValider" text="Valider" />
-      <Label layoutX="254.0" layoutY="159.0" text="Fichier :" />
-      <Button fx:id="btnFile" layoutX="312.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleBtnFile" text="Choose" />
-      <Label fx:id="labelPath" alignment="CENTER" layoutY="192.0" prefHeight="17.0" prefWidth="600.0" />
-      <Label fx:id="labelMsg" alignment="CENTER" layoutX="1.0" layoutY="122.0" prefHeight="17.0" prefWidth="600.0" />
+      <Button fx:id="btnValider" layoutX="562.0" layoutY="222.0" mnemonicParsing="false" onAction="#handleBtnValider" text="Installer" />
+      <Label layoutX="400.0" layoutY="134.0" prefHeight="28.0" prefWidth="201.0" text="Ajouter un Plugin : " textFill="#f07400">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnFile" layoutX="601.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleBtnFile" text="Choisir" />
+      <Label fx:id="labelPath" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="255.0" prefHeight="17.0" prefWidth="1180.0" textAlignment="CENTER" />
+      <Label fx:id="labelMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="177.0" prefHeight="17.0" prefWidth="1180.0" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="288.0" prefHeight="17.0" prefWidth="1180.0" text="Plugin(s) installé(s) :" textAlignment="CENTER" textFill="#f07400">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="467.0" layoutY="26.0" text="Mes plugins" textFill="#f07600">
+         <font>
+            <Font name="Calibri" size="40.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="gridPane" layoutX="98.0" layoutY="350.0" prefHeight="17.0" prefWidth="972.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="20" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
    </children>
 </AnchorPane>
