@@ -184,7 +184,7 @@ public class Main extends Application {
         }
     }
 
-    // Project
+    // Calendar
     public void showCalendar() throws IOException {
         try {
             // Load home overview.
@@ -200,6 +200,31 @@ public class Main extends Application {
 
             // Give the controller access to the main app.
             CalendarController controller = loader.getController();
+            controller.setMainApp(this);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //Tchat
+    public void showTchat() throws IOException {
+        try {
+            // Load home overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/TchatView.fxml"));
+            AnchorPane tchatOverview = loader.load();
+
+
+            this.primaryStage.setTitle("Sharin - Tchat");
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(tchatOverview);
+
+            // Give the controller access to the main app.
+            TchatController controller = loader.getController();
             controller.setMainApp(this);
 
 

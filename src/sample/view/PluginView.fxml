@@ -27,13 +27,17 @@
             <Font name="Calibri" size="40.0" />
          </font>
       </Label>
-      <GridPane fx:id="gridPane" layoutX="98.0" layoutY="350.0" prefHeight="17.0" prefWidth="972.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="20" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
+      <ScrollPane layoutX="101.0" layoutY="332.0" prefHeight="358.0" prefWidth="989.0">
+         <content>
+            <GridPane fx:id="gridPane" prefHeight="17.0" prefWidth="972.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="20" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
