@@ -12,6 +12,8 @@ import sample.model.MySQLConnexion;
 import sample.model.Task;
 import sample.model.TaskDAO;
 
+import javax.naming.NamingException;
+import java.io.IOException;
 import java.sql.*;
 
 import java.text.ParseException;
@@ -37,6 +39,10 @@ public class CalendarController {
     String tMonth[] = {"Janvier","Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"};
     String[] tDays = new String[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
+    public String[] tColorCalendar = new String[] {"#77DD77", "#B39EB5", "#FFB347", "#779ECB"};
+
+
+
     @FXML
     private AnchorPane anchorePane;
 
@@ -48,8 +54,8 @@ public class CalendarController {
 
 
 
-    Pane[] pDays = new Pane[31];
-    Task myTask[];
+    GridPane[] pDays = new GridPane[31];
+    ArrayList<Task> myTask;
 
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -64,7 +70,7 @@ public class CalendarController {
         //System.out.println(maxDay);
         //System.out.println(year);
         //System.out.println(month);
-        // System.out.println(mainApp.myProject.getProjectId());
+       // System.out.println(mainApp.myProject.getProjectId());
 
         //System.out.print(date);
         title.setText(tMonth[month] + " " + year);
@@ -133,7 +139,8 @@ public class CalendarController {
         int numSemaine = 0;
         gridPane.setAlignment(Pos.CENTER);
         for (int i = 1; i<=maxDay; i++){
-            pDays[i-1] = new Pane();
+
+            pDays[i-1] = new GridPane();
             pDays[i-1].setStyle("-fx-border-color: #e1e5cd; -fx-background-color : white; -fx-padding : 10px; -fx-width:100%;");
 
             if (j==7){
@@ -143,19 +150,22 @@ public class CalendarController {
 
             String dateCase = year +"-" +(month+1)+"-"+i;
 
+            pDays[i-1].add(new Label( i + "\n"),0,0 );
 
-          /*  myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
-            if(myTask.length>0){
-                System.out.println(myTask[0].getNameTask());
-            }*/
-            pDays[i-1].getChildren().add(new Label("" + i));
-            pDays[i-1].getChildren().add(new Label("\n" ));
+
+            myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
+            Pane[] tPaneCalendar = new Pane[myTask.size()];
+            for(int c = 0; c<myTask.size(); c++){
+                tPaneCalendar[c] = new Pane();
+                tPaneCalendar[c].getChildren().add(new Label(myTask.get(c).getNameTask() + "\n" ));
+                tPaneCalendar[c].setStyle("-fx-background-color:"+tColorCalendar[c]+";");
+                pDays[i-1].add(tPaneCalendar[c], 0,c+1);
+            }
+
 
             //recup task
 
 
-            pDays[i-1].setStyle("fx-background-color : white");
-            pDays[i-1].setStyle("fx-border-color : black");
             gridPane.add(pDays[i-1], j, numSemaine);
 
 

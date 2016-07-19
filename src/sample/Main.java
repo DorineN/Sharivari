@@ -456,8 +456,8 @@ public class Main extends Application {
             rootLayout.setCenter(sharedFiles);
 
             // Give the controller access to the main app.
-            //FileController controller = loader.getController();
-            //controller.setMainApp(this);
+            FileController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
