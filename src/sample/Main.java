@@ -352,6 +352,8 @@ public class Main extends Application {
             AnchorPane sharedFiles = loader.load();
 
             this.primaryStage.setTitle("Sharin - Fichiers partagés");
+            this.primaryStage.setWidth(700);
+            this.primaryStage.setHeight(550);
 
             rootLayout.setCenter(sharedFiles);
 

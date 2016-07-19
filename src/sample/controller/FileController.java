@@ -294,6 +294,8 @@ public class FileController {
                 File newFile = new File(path);
                 OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(newFile));
                 res = ftpClient.retrieveFile(remoteFile, outputStream);
+
+                // Close the stream
                 outputStream.close();
             }catch(IOException e){
                 e.printStackTrace();
