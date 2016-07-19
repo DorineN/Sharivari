@@ -7,10 +7,7 @@ package sample.model;
  import sample.model.DAO;
  import sample.model.Task;
 
- import java.sql.Connection;
- import java.sql.PreparedStatement;
- import java.sql.ResultSet;
- import java.sql.SQLException;
+ import java.sql.*;
  import java.util.ArrayList;
  import java.util.List;
 
@@ -59,8 +56,6 @@ public class TaskDAO extends DAO<Task> {
             res = req.executeQuery();
 
             int i = 0;
-            if(res.first()){
-                tTask.add(new Task(res.getInt("idTask"), res.getString("nameTask"), res.getString("descriptionTask"), res.getInt("durationTask"), res.getInt("idPriority"), res.getDate("estimateStartDateTask"),res.getDate("realStartDateTask"), res.getDate("estimateEndDateTask"), res.getDate("realEndDateTask"), res.getInt("idStatus"),  res.getInt("idProject"), res.getString("nameStatus"), res.getString("namePriority")));
             while(res.first()){
                 System.out.println("test");
                 tTask.add(new Task(res.getInt("idTask"), res.getString("nameTask"), res.getString("descriptionTask"), res.getDate("estimateStartDateTask"),res.getDate("realStartDateTask"), res.getDate("estimateEndDateTask"), res.getDate("realEndDateTask"),  res.getInt("idProject"), res.getInt("idPriority")));

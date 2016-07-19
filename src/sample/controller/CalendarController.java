@@ -39,7 +39,7 @@ public class CalendarController {
     String tMonth[] = {"Janvier","Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"};
     String[] tDays = new String[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
-    public String[] tColorCalendar = new String[] {"#77DD77", "#B39EB5", "#FFB347", "#779ECB"};
+    public String[] tColorCalendar = new String[] {"-fx-background-color: #77DD77", "-fx-background-color:#B39EB5", "-fx-background-color:#FFB347", "-fx-background-color:#779ECB"};
 
 
 
