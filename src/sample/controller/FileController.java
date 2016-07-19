@@ -1,4 +1,4 @@
-package sample.controller;
+/*package sample.controller;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -309,4 +309,4 @@ public class FileController {
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
-}
+}*/

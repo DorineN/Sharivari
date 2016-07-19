@@ -1,17 +1,13 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import sample.Main;
 import sample.model.MySQLConnexion;
-import sample.model.User;
 import sample.model.UserDAO;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class AccountController {
 
@@ -88,7 +84,7 @@ public class AccountController {
             Main.getMyUser().setUserCompany(company);
 
             try {
-                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "root").getConnexion());
+                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                 user.update(Main.getMyUser(), pwd);
             }catch(ClassNotFoundException | SQLException e) {
                 System.out.println("Error controller !");

@@ -6,10 +6,11 @@ import sample.model.Project;
 
 import java.sql.Connection;
 import java.sql.*;
+import java.util.Objects;
 
 public class ProjectDAO extends DAO<Project> {
 
-    private PreparedStatement[] requests = new PreparedStatement[7];
+    private PreparedStatement[] requests = new PreparedStatement[9];
 
     public ProjectDAO(Connection connection){
 
@@ -31,10 +32,14 @@ public class ProjectDAO extends DAO<Project> {
 
             requests[5] = this.connection.prepareStatement("UPDATE project SET idProject = ?, nameProject = ?, descriptionProject = ?, startDateProject = ?, realEndDaTeEndProject = ?, estimateEndDateProject = ? WHERE idProject = ?");
 
-            requests[6] = this.connection.prepareStatement("INSERT INTO participate(idRole, idUser, idProject) VALUES(" +
-                    "?, ?, ?) ");
+            requests[6] = this.connection.prepareStatement("INSERT INTO participate(idRole, idUser, idProject) VALUES("+"?, ?, ?) ");
 
-         }catch(SQLException e){
+            requests[7] = this.connection.prepareStatement("UPDATE participate set idRole=?  WHERE idProject = ? AND idUser = ?");
+
+            requests[8] = this.connection.prepareStatement("SELECT idUser, idRole FROM participate WHERE idProject=?");
+
+
+        }catch(SQLException e){
             e.printStackTrace();
         }
     }
@@ -186,21 +191,96 @@ public class ProjectDAO extends DAO<Project> {
         return result;
     }
 
-    public void addUserToProject(int userId, int roleId, int projectId){
+    public void addUserToProject(int userId, int roleId, int projectId) {
 
-        try{
-            PreparedStatement req = requests[6];
+        String[][] currentUsers = findUsersProject(projectId);
+        boolean result = false;
+        try {
+            //Check if the user already participate to the project
+            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            for (int i = 0; i < currentUsers.length; i++) {
+                if (Objects.equals(currentUsers[i][0], userDao.findLoginUser(userId))) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+            }
+            //We update if the user is already defined
+            if (result == true) {
+                try {
+                    PreparedStatement prepare = requests[7];
 
-            req.setInt(1, roleId);
-            req.setInt(2, userId);
-            req.setInt(3, projectId);
-            req.executeUpdate();
+                    prepare.setInt(1, roleId);
+                    prepare.setInt(2, projectId);
+                    prepare.setInt(3, userId);
+                    prepare.executeUpdate();
 
+                    prepare.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //We insert if it's a new user
+            } else {
+                try {
+                    PreparedStatement prepare = requests[6];
 
+                    prepare.setInt(1, roleId);
+                    prepare.setInt(2, userId);
+                    prepare.setInt(3, projectId);
+                    prepare.executeUpdate();
 
-        }catch(Exception e){
+                    prepare.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public String[][] findUsersProject(int projectId){
+        String[][] tab = null;
+        int i;
+        int rowcount = 0;
+        UserDAO userDao = null;
+        try {
+            userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            try{
+                PreparedStatement prepare = requests[8];
+                ResultSet res;
+                prepare.setInt(1, projectId);
+                res = prepare.executeQuery();
+
+                if (res.last()) {
+                    rowcount = res.getRow();
+                    res.beforeFirst();}
+                tab = new String[rowcount][2];
+                i = 0;
+                while (res.next()) {
+                    tab[i][0] = userDao.findLoginUser(res.getInt("idUser"));
+                    tab[i][1] = userDao.findRoleName(res.getInt("idRole"));
+                    i++;
+                }
+
+                res.close();
+                prepare.close();
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return tab;
     }
 
 }

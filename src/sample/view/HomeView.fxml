@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.HomeController">
    <children>
      <ComboBox fx:id="listProject" layoutX="331.0" layoutY="112.0" prefWidth="150.0" promptText="Choisissez un projet" />
-      <Button layoutX="667.0" layoutY="112.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="168.0" style="-fx-background-color: orange;" text="Créer un projet" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="667.0" layoutY="112.0" mnemonicParsing="false" onAction="#handleBtnCreate" prefHeight="60.0" prefWidth="168.0" styleClass="buttonOrange" text="Créer un projet" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
@@ -58,7 +58,7 @@
             <Label text="DIMANCHE" GridPane.columnIndex="6" />
          </children>
       </GridPane>
-      <Button layoutX="332.0" layoutY="142.0" mnemonicParsing="false" onAction="#goProject" prefHeight="22.0" prefWidth="149.0" style="-fx-background-color: deepskyblue;" text="Valider" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="332.0" layoutY="142.0" mnemonicParsing="false" onAction="#goProject" prefHeight="22.0" prefWidth="149.0" styleClass="buttonBlue" text="Valider" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>

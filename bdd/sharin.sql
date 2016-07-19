@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `document` (
 CREATE TABLE IF NOT EXISTS `execute` (
   `idUser` int(11) DEFAULT NULL,
   `idTask` int(11) DEFAULT NULL,
+  UNIQUE KEY `idTask_2` (`idTask`),
   KEY `idUser` (`idUser`),
   KEY `idTask` (`idTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -6,15 +6,20 @@ import java.util.Date;
  * Created by Loïc on 21/05/2016.
  */
 public class Task {
-    protected int idTask = 0;
-    protected String nameTask = "";
-    protected String descriptionTask = "";
-    protected Date estimateStartDateTask = null;
-    protected Date realStartDateTask = null;
-    protected Date estimateEndDateTask = null;
-    protected Date realEndDateTask = null;
-    protected int idProject  = 0;
-    protected int idPriority  = 0;
+
+    protected int idTask;
+    protected String nameTask;
+    protected String descriptionTask;
+    protected int durationTask;
+    protected int idPriority;
+    protected Date estimateStartDateTask;
+    protected Date realStartDateTask;
+    protected Date estimateEndDateTask;
+    protected Date realEndDateTask;
+    protected int idStatus;
+    protected int idProject;
+    protected String nameStatus;
+    protected String namePriority;
 
     public Task(){
         // Empty constructor
@@ -31,6 +36,23 @@ public class Task {
         this.idProject=idProject;
         this.idPriority=idPriority;
 
+    }
+
+    public Task(int idTask, String nameTask, String descriptionTask, int durationTask, int idPriority, Date estimateStartDateTask, Date estimateEndDateTask,
+                Date realStartDateTask, Date realEndDateTask, int idStatus, int idProject, String nameStatus, String namePriority){
+        this.idTask=idTask;
+        this.nameTask=nameTask;
+        this.descriptionTask=descriptionTask;
+        this.durationTask=durationTask;
+        this.estimateStartDateTask = estimateStartDateTask;
+        this.realStartDateTask=realStartDateTask;
+        this.estimateEndDateTask=estimateEndDateTask;
+        this.realEndDateTask=realEndDateTask;
+        this.idPriority = idPriority;
+        this.idStatus = idStatus;
+        this.idProject = idProject;
+        this.nameStatus = nameStatus;
+        this.namePriority = namePriority;
     }
 
     public int getIdTask() {
@@ -55,6 +77,14 @@ public class Task {
 
     public void setDescriptionTask(String descriptionTask) {
         this.descriptionTask = descriptionTask;
+    }
+
+    public int getDurationTask() {
+        return durationTask;
+    }
+
+    public void setDurationTask(int durationTask) {
+        this.durationTask = durationTask;
     }
 
     public Date getEstimateStartDateTask() {
@@ -88,7 +118,49 @@ public class Task {
     public void setRealEndDateTask(Date realEndDateTask) {
         this.realEndDateTask = realEndDateTask;
     }
-/*
+
+    public int getIdPriority() {
+        return idPriority;
+    }
+
+    public void setIdPriority(int idPriority) {
+        this.idPriority = idPriority;
+    }
+
+    public int getIdStatus() {
+        return idStatus;
+    }
+
+    public void setIdStatus(int idStatus) {
+        this.idStatus = idStatus;
+    }
+
+    public int getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(int idProject) {
+        this.idProject = idProject;
+    }
+
+    public String getNamePriority() {
+        return namePriority;
+    }
+
+    public void setNamePriority(String namePriority) {
+        this.namePriority = namePriority;
+    }
+
+    public String getNameStatus() {
+        return nameStatus;
+    }
+
+    public void setNameStatus(String nameStatus) {
+        this.nameStatus = nameStatus;
+    }
+
+
+    /*
     // Inherited methods
     @Override
     public boolean equals(Object o) {
@@ -96,9 +168,7 @@ public class Task {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-
         Task task = (Task) o;
-
         if (idTask != task.idTask)
             return false;
         if (nameTask != null ? !nameTask.equals(task.nameTask) : task.nameTask != null)
@@ -113,9 +183,7 @@ public class Task {
             return false;
         if (realEndDateTask != null ? !realEndDateTask.equals(task.realEndDateTask) : task.realEndDateTask != null)
             return false;
-
     }
-
     @Override
     public int hashCode() {
         int result = idTask;

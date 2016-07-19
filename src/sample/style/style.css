@@ -1,6 +1,6 @@
 /*********************************************************/
 /**************** STYLE CSS FOR SHARIN *******************/
-/*************** Last change : 28/05/2016 ****************/
+/*************** Last change : 29/06/2016 ****************/
 /******************  by Dorine Niel **********************/
 /*********************************************************/
 
@@ -29,6 +29,7 @@
     -fx-font-size: 10pt;
     -fx-border-color: #e1e5cd;
 }
+
 /*
 .label-bright {
     -fx-font-size: 20pt;
@@ -63,9 +64,9 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Calibri";
-   /* -fx-text-fill: black;*/
+    /* -fx-text-fill: black;*/
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -129,7 +130,7 @@
 button:hover{
     -fx-opacity: 0.5;
 }
-
+/*
 .button:pressed, .button:default:hover:pressed {
   -fx-text-fill: #1d1d1d;
 }
@@ -148,18 +149,91 @@ button:hover{
 
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color,30%);
-}
+}*/
 
 .buttonBlue {
-     -fx-background-color: #68d3e8;
+    -fx-background-color: #68d3e8;
     -fx-font-color: white;
- }
+}
 
- .buttonOrange {
-     -fx-background-color: #f3872b;
-     -fx-font-color: white;
- }
+.buttonOrange {
+    -fx-background-color: #f3872b;
+    -fx-font-color: white;
+}
 
- .btnHome, .btnProject, .btnCalendar, .btnTask, .btnTchat, btnDocument, btnPlugin, btnAccount {
-     -fx-text-alignement: center;
- }
+.btnHome, .btnProject, .btnCalendar, .btnTask, .btnTchat, btnDocument, btnPlugin, btnAccount {
+    -fx-text-alignement: center;
+}
+
+.btnHome {
+    -fx-background-color: #44C2D9;
+}
+.btnProject {
+    -fx-background-color:  #69d3e8;
+}
+
+.btnCalendar {
+    -fx-background-color: #a9dcd9;
+}
+
+.btnTask {
+    -fx-background-color: #e1e5cd;
+}
+
+.btnTchat {
+    -fx-background-color: #F2D280;
+}
+
+.btnDocument {
+    -fx-background-color: #FFB800;
+}
+
+.btnPlugin {
+    -fx-background-color: #f3872c;
+}
+
+.btnAccount {
+    -fx-background-color: #fa6900;
+}
+
+/********************
+** PLANNING GANTT ***
+********************/
+
+.root {
+    -inner-header-color: rgb(246, 246, 246);
+    -outer-header-color: rgb(221, 221, 221);
+}
+.planning-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.planning-scroll:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+.planning-cell {
+    -fx-background-color: -inner-header-color;
+    -fx-background-insets: 0;
+    -fx-border-color: -outer-header-color;
+    -fx-border-width: 0.75;
+    -fx-padding: 1;
+}
+.strong-cell {
+    -fx-font-weight: bold;
+}
+.first-cell {
+    -fx-background-color: -inner-header-color;
+    -fx-background-insets: 0;
+    -fx-border-color:  -outer-header-color transparent -outer-header-color -outer-header-color;
+}
+.last-cell {
+    -fx-background-color: -inner-header-color;
+    -fx-background-insets: 0;
+    -fx-border-color: -outer-header-color -outer-header-color -outer-header-color transparent;
+}
+.taskRec {
+    -fx-background-color: BLACK;
+    -fx-color: BLACK;
+}

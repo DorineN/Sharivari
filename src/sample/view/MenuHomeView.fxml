@@ -12,7 +12,7 @@
     <children>
         <BorderPane>
             <left>
-                <GridPane BorderPane.alignment="CENTER">
+                <GridPane prefHeight="149.0" prefWidth="111.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -23,17 +23,20 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuPlugin" style="-fx-background-color: #f3872c;" text="Plugin" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button mnemonicParsing="false" onAction="#handleMenuPlugin" prefHeight="40.0" prefWidth="100.0" styleClass="btnPlugin" text="Plugin" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <GridPane.margin>
-                                <Insets />
+                                <Insets bottom="10.0" top="10.0" />
                             </GridPane.margin>
                         </Button>
-                        <Button fx:id="linkAccount" minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuAccount" style="-fx-background-color: #fa6900;" text="Compte" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="linkAccount" mnemonicParsing="false" onAction="#handleMenuAccount" prefHeight="40.0" prefWidth="100.0" styleClass="btnAccount" text="Compte" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <GridPane.margin>
-                                <Insets />
+                                <Insets bottom="10.0" top="10.0" />
                             </GridPane.margin>
                         </Button>
-                  <Button minWidth="80.0" mnemonicParsing="false" onAction="#handleMenuHome" style="-fx-background-color: #f3872c;" text="Accueil" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button mnemonicParsing="false" onAction="#handleMenuHome" prefHeight="40.0" prefWidth="100.0" styleClass="buttonOrange" text="Accueil" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </GridPane.margin></Button>
                     </children>
                 </GridPane>
         </left>

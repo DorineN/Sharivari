@@ -5,6 +5,7 @@ import sample.Main;
 
 
 import java.io.IOException;
+import java.text.ParseException;
 
 
 /**
@@ -34,6 +35,17 @@ public class MenuController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleManageProject() throws ParseException {
+        //GO HOME
+        try {
+            mainApp.showManageProject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void handleMenuCalendar(){
         //GO HOME
@@ -65,11 +77,11 @@ public class MenuController {
 
     @FXML
     public void handleMenuTask(){
-        /*try{
+        try{
             mainApp.showTask();
         }catch(IOException e){
             e.printStackTrace();
-        }*/
+        }
     }
 
     @FXML
@@ -85,6 +97,15 @@ public class MenuController {
     public void handleMenuDocument(){
         try{
             mainApp.showSharedFiles();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleMenuGantt(){
+        try{
+            mainApp.showGantt();
         }catch(IOException e){
             e.printStackTrace();
         }

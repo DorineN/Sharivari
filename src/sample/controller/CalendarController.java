@@ -12,8 +12,6 @@ import sample.model.MySQLConnexion;
 import sample.model.Task;
 import sample.model.TaskDAO;
 
-import javax.naming.NamingException;
-import java.io.IOException;
 import java.sql.*;
 
 import java.text.ParseException;
@@ -66,7 +64,7 @@ public class CalendarController {
         //System.out.println(maxDay);
         //System.out.println(year);
         //System.out.println(month);
-       // System.out.println(mainApp.myProject.getProjectId());
+        // System.out.println(mainApp.myProject.getProjectId());
 
         //System.out.print(date);
         title.setText(tMonth[month] + " " + year);
@@ -146,17 +144,18 @@ public class CalendarController {
             String dateCase = year +"-" +(month+1)+"-"+i;
 
 
-            myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
-
-            if(myTask!=null){
-                System.out.println("test" + myTask[0].getNameTask());
-            }
-            pDays[i-1].getChildren().add(new Label(" " + i));
+          /*  myTask = taskDAO.findTask(dateCase, mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
+            if(myTask.length>0){
+                System.out.println(myTask[0].getNameTask());
+            }*/
+            pDays[i-1].getChildren().add(new Label("" + i));
             pDays[i-1].getChildren().add(new Label("\n" ));
 
             //recup task
 
 
+            pDays[i-1].setStyle("fx-background-color : white");
+            pDays[i-1].setStyle("fx-border-color : black");
             gridPane.add(pDays[i-1], j, numSemaine);
 
 

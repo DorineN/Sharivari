@@ -69,7 +69,7 @@ public class HomeController {
     @FXML
     public void goProject() throws ParseException, SQLException {
         try {
-            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "root").getConnexion());
+            ProjectDAO project = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "").getConnexion());
             if (listProject.getValue() != null && !listProject.getValue().toString().isEmpty()) {
 
                 String name = listProject.getValue().toString();

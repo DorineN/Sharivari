@@ -1,83 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import sample.*?>
 
+<?import sample.util.FormattedTableCellFactory?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ManageProjectController">
     <children>
-                <Button fx:id="confirm" layoutX="114.0" layoutY="516.0" mnemonicParsing="false" onAction="#handleUpdateProject" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
-                    <font>
-                        <Font name="Browallia New Italic" size="24.0" />
-                    </font>
-                </Button>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="316.0" layoutY="16.0" text="Votre Projet" textAlignment="CENTER" textFill="#f07600">
-                    <font>
-                        <Font name="Browallia New Italic" size="40.0" />
-                    </font>
+        <Button fx:id="confirm" layoutX="114.0" layoutY="516.0" mnemonicParsing="false" onAction="#handleUpdateProject" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
+            <font>
+                <Font name="Browallia New Italic" size="24.0" />
+            </font>
+        </Button>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="316.0" layoutY="16.0" text="Votre Projet" textAlignment="CENTER" textFill="#f07600">
+            <font>
+                <Font name="Browallia New Italic" size="40.0" />
+            </font>
+        </Label>
+        <GridPane alignment="CENTER_LEFT" layoutX="114.0" layoutY="84.0" prefHeight="278.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <DatePicker fx:id="startProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <DatePicker fx:id="estimateEndProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="nameProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" />
+                <TextField fx:id="descriptionProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Nom du projet" textAlignment="CENTER" textFill="#f07b0e">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
                 </Label>
-                <GridPane alignment="CENTER_LEFT" layoutX="114.0" layoutY="84.0" prefHeight="278.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-            <DatePicker fx:id="startProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <DatePicker fx:id="estimateEndProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="nameProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: ;" GridPane.columnIndex="1" />
-            <TextField fx:id="descriptionProject" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Nom du projet" textAlignment="CENTER" textFill="#f07b0e">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Description" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Date de début" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Date de la deadline" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-                    </children>
-                </GridPane>
-      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleBtnBack" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE">
-         <font>
-            <Font name="Calibri" size="12.0" />
-         </font></Button>
-      <TableView fx:id="tableSelectUser" layoutX="113.0" layoutY="370.0" prefHeight="135.0" prefWidth="544.0">
-        <columns>
-          <TableColumn fx:id="column1" prefWidth="231.0" text="Login" />
-          <TableColumn fx:id="column2" prefWidth="175.0" text="Rôle" />
-            <TableColumn fx:id="column3" minWidth="0.0" prefWidth="132.0" text="Supprimer" />
-        </columns>
-      </TableView>
+                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Description" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Date de début" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Date de la deadline" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Choisissez un participant" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="4">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <ComboBox fx:id="comboBoxSearchUser" prefHeight="136.0" prefWidth="295.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Choisissez son rôle" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="5">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <ComboBox fx:id="comboBoxRoleName" prefHeight="44.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Button fx:id="buttonAddUser" mnemonicParsing="false" onAction="#updateUser" prefHeight="44.0" prefWidth="99.0" styleClass="buttonOrange" text="Ajouter" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+
+            </children>
+        </GridPane>
+        <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleBtnBack" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE">
+            <font>
+                <Font name="Calibri" size="12.0" />
+            </font>
+        </Button>
+        <TableView fx:id="tableViewUpdateProject" layoutX="114.0" layoutY="365.0" prefHeight="142.0" prefWidth="544.0" GridPane.rowIndex="1">
+            <columns>
+                <TableColumn fx:id="usersColumn" prefWidth="207.0" text="Nom">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstName" />
+                    </cellValueFactory>
+                    <cellFactory>
+                        <FormattedTableCellFactory alignment="center">
+                        </FormattedTableCellFactory>
+                    </cellFactory>
+                </TableColumn>
+                <TableColumn prefWidth="202.0" text="Rôle">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="roleName" />
+                    </cellValueFactory>
+                    <cellFactory>
+                        <FormattedTableCellFactory alignment="center">
+                        </FormattedTableCellFactory>
+                    </cellFactory>
+                </TableColumn>
+            </columns>
+            <sortOrder>
+                <fx:reference source="usersColumn" />
+            </sortOrder>
+        </TableView>
+        <Label fx:id="labelError" layoutX="380.0" layoutY="569.0" />
     </children>
 </AnchorPane>

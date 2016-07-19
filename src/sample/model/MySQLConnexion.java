@@ -1,7 +1,5 @@
 package sample.model;
 
-import sample.model.DBConnexion;
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
 

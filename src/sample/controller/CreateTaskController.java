@@ -6,8 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import sample.*;
+import sample.model.MySQLConnexion;
+import sample.model.Task;
+import sample.model.TaskDAO;
+import sample.model.UserDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,19 +20,14 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
-
-import sample.model.MySQLConnexion;
-import sample.model.Project;
-import sample.model.ProjectDAO;
-import sample.model.UserDAO;
-
+import java.util.Date;
+import java.util.Objects;
 /*************************************************************
- *************** Dialog to create a new project **************
+ *************** Dialog to create a new task **************
  *************************************************************
- *********** Created by Dorine on 23/04/2016.*****************
+ *********** Created by Dorine on 25/05/2016.*****************
  ************************************************************/
-public class CreateProjectController {
+public class CreateTaskController {
 
     //Attributes
     private Main mainApp;
@@ -37,17 +37,19 @@ public class CreateProjectController {
     @FXML
     private TextField description;
     @FXML
+    private TextField duree;
+    @FXML
     private DatePicker start;
     @FXML
     private DatePicker estimateEnd;
     @FXML
-    private ComboBox comboBoxSearchUser;
+    private ComboBox comboBoxSearchUserTask;
     @FXML
-    private ComboBox comboBoxRoleName;
+    private ComboBox comboBoxPriorityName;
     @FXML
     private Button buttonAddUser;
     @FXML
-    private TableView<Participant> tableView;
+    private TableView<Executant> tableView;
     @FXML
     public TableColumn usersColumn;
     @FXML
@@ -56,7 +58,7 @@ public class CreateProjectController {
     private Stage dialogStage;
     private boolean okClicked = false;
 
-    UserDAO userDAO = null;
+    UserDAO userDao = null;
 
     @FXML
     private void initialize() {
@@ -76,10 +78,22 @@ public class CreateProjectController {
     /** Called when the user clicks on the button New User*/
     @FXML
     public void handleOk() throws ParseException {
-
+        int varPriority = 0;
         //if (isInputValid()) {
         String varName = name.getText();
         String varDesc = description.getText();
+        int varDuration = Integer.parseInt(duree.getText());
+        String namePriority = String.valueOf(comboBoxPriorityName.getValue());
+
+        TaskDAO taskDao = null;
+        try {
+            taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            varPriority = taskDao.findIdPriority(namePriority);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         /**Retrieve values of datepickers **/
         LocalDate date1 = start.getValue();
@@ -98,30 +112,26 @@ public class CreateProjectController {
         java.text.SimpleDateFormat sdf2 = new java.text.SimpleDateFormat("yyyy-MM-dd");
         String varEnd = sdf2.format(varEnd1);
 
-
         try {
-            ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            Project project = projectDAO.insert(varName, varDesc, varStart, varEnd);
+            taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            Task task = taskDao.insert(varName, varDesc, varPriority, varDuration, varStart, varEnd);
 
-            if (!"".equals(project.getProjectId())) {
-                Main.setMyProject(project);
-                /** ADD USERS  */
+            if (!"".equals(task.getIdTask())) {
+                //Retrieve Project ID
+                int project = Main.getMyProject().getProjectId();
+                int taskId = task.getIdTask();
+                /** ADD USERS TO DO THE TASK */
                 for(int i = 0; i < tableView.getItems().size(); i++) {
                     String name = tableView.getItems().get(i).getFirstName();
-                    String role = tableView.getItems().get(i).getRoleName();
-                    //Retrieve Project ID
-                    int projectId = project.getProjectId();
 
                     //Retrieve User ID
                     try {
-                        UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+                        userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                         //Retrieve Id user
                         int userId = userDao.find(name);
-                        //Retrieve Role ID
-                        int roleId = userDao.findRoleId(role);
 
                         //Insert new users to project
-                        projectDAO.addUserToProject(userId, roleId, projectId);
+                        taskDao.affectUserToTask(userId, taskId);
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     } catch (SQLException e) {
@@ -138,6 +148,10 @@ public class CreateProjectController {
         }
 
 
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("La tâche" + varName + " vient d'être créée !");
+        alert.showAndWait();
+
         //GO HOME
         try {
             mainApp.showProject();
@@ -146,62 +160,6 @@ public class CreateProjectController {
         }
     }
 
-    /**COMBOBOX SEARCHABLE and autocomplete with users of Sharin*/
-   /* public class ComboBoxAutoComplete<T> {
-
-        private ComboBox<T> cmb;
-        String filter = "";
-        private ObservableList<T> originalItems;
-
-        public ComboBoxAutoComplete(ComboBox<T> cmb) {
-            this.cmb = cmb;
-            originalItems = FXCollections.observableArrayList(cmb.getItems());
-            cmb.setTooltip(new Tooltip());
-            cmb.setOnKeyPressed(this::handleOnKeyPressed);
-            cmb.setOnHidden(this::handleOnHiding);
-        }
-
-        private void handleOnHiding(Event event) {
-            filter = "";
-            cmb.getTooltip().hide();
-            T s = cmb.getSelectionModel().getSelectedItem();
-            cmb.getItems().setAll(originalItems);
-            cmb.getSelectionModel().select(s);
-        }
-
-        public void handleOnKeyPressed(KeyEvent e) {
-            ObservableList<T> filteredList = FXCollections.observableArrayList();
-            KeyCode code = e.getCode();
-
-            if (code.isLetterKey()) {
-                filter += e.getText();
-            }
-            if (code == KeyCode.BACK_SPACE && filter.length() > 0) {
-                filter = filter.substring(0, filter.length() - 1);
-                cmb.getItems().setAll(originalItems);
-            }
-            if (code == KeyCode.ESCAPE) {
-                filter = "";
-            }
-            if (filter.length() == 0) {
-                filteredList = originalItems;
-                cmb.getTooltip().hide();
-            } else {
-                Stream<T> itens = cmb.getItems().stream();
-                String txtUsr = filter.toString().toLowerCase();
-                itens.filter(el -> el.toString().toLowerCase().contains(txtUsr)).forEach(filteredList::add);
-                cmb.getTooltip().setText(txtUsr);
-                Window stage = cmb.getScene().getWindow();
-                double posX = stage.getX() + cmb.localToScene(cmb.getBoundsInLocal()).getMinX();
-                double posY = stage.getY() + cmb.localToScene(cmb.getBoundsInLocal()).getMinY();
-                cmb.getTooltip().show(stage, posX, posY);
-                cmb.show();
-            }
-            cmb.getItems().setAll(filteredList);
-        }
-
-    }*/
-
     /**Display users in the combobox **/
     @FXML
     public void searchUser() {
@@ -209,14 +167,13 @@ public class CreateProjectController {
             UserDAO userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
             String tab[] = userDAO.findUsersName();
             String currentUser = Main.getMyUser().getUserLogin();
-            System.out.println("currentuser " + currentUser);
             //Inject users in combobox
             for(int i = 0; i< tab.length; i++){
                 String result = "";
                 if(!Objects.equals(currentUser, tab[i])){
                     result = tab[i];
                 }
-                comboBoxSearchUser.getItems().add(
+                comboBoxSearchUserTask.getItems().add(
                         result
                 );
             }
@@ -227,17 +184,17 @@ public class CreateProjectController {
         }
     }
 
-    /** Display role available for news users */
+    /** Display priority available for the task */
     @FXML
-    public void listingRole()  {
+    public void listingPriority()  {
         try {
-            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            String tab[] = userDao.findRole();
+            TaskDAO taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            String tab[] = taskDao.findPriority();
 
             //Inject roles in combobox
             for(int i = 0; i< tab.length; i++){
                 String result = tab[i];
-                comboBoxRoleName.getItems().add(
+                comboBoxPriorityName.getItems().add(
                         result
                 );
             }
@@ -246,43 +203,40 @@ public class CreateProjectController {
         }
     }
 
-    private final ObservableList<Participant> data =
+    private final ObservableList<Executant> data =
             FXCollections.observableArrayList(
 
             );
 
     /** Button to add new user to the project in the tableview */
     @FXML
-    public void handleAddUser() {
+    public void buttonAddUserToTask() {
         //Retrieve combobox values
-        String userName = String.valueOf(comboBoxSearchUser.getValue());
-        String roleName = String.valueOf(comboBoxRoleName.getValue());
+        String userName = String.valueOf(comboBoxSearchUserTask.getValue());
 
         int userDouble = 0;
 
 
         for(int i = 0; i < tableView.getItems().size(); i++) {
             String name = tableView.getItems().get(i).getFirstName();
-            String role = tableView.getItems().get(i).getRoleName();
             if(userName == name){
                 this.labelError.setText("Vous avez déjà attribué cet utilisateur");
                 userDouble = 1;
-                comboBoxSearchUser.setValue("");
-                comboBoxRoleName.setValue("");
+                comboBoxSearchUserTask.setValue("");
             }
         }
 
-        if((userName != "null") && (roleName != "null") && (userName != "") && (roleName != "") && (userDouble != 1)) {
+        if((userName != "null") && (userDouble != 1)) {
 
             //Button to delete a user
-            TableColumn<Participant, Participant> deleteColumn = new TableColumn<>("");
-            deleteColumn.setMinWidth(40);
+            TableColumn<Executant, Executant> deleteColumn = new TableColumn<>("");
+            deleteColumn.setMinWidth(70);
             deleteColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-            deleteColumn.setCellFactory(param -> new TableCell<Participant, Participant>() {
+            deleteColumn.setCellFactory(param -> new TableCell<Executant, Executant>() {
                 private final Button deleteButton = new Button("Supprimer");
 
                 @Override
-                protected void updateItem(Participant person, boolean empty) {
+                protected void updateItem(Executant person, boolean empty) {
                     super.updateItem(person, empty);
 
                     if (person == null) {
@@ -294,20 +248,15 @@ public class CreateProjectController {
                     deleteButton.setOnAction(event -> data.remove(person));
                 }
             });
-                tableView.setItems(data);
-                if ((tableView.getColumns().size()) == 2) {
-                    tableView.getColumns().add(deleteColumn);
-                }
+            tableView.setItems(data);
+            if ((tableView.getColumns().size()) == 1) {
+                tableView.getColumns().add(deleteColumn);
+            }
 
-                data.add(new Participant(userName, roleName)
-                );
+            data.add(new Executant(userName)
+            );
 
-                comboBoxSearchUser.setValue("");
-                comboBoxRoleName.setValue("");
-        }else if(userName == "null" || userName == ""){
-            this.labelError.setText("Vous n'avez pas sélectionné d'utilisateur");
-        }else if(roleName == "null" || roleName == ""){
-            this.labelError.setText("Vous devez attribuer un rôle à cet utilisateur");
+            comboBoxSearchUserTask.setValue("");
         }
     }
 
@@ -315,7 +264,7 @@ public class CreateProjectController {
     @FXML
     private void backHome() {
         try {
-            mainApp.showHome();
+            mainApp.showProject();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -323,24 +272,22 @@ public class CreateProjectController {
 
     public void setMainApp(Main mainApp) {
         searchUser();
-        listingRole();
-
+        listingPriority();
         //addListUser();
         this.mainApp = mainApp;
     }
 
-    /** Specific class for users who participate to the project */
-    public class Participant {
-        private final SimpleStringProperty firstName = new SimpleStringProperty("");
-        private final SimpleStringProperty roleName = new SimpleStringProperty("");
 
-        public Participant() {
-            this("", "");
+    /** Specific class for users who participate to the project */
+    public class Executant {
+        private final SimpleStringProperty firstName = new SimpleStringProperty("");
+
+        public Executant() {
+            this("");
         }
 
-        public Participant(String firstName, String roleName) {
+        public Executant(String firstName) {
             setFirstName(firstName);
-            setRoleName(roleName);
         }
 
         public String getFirstName() {
@@ -349,14 +296,6 @@ public class CreateProjectController {
 
         public void setFirstName(String fName) {
             firstName.set(fName);
-        }
-
-        public String getRoleName() {
-            return roleName.get();
-        }
-
-        public void setRoleName(String rName) {
-            roleName.set(rName);
         }
 
     }

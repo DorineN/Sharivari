@@ -1,161 +1,116 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 import sample.Main;
 import sample.model.MySQLConnexion;
+import sample.model.Task;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import sample.model.TaskDAO;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Date;
+import java.util.List;
 
-/*************************************************************
- *************** Dialog to create a new task *****************
- *************************************************************
- *********** Created by Dorine on 24/04/2016.*****************
- ************************************************************/
 
 public class TaskController {
 
     //Attributes
     private Main mainApp;
-
     @FXML
-    private TextField nameTask;
+    private TableView<Task> tableTask;
     @FXML
-    private TextField descriptionTask;
+    private TableColumn nameColumnTask;
     @FXML
-    private Date estimateStartDateTask;
+    private TableColumn descColumnTask;
     @FXML
-    private Date realStartDateTask;
+    private TableColumn durationColumnTask;
     @FXML
-    private Date estimateEndDateTask;
+    private TableColumn startColumnTask;
     @FXML
-    private Date realEndDateTask;
-
-    private Stage dialogStage;
-    private boolean okClicked = false;
-
+    private TableColumn deadlineColumnTask;
     @FXML
-    private void initialize() {
-        // Empty
-    }
-
-    /** Sets the stage of this dialog.*/
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    /** Returns true if the user clicked OK, false otherwise. **/
-    public boolean isOkClicked() {
-        return okClicked;
-    }
-
-    /** Called when the user clicks on the button New User*/
+    private TableColumn realStartColumnTask;
     @FXML
-    public void handleOk() {
-        if (isInputValid()) {
-            String varName = nameTask.getText();
-            String varDesc = descriptionTask.getText();
-            int varStart = estimateStartDateTask.getDate();
-            int varRStart = realStartDateTask.getDate();
-            int varDeadline = estimateEndDateTask.getDate();
-            int varEnd = realEndDateTask.getDate();
-
-            Connection connection = null;
-            Statement myStmt;
-            ResultSet myRs;
+    private TableColumn endColumnTask;
+    @FXML
+    private TableColumn userColumnTask;
+    @FXML
+    private TableColumn statusColumnTask;
+    @FXML
+    private TableColumn priorityColumnTask;
 
 
-            try {
-                connection = new MySQLConnexion("localhost", "root", "sharin").getConnexion();
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
-            }catch(SQLException e){
-                e.printStackTrace();
+
+    private ObservableList<Task> data =
+            FXCollections.observableArrayList(
+
+            );
+
+    /** Button to add new user to the project in the tableview */
+    @FXML
+    public void addTaskTable() {
+        int idProject = mainApp.getMyProject().getProjectId();
+
+        try {
+            TaskDAO taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
+            List<Task> taskList = taskDao.findTaskProject(idProject);
+            for(int i = 0; i < taskList.size(); i++) {
+                data.add(new Task(taskList.get(i).getIdTask(), taskList.get(i).getNameTask(), taskList.get(i).getDescriptionTask(), taskList.get(i).getDurationTask(), taskList.get(i).getIdPriority(), taskList.get(i).getEstimateStartDateTask(),
+                       taskList.get(i).getEstimateEndDateTask(), taskList.get(i).getRealStartDateTask(), taskList.get(i).getRealEndDateTask(), taskList.get(i).getIdStatus(), taskList.get(i).getIdPriority(), taskList.get(i).getNameStatus(), taskList.get(i).getNamePriority() )
+                );
             }
+            tableTask.setItems(data);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+            tableTask.setItems(data);
 
-            try {
-                if(connection != null) {
-                    myStmt = connection.createStatement();
-
-                    //SQL query to insert new user
-                    String sql = "INSERT INTO task (nameTask, descriptionTask, estimateStartDateTask, realStartDateTask, estimateEndDateTask, realEndDateTask) VALUES ('" + varName + "', '" + varDesc + "', '" + varStart + "', '" + varRStart + "', '" + varDeadline + "', '" + varEnd + "');";
-                    myStmt.executeUpdate(sql);
-
-                    //SQL query to display all users
-                    myRs = myStmt.executeQuery("SELECT * from task");
-                    while (myRs.next()) {
-                        System.out.println(myRs.getString("nameTask") + " , " + myRs.getString("descriptionTask") + " , " + myRs.getString("estimateStartDateTask") + " , " + myRs.getString("realStartDateTask"));
+        //Go to update the task when double clicked on a row
+        tableTask.setRowFactory( tv -> {
+            TableRow<Task> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Task rowData = row.getItem();
+                    try {
+                        //Retrieve the Task of the row and set the Task before go to the Manage window
+                        Main.setMyTask(rowData);
+                        mainApp.showManageTask();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-                    myRs.close();
-                    myStmt.close();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            });
+            return row;
+        });
+    }
 
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("YEAH FIRST STEP");
-
-            //TODO LINK TO THE APP
+    /** Return button */
+    @FXML
+    private void backProject() {
+        try {
+            mainApp.showProject();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
-    private boolean isInputValid() {
-        String errorMessage = "";
-
-        if (nameTask.getText() == null || nameTask.getText().length() == 0) {
-            errorMessage += "No valid task name !\n";
-        }
-        if (descriptionTask.getText() == null || descriptionTask.getText().length() == 0) {
-            errorMessage += "You must describe your task !\n";
-        }
-        if (estimateStartDateTask.getTime() == 0) {
-            errorMessage += "No valid start date !\n";
-        }
-
-        if (realStartDateTask.getTime() == 0) {
-            errorMessage += "No valid start date !\n";
-        }
-
-        if (estimateEndDateTask.getTime() == 0 || realEndDateTask.getTime() < realStartDateTask.getTime()) {
-            errorMessage += "No valid end date !\n";
-        }
-
-        if (realEndDateTask.getTime() == 0 || realEndDateTask.getTime() < realStartDateTask.getTime() ) {
-            errorMessage += "No valid end date !\n";
-        }
-
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            // Show the error message.
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();
-
-            return false;
+    /** Return button */
+    @FXML
+    private void goCreateTask() {
+        try {
+            mainApp.showCreateTask();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 
     public void setMainApp(Main mainApp) {
+        addTaskTable();
         this.mainApp = mainApp;
     }
+
 }

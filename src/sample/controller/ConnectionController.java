@@ -9,7 +9,8 @@ import sample.model.MySQLConnexion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import sample.model.User;
-import sample.model.UserDAO;
+import sample.model.UserDAOFactory;
+import sample.util.UserDAOInterface;
 
 // Other imports
 import javax.naming.NamingException;
@@ -79,9 +80,9 @@ public class ConnectionController {
         }else {
 
             try {
-                UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin?autoReconnect=true&useSSL=false", "root", "").getConnexion());
+                UserDAOInterface userDao = UserDAOFactory.newInstance(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
                 User user = userDao.findConnection(loginContent,password);
-                if (user != null){
+                if (!"".equals(user.getUserLogin())){
                     Main.setMyUser(user);
                     //GO HOME
                     try {
