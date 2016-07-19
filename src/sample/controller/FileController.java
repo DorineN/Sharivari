@@ -98,7 +98,7 @@ public class FileController {
 
         imageView.setOnMouseClicked(event -> {
                     if(download(name)){
-                        label.setText("Le fichier a bien été téléchargé");
+                        label.setText("Le fichier " + name  + " a bien été téléchargé");
                         label.setTextFill(Color.GREEN);
                         label.setVisible(true);
                     }
@@ -196,10 +196,20 @@ public class FileController {
             File file = new File(path);
             String chemin = file.getName();
             InputStream inputStream = new FileInputStream(file);
+            OutputStream outputStream = ftpClient.storeFileStream(chemin);
+            byte[] bytes = new byte[4096];
+            int buffer;
+
+            while((buffer = inputStream.read(bytes)) != -1){
+                outputStream.write(bytes, 0, buffer);
+            }
+
+            // Close the streams
+            inputStream.close();
+            outputStream.close();
 
             // Save the result of the upload
-            res = ftpClient.storeFile(chemin, inputStream);
-            inputStream.close();
+            res = ftpClient.completePendingCommand();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
