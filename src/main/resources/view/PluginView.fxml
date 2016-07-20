@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.PluginController">
+   <children>
+      <Button fx:id="btnValider" layoutX="562.0" layoutY="222.0" mnemonicParsing="false" onAction="#handleBtnValider" text="Installer" />
+      <Label layoutX="400.0" layoutY="134.0" prefHeight="28.0" prefWidth="201.0" text="Ajouter un Plugin : " textFill="#f07400">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnFile" layoutX="601.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleBtnFile" text="Choisir" />
+      <Label fx:id="labelPath" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="255.0" prefHeight="17.0" prefWidth="1180.0" textAlignment="CENTER" />
+      <Label fx:id="labelMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="177.0" prefHeight="17.0" prefWidth="1180.0" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="288.0" prefHeight="17.0" prefWidth="1180.0" text="Plugin(s) installé(s) :" textAlignment="CENTER" textFill="#f07400">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="467.0" layoutY="26.0" text="Mes plugins" textFill="#f07600">
+         <font>
+            <Font name="Calibri" size="40.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="101.0" layoutY="332.0" prefHeight="358.0" prefWidth="989.0">
+         <content>
+            <GridPane fx:id="gridPane" prefHeight="35.0" prefWidth="987.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="25" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

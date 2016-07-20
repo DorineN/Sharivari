@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ConnectionController">
+   <children>
+      <Label layoutX="104.0" layoutY="34.0" text="CONNECT TO SHARIN" textFill="#f07600">
+         <font>
+            <Font name="Calibri" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="155.0" layoutY="108.0" text="Identifiant" textFill="#f07400">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="login" layoutX="299.0" layoutY="113.0" onKeyPressed="#handleEnterLoginPwd" />
+      <Label layoutX="120.0" layoutY="159.0" text="Mot de passe" textFill="#f07600">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="pwd" layoutX="297.0" layoutY="164.0" onKeyPressed="#handleEnterLoginPwd" />
+      <Label fx:id="msgError" alignment="CENTER" layoutX="1.0" layoutY="312.0" prefHeight="44.0" prefWidth="593.0" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="173.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#handleBtnConnexion" prefHeight="7.0" prefWidth="255.0" style="-fx-background-color: #f07600;" text="Connexion" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font></Button>
+      <Hyperlink fx:id="btnInscription" layoutX="218.0" layoutY="289.0" onAction="#handleBtnInscription" onMouseClicked="#handleBtnInscription" text="Vous n'avez pas de compte ?" />
+   </children>
+</AnchorPane>
