@@ -19,7 +19,7 @@ public class FieldsTest {
         login = "Az.dine";
         assertFalse("Point", Fields.verifyLogin(login));
         login = "Azédine";
-        assertTrue("Carac. accentués", Fields.verifyLogin(login));
+        assertFalse("Carac. accentués", Fields.verifyLogin(login));
     }
 
     @Test
