@@ -19,7 +19,6 @@ import java.io.IOException;
 
 
 public class Main extends Application {
-
     private Stage primaryStage;
     private BorderPane rootLayout;
 
