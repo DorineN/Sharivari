@@ -3,6 +3,7 @@ package app.chat;
 import java.io.*;
 import java.net.Socket;
 import java.net.ServerSocket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 /*
@@ -86,16 +87,21 @@ class clientThread extends Thread {
 
       /* Start the conversation. */
             while (true) {
-                String line = br.readLine();
-                if (line.startsWith("/quit")) {
-                    break;
-                }
+                try {
+                    String line = br.readLine();
 
-                // Display the message to all connected clients
-                synchronized (this) {
-                    for(clientThread currentClientThread : threads){
-                        currentClientThread.os.println("<" + name + "> " + line);
+                    if (line.startsWith("/quit")) {
+                        break;
                     }
+
+                    // Display the message to all connected clients
+                    synchronized (this) {
+                        for (clientThread currentClientThread : threads) {
+                            currentClientThread.os.println("<" + name + "> " + line);
+                        }
+                    }
+                }catch(SocketException e){
+                    clientSocket.close();
                 }
             }
 
@@ -104,10 +110,7 @@ class clientThread extends Thread {
        * could be accepted by the server.
        */
             synchronized (this) {
-                for(clientThread currentClientThread : threads){
-                    if(currentClientThread == this)
-                        threads.remove(currentClientThread);
-                }
+                threads.remove(this);
             }
       /*
        * Close the output stream, close the input stream, close the socket.
@@ -116,6 +119,7 @@ class clientThread extends Thread {
             os.close();
             clientSocket.close();
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
