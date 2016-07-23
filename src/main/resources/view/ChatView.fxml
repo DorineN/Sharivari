@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ChatController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="449.0" spacing="20.0">
+            <children>
+                <TextArea fx:id="messages" editable="false" focusTraversable="false" prefHeight="328.0" prefWidth="449.0" />
+                <HBox prefHeight="23.0" prefWidth="449.0" spacing="10.0">
+                    <children>
+                        <TextField fx:id="input" prefHeight="25.0" prefWidth="381.0" />
+                        <Button fx:id="sendMessageButton" mnemonicParsing="false" text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <TextArea fx:id="onlineUsers" editable="false" focusTraversable="false" prefHeight="296.0" prefWidth="137.0" />
+    </children>
+</HBox>
