@@ -22,6 +22,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import app.Main;
 
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -36,6 +37,8 @@ public class FileController {
     private int port = 21;
     private String user = "admin";
     private String password = "admin";
+
+    private String dirName = mainApp.getMyProject().getProjectName();
 
     @FXML
     private AnchorPane anchor;
@@ -68,10 +71,35 @@ public class FileController {
         pane.setOnDragExited(event -> pane.setStyle("-fx-border-color: #C6C6C6;"));
     }
 
+    public void deleteImg(String name){
+        FTPClient ftpClient = new FTPClient();
+
+
+        // Connection to the FTP server
+        try {
+            ftpClient.connect(serveur, port);
+            ftpClient.login(user, password );
+            ftpClient.enterLocalPassiveMode();
+
+            ftpClient.deleteFile(dirName + "\\" + name);
+
+
+            ftpClient.disconnect();
+            mainApp.showSharedFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void addImage(Image i, String name){
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         Label filename = new Label(name);
+        Label delete = new Label ("X");
+        delete.setOnMouseClicked(event -> deleteImg(name));
+
+
         ImageView imageView = new ImageView();
         int numCol;
         int numRow;
@@ -93,7 +121,7 @@ public class FileController {
             numCol = (nbFiles - (numRow * nbColumns)) - 1;
         }
 
-        vbox.getChildren().addAll(imageView, filename);
+        vbox.getChildren().addAll(imageView, filename, delete);
         gridPane.add(vbox, numCol, numRow);
 
         imageView.setOnMouseClicked(event -> {
@@ -118,16 +146,16 @@ public class FileController {
                 File file = db.getFiles().get(0);
                 if(!files.contains(file.getName())) {
                     if (file.getName().toLowerCase().endsWith(".jpg") || file.getName().toLowerCase().endsWith(".png")) {
-                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/IMG.png"));
+                        Image img = new Image("sample/images/IMG.png");
                         addImage(img, file.getName());
                     } else if (file.getName().toLowerCase().endsWith(".pdf")) {
-                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/PDF.png"));
+                        Image img = new Image("sample/images/PDF.png");
                         addImage(img, file.getName());
                     } else if (file.getName().toLowerCase().endsWith(".doc") || file.getName().toLowerCase().endsWith(".docx")) {
-                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/DOC.png"));
+                        Image img = new Image("sample/images/DOC.png");
                         addImage(img, file.getName());
                     } else if (file.getName().toLowerCase().endsWith(".txt")) {
-                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/TXT.png"));
+                        Image img = new Image("sample/images/TXT.png");
                         addImage(img, file.getName());
                     }
                 }
@@ -188,9 +216,9 @@ public class FileController {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
             // Check if the current project directory exists, if not we create it
-            if(!ftpClient.changeWorkingDirectory("nomDuProjet")) {
-                ftpClient.makeDirectory("nomDuProjet");
-                ftpClient.changeWorkingDirectory("nomDuProjet");
+            if(!ftpClient.changeWorkingDirectory(dirName)) {
+                ftpClient.makeDirectory(dirName);
+                ftpClient.changeWorkingDirectory(dirName);
             }
 
             File file = new File(path);
@@ -211,7 +239,7 @@ public class FileController {
             // Save the result of the upload
             res = ftpClient.completePendingCommand();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+
             e.printStackTrace();
         } finally {
             try {
@@ -238,28 +266,28 @@ public class FileController {
             ftpClient.enterLocalPassiveMode();
 
             // Check if the current project directory exists, if not we create it
-            if(!ftpClient.changeWorkingDirectory("nomDuProjet")) {
-                ftpClient.makeDirectory("nomDuProjet");
-                ftpClient.changeWorkingDirectory("nomDuProjet");
+            if(!ftpClient.changeWorkingDirectory(dirName)) {
+                ftpClient.makeDirectory(dirName);
+                ftpClient.changeWorkingDirectory(dirName);
             }
 
             for(FTPFile file : ftpClient.listFiles()) {
                 if (file.getName().toLowerCase().endsWith(".jpg") || file.getName().toLowerCase().endsWith(".png")) {
-                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/IMG.png"));
+                    Image img = new Image("sample/images/IMG.png");
                     addImage(img, file.getName());
                 } else if (file.getName().toLowerCase().endsWith(".pdf")) {
-                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/PDF.png"));
+                    Image img = new Image("sample/images/PDF.png");
                     addImage(img, file.getName());
                 } else if (file.getName().toLowerCase().endsWith(".doc") || file.getName().toLowerCase().endsWith(".docx")) {
-                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/DOC.png"));
+                    Image img = new Image("sample/images/DOC.png");
                     addImage(img, file.getName());
                 }else if (file.getName().toLowerCase().endsWith(".txt")) {
-                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/TXT.png"));
+                    Image img = new Image("sample/images/TXT.png");
                     addImage(img, file.getName());
                 }
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+
             e.printStackTrace();
         } finally {
             try {
@@ -289,7 +317,7 @@ public class FileController {
                 ftpClient.login(user, password);
                 ftpClient.enterLocalPassiveMode();
                 ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-                ftpClient.changeWorkingDirectory("nomDuProjet");
+                ftpClient.changeWorkingDirectory(dirName);
 
                 File newFile = new File(path);
                 OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(newFile));
@@ -307,11 +335,7 @@ public class FileController {
 
     @FXML
     public void getBack(){
-        try{
-            mainApp.showHome();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+
     }
 
     public Main getMainApp() {

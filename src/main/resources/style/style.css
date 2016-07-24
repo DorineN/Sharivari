@@ -1,7 +1,7 @@
 /*********************************************************/
-/**************** STYLE CSS FOR SHARIN *******************/
-/*************** Last change : 29/06/2016 ****************/
-/******************  by Dorine Niel **********************/
+/** STYLE CSS FOR SHARIN ***/
+/** Last change : 29/06/2016 */
+/**  by Dorine Niel ****/
 /*********************************************************/
 
 .root{
@@ -9,9 +9,7 @@
     -fx-background-color: white;
     -fx-alignment: center;
     -fx-text-alignment: center;
-    /*-fx-base: rgb(132, 145, 47);
-     -fx-font-size: 16pt;
-    -fx-background: rgb(225, 228, 203);*/
+
 }
 
 .label {
@@ -35,7 +33,6 @@
     -fx-font-size: 20pt;
     -fx-font-family: "Calibri";
 }
-
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Calibri";
@@ -161,8 +158,9 @@ button:hover{
     -fx-font-color: white;
 }
 
-.btnHome, .btnProject, .btnCalendar, .btnTask, .btnTchat, btnDocument, btnPlugin, btnAccount {
+.btnHome, .btnProject, .btnCalendar, .btnTask, .btnTchat, btnDoc, btnPlugin, btnAccount {
     -fx-text-alignement: center;
+    -fx-end-margin: 50;
 }
 
 .btnHome {
@@ -184,7 +182,7 @@ button:hover{
     -fx-background-color: #F2D280;
 }
 
-.btnDocument {
+.btnDoc {
     -fx-background-color: #FFB800;
 }
 
@@ -196,8 +194,19 @@ button:hover{
     -fx-background-color: #fa6900;
 }
 
+.postitPane {
+    -fx-background-color : yellow;
+    -fx-border-color: #95a5a6;
+}
+
+.postitLabel {
+    -fx-background-color : transparent;
+}
+
+
+
 /********************
-** PLANNING GANTT ***
+ PLANNING GANTT *
 ********************/
 
 .root {
@@ -236,4 +245,75 @@ button:hover{
 .taskRec {
     -fx-background-color: BLACK;
     -fx-color: BLACK;
+}
+.taskPane{
+    -fx-min-height: 40 ;
+    -fx-min-width: 40 ;
+}
+
+.textAreaTransparentFinish .content{
+    -fx-background-color: #77DD77;
+}
+
+.textAreaTransparentProcess .content{
+    -fx-background-color: #FFB347;
+}
+
+.textAreaTransparentToDo .content{
+    -fx-background-color: #C72C48;
+}
+
+
+
+.root {
+    -inner-header-color: rgb(246, 246, 246);
+    -outer-header-color: rgb(221, 221, 221);
+}
+.planning-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.planning-scroll:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+.planning-cell {
+    -fx-background-color: -inner-header-color;
+    -fx-background-insets: 0;
+    -fx-border-color: -outer-header-color;
+    -fx-border-width: 0.75;
+    -fx-padding: 0;
+}
+
+.planning-cell .content{
+    -fx-background-color: transparent;
+}
+
+.strong-cell {
+    -fx-font-weight: bold;
+}
+.first-cell {
+    -fx-background-color: -inner-header-color;
+    -fx-background-insets: 0;
+    -fx-border-color:  -outer-header-color transparent -outer-header-color -outer-header-color;
+}
+.last-cell {
+    -fx-background-color: -inner-header-color;
+    -fx-background-insets: 0;
+    -fx-border-color: -outer-header-color -outer-header-color -outer-header-color transparent;
+}
+/*
+.taskRec {
+    -fx-background-color: #f3872b;
+    -fx-color: #f3872b;
+}*/
+
+.gridpane {
+    -fx-padding : 0;
+}
+
+.gridpane > * {
+    -fx-min-height: 30 ;
+    -fx-min-width: 30 ;
 }

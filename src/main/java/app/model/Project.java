@@ -13,14 +13,14 @@ public class Project {
     protected String nameProject = "";
     protected String descriptionProject = "";
     protected Date startDateProject = null;
-    protected Date realEndDaTeEndProject = null;
+    protected Date realEndDateEndProject = null;
     protected Date estimateEndDateProject = null;
 
     public Project(){
         // Empty constructor
     }
 
-    public Project(int idProject, String nameProject, String descriptionProject, Date startDateProject, Date realEndDaTeEndProject, Date estimateEndDateProject){
+    public Project(int idProject, String nameProject, String descriptionProject, Date startDateProject, Date estimateEndDateProject, Date realEndDaTeEndProject){
         this.setProjectId(idProject);
         this.setProjectName(nameProject);
         this.setProjectDesc(descriptionProject);
@@ -63,19 +63,19 @@ public class Project {
         this.startDateProject = startDateProject;
     }
 
-    public Date getProjectDeadline() {
-        return realEndDaTeEndProject;
-    }
-
-    public void setProjectDeadline(Date realEndDaTeEndProject) {
-        this.realEndDaTeEndProject = realEndDaTeEndProject;
-    }
-
     public Date getProjectEnd() {
+        return realEndDateEndProject;
+    }
+
+    public void setProjectEnd(Date realEndDaTeEndProject) {
+        this.realEndDateEndProject = realEndDaTeEndProject;
+    }
+
+    public Date getProjectDeadline() {
         return estimateEndDateProject;
     }
 
-    public void setProjectEnd(Date estimateEndDateProject) {
+    public void setProjectDeadline(Date estimateEndDateProject) {
         this.estimateEndDateProject = estimateEndDateProject;
     }
 
@@ -86,7 +86,7 @@ public class Project {
                 ", nameProject='" + nameProject + '\'' +
                 ", descriptionProject='" + descriptionProject + '\'' +
                 ", startDateProject=" + startDateProject +
-                ", realEndDaTeEndProject=" + realEndDaTeEndProject +
+                ", realEndDaTeEndProject=" + realEndDateEndProject +
                 ", estimateEndDateProject=" + estimateEndDateProject +
                 '}';
     }
@@ -109,7 +109,7 @@ public class Project {
             return false;
         if (startDateProject != null ? !startDateProject.equals(project.startDateProject) : project.startDateProject != null)
             return false;
-        if (realEndDaTeEndProject != null ? !realEndDaTeEndProject.equals(project.realEndDaTeEndProject) : project.realEndDaTeEndProject != null)
+        if (realEndDateEndProject != null ? !realEndDateEndProject.equals(project.realEndDateEndProject) : project.realEndDateEndProject != null)
             return false;
         if (estimateEndDateProject != null ? !estimateEndDateProject.equals(project.estimateEndDateProject) : project.estimateEndDateProject != null)
             return false;
@@ -123,7 +123,7 @@ public class Project {
         result = 31 * result + (nameProject != null ? nameProject.hashCode() : 0);
         result = 31 * result + (descriptionProject != null ? descriptionProject.hashCode() : 0);
         result = 31 * result + (startDateProject != null ? startDateProject.hashCode() : 0);
-        result = 31 * result + (realEndDaTeEndProject != null ? realEndDaTeEndProject.hashCode() : 0);
+        result = 31 * result + (realEndDateEndProject != null ? realEndDateEndProject.hashCode() : 0);
         result = 31 * result + (estimateEndDateProject != null ? estimateEndDateProject.hashCode() : 0);
         return result;
     }

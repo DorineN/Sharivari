@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.AccountController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.AccountController">
     <children>
-                <Button fx:id="confirm" layoutX="28.0" layoutY="318.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
+                <Button layoutX="318.0" layoutY="558.0" mnemonicParsing="false" onAction="#updateMyAccount" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
                     <font>
                         <Font name="Calibri" size="24.0" />
                     </font>
                 </Button>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="183.0" layoutY="29.0" text="Mon Compte" textAlignment="CENTER" textFill="#f07600">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="52.0" prefHeight="46.0" prefWidth="1180.0" text="Mon Compte" textAlignment="CENTER" textFill="#f07600">
                     <font>
                         <Font name="Calibri" size="40.0" />
                     </font>
                 </Label>
-                <GridPane alignment="CENTER_LEFT" layoutX="28.0" layoutY="94.0" prefHeight="224.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
+                <GridPane alignment="CENTER_LEFT" layoutX="241.0" layoutY="185.0" prefHeight="315.0" prefWidth="698.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,7 +36,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-            <Label fx:id="loginLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="LOGIN" textAlignment="CENTER" textFill="#f07b0e">
+            <Label fx:id="loginLabel" prefHeight="39.0" prefWidth="353.0" style="-fx-border-color: #e1e5cd;" text="IDENTIFIANT" textAlignment="CENTER" textFill="#f07b0e">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -44,7 +44,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="pwdLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="MOT DE PASSE" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label fx:id="pwdLabel" prefHeight="38.0" prefWidth="345.0" style="-fx-border-color: #e1e5cd;" text="MOT DE PASSE" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -52,7 +52,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="confirmPwdLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="CONFIRMATION MOT DE PASSE" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Label fx:id="confirmPwdLabel" prefHeight="38.0" prefWidth="344.0" style="-fx-border-color: #e1e5cd;" text="CONFIRMATION MOT DE PASSE" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -60,7 +60,7 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="nameLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="NOM" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Label fx:id="nameLabel" prefHeight="38.0" prefWidth="345.0" style="-fx-border-color: #e1e5cd;" text="NOM" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -68,36 +68,41 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="firstNameLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="PRENOM" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="4">
+           
+            <Label fx:id="emailLabel" prefHeight="38.0" prefWidth="344.0" style="-fx-border-color: #e1e5cd;" text="ADRESSE MAIL" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="5">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="emailLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="ADRESSE MAIL" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="5">
+            <Label fx:id="phoneLabel" prefHeight="38.0" prefWidth="345.0" style="-fx-border-color: #e1e5cd;" text="NUMERO DE TELEPHONE" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="6">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="phoneLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="NUMERO DE TELEPHONE" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="6">
+            <Label fx:id="companyLabel" prefHeight="38.0" prefWidth="347.0" style="-fx-border-color: #e1e5cd;" text="ENTREPRISE" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="7">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="companyLabel" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" text="ENTREPRISE" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="7">
+            <PasswordField fx:id="confirmPwdInput" prefHeight="50.0" prefWidth="344.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="pwdInput" prefHeight="50.0" prefWidth="344.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="nameInput" prefHeight="50.0" prefWidth="344.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="firstNameInput" prefHeight="50.0" prefWidth="344.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="mailInput" prefHeight="48.0" prefWidth="344.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="phoneInput" prefHeight="49.0" prefWidth="344.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="companyInput" prefHeight="46.0" prefWidth="344.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="loginInput" editable="false" prefHeight="61.0" prefWidth="344.0" GridPane.columnIndex="1" />
+            <Label fx:id="loginLabel1" prefHeight="39.0" prefWidth="353.0" style="-fx-border-color: #e1e5cd;" text="PRENOM" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="4">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextArea fx:id="firstNameInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextArea fx:id="emailInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextArea fx:id="phoneInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextArea fx:id="companyInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <PasswordField fx:id="confirmPwdInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <PasswordField fx:id="pwdInput" prefHeight="26.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="loginInput" prefHeight="26.0" prefWidth="267.0" GridPane.columnIndex="1" />
-            <TextField fx:id="nameInput" prefHeight="26.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
-      <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#backHome" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE" />
+      <Label fx:id="msgConfirm" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="106.0" prefHeight="46.0" prefWidth="1180.0" textAlignment="CENTER" textFill="#f07600">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

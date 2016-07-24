@@ -20,8 +20,8 @@ public class ChatController {
     private Main mainApp;
     private ChatClient chatClient;
     private Thread threadClient;
-    private String username = "Loic";
-    private int project = 2;
+    private String username = mainApp.getMyUser().getUserLogin();
+    private int project = mainApp.getMyProject().getProjectId();
 
     @FXML
     private void initialize(){

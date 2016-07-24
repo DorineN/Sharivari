@@ -8,9 +8,11 @@ import app.model.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import app.model.TaskDAO;
+import app.model.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,7 +42,8 @@ public class TaskController {
     private TableColumn statusColumnTask;
     @FXML
     private TableColumn priorityColumnTask;
-
+    @FXML
+    private Button btnCreateTask;
 
 
     private ObservableList<Task> data =
@@ -52,22 +55,26 @@ public class TaskController {
     @FXML
     public void addTaskTable() {
         int idProject = mainApp.getMyProject().getProjectId();
-
-        try {
-            TaskDAO taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            List<Task> taskList = taskDao.findTaskProject(idProject);
-            for(int i = 0; i < taskList.size(); i++) {
-                data.add(new Task(taskList.get(i).getIdTask(), taskList.get(i).getNameTask(), taskList.get(i).getDescriptionTask(), taskList.get(i).getDurationTask(), taskList.get(i).getIdPriority(), taskList.get(i).getEstimateStartDateTask(),
-                       taskList.get(i).getEstimateEndDateTask(), taskList.get(i).getRealStartDateTask(), taskList.get(i).getRealEndDateTask(), taskList.get(i).getIdStatus(), taskList.get(i).getIdPriority(), taskList.get(i).getNameStatus(), taskList.get(i).getNamePriority() )
-                );
-            }
-            tableTask.setItems(data);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        List<Task> taskList = null;
+        String role = mainApp.projectDAO.findRole(mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId());
+        if (role.equals("Membre")) {
+            taskList = mainApp.taskDAO.findMyTask(idProject, mainApp.getMyUser().getUserId());
+        }else{
+            taskList = mainApp.taskDAO.findTaskProject(idProject);
         }
-            tableTask.setItems(data);
+
+        //recup all user
+
+
+
+        for(int i = 0; i < taskList.size(); i++) {
+
+
+            data.add(taskList.get(i));
+
+        }
+        //tableTask.setItems(data);
+        tableTask.setItems(data);
 
         //Go to update the task when double clicked on a row
         tableTask.setRowFactory( tv -> {
@@ -75,6 +82,7 @@ public class TaskController {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Task rowData = row.getItem();
+
                     try {
                         //Retrieve the Task of the row and set the Task before go to the Manage window
                         Main.setMyTask(rowData);
@@ -88,15 +96,6 @@ public class TaskController {
         });
     }
 
-    /** Return button */
-    @FXML
-    private void backProject() {
-        try {
-            mainApp.showProject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /** Return button */
     @FXML
@@ -109,8 +108,13 @@ public class TaskController {
     }
 
     public void setMainApp(Main mainApp) {
-        addTaskTable();
         this.mainApp = mainApp;
+
+        if (mainApp.projectDAO.findRole(mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId()).equals("Chef de projet") || mainApp.projectDAO.findRole(mainApp.getMyUser().getUserId(), mainApp.getMyProject().getProjectId()).equals("Assistant chef de projet")){
+            btnCreateTask.setVisible(true);
+        }
+        addTaskTable();
+
     }
 
 }

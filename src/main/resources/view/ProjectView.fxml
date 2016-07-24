@@ -1,8 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ProjectController">
+    <children>
+        <Label layoutX="504.0" layoutY="230.0" styleClass="labelBlue" text="Votre semaine" textFill="ORANGE">
+            <font>
+                <Font name="Calibri Bold" size="24.0" />
+            </font>
+        </Label>
+        <GridPane fx:id="gridPaneDay" layoutX="58.0" layoutY="256.0" prefHeight="28.0" prefWidth="1164.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="LUNDI" />
+                <Label text="MARDI" GridPane.columnIndex="1" />
+                <Label text="MERCREDI" GridPane.columnIndex="2" />
+                <Label text="JEUDI" GridPane.columnIndex="3" />
+                <Label text="VENDREDI" GridPane.columnIndex="4" />
+                <Label text="SAMEDI" GridPane.columnIndex="5" />
+                <Label text="DIMANCHE" GridPane.columnIndex="6" />
+            </children>
+        </GridPane>
 
+        <Label fx:id="notification" layoutX="255.0" layoutY="49.0" textFill="#043aff">
+            <font>
+                <Font name="Calibri Bold" size="20.0" />
+            </font>
+        </Label>
+        <Pane fx:id="hooverTask" layoutX="-6.0" layoutY="5.0" prefHeight="227.0" prefWidth="1215.0" style="-fx-background-color: #DCDCDC;" visible="false">
+            <children>
+                <GridPane fx:id="gridPaneHoover" layoutX="14.0" layoutY="3.0" prefHeight="218.0" prefWidth="480.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="239.0" text="Tache">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                        <Label prefHeight="17.0" prefWidth="253.0" text="Date début" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                        <Label prefHeight="17.0" prefWidth="247.0" text="Etat" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                        <Label fx:id="labelNameTask" prefHeight="17.0" prefWidth="241.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                        <Label fx:id="labelEstimateStartDate" prefHeight="17.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                        <Label fx:id="labelStatus" prefHeight="17.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label text="Date de fin estimée" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label fx:id="labelEstimateEndDate" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label prefHeight="17.0" prefWidth="239.0" text="Priorité" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelPriority" prefHeight="17.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                    </children>
+                </GridPane>
+                <Label layoutX="512.0" layoutY="14.0" text="Description :">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+                <Text fx:id="descriptionHoover" layoutX="587.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+            </children>
+        </Pane>
+        <GridPane fx:id="gridPaneHomeWeek" layoutY="285.0" prefHeight="419.0" prefWidth="1180.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <Pane fx:id="hooverAllTaskDay" layoutX="-6.0" layoutY="5.0" prefHeight="227.0" prefWidth="1215.0" style="-fx-background-color: #DCDCDC;" visible="false">
+            <children>
+                <ScrollPane layoutX="-1.0" layoutY="46.0" prefHeight="182.0" prefWidth="1215.0">
+                    <content>
+                        <GridPane fx:id="gridPaneAllTaskDay" prefHeight="45.0" prefWidth="1209.0" style="-fx-border-color: e1e5cd;">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                        </GridPane>
+                    </content>
+                </ScrollPane>
+                <Button layoutX="1088.0" layoutY="14.0" mnemonicParsing="false" onAction="#bOk" prefHeight="25.0" prefWidth="96.0" text="Fermer" />
+            </children>
+        </Pane>
+        <Pane layoutY="62.0" prefHeight="157.0" prefWidth="391.0" styleClass="postitPane">
+            <children>
+                <TextArea fx:id="postitTextArea" layoutY="23.0" onMouseExited="#editPostit" prefHeight="134.0" prefWidth="391.0" styleClass="postitLabel" />
+                <Label layoutY="-5.0" prefHeight="28.0" prefWidth="391.0" text="Mon mémo" />
+            </children>
+        </Pane>
+        <TitledPane animated="false" layoutX="439.0" layoutY="62.0" prefHeight="157.0" prefWidth="741.0" styleClass="currentTask" text="Récapitulatif du projet">
+            <content>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Label styleClass="labelBlue" text="Description" />
+                  <TextArea fx:id="descriptionProjectLabel" editable="false" prefHeight="200.0" prefWidth="200.0" />
+                        <Label styleClass="labelBlue" text="Deadline" />
+                        <Label fx:id="deadlineProjectLabel" prefHeight="42.0" prefWidth="708.0" />
+                    </children>
+                </VBox>
+            </content>
+        </TitledPane>
+        <Pane layoutY="15.0" prefHeight="28.0" prefWidth="1180.0">
+            <children>
+                <Label fx:id="nameProjectLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="1180.0" styleClass="labelBlue" textAlignment="CENTER" />
+            </children>
+        </Pane>
+      <Label alignment="CENTER" layoutX="142.0" layoutY="234.0" prefHeight="17.0" prefWidth="54.0" style="-fx-background-color: #77DD77;" text="Terminée" />
+      <Label alignment="CENTER" layoutX="84.0" layoutY="234.0" prefHeight="17.0" prefWidth="54.0" style="-fx-background-color: #FFB347;" text="En cours" textAlignment="CENTER" />
+      <Label layoutX="24.0" layoutY="234.0" prefHeight="17.0" prefWidth="54.0" style="-fx-background-color: #F08080;" text="En attente" />
+    </children>
 </AnchorPane>
