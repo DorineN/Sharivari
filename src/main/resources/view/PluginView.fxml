@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.PluginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.PluginController">
    <children>
       <Button fx:id="btnValider" layoutX="562.0" layoutY="222.0" mnemonicParsing="false" onAction="#handleBtnValider" text="Installer" />
       <Label layoutX="400.0" layoutY="134.0" prefHeight="28.0" prefWidth="201.0" text="Ajouter un Plugin : " textFill="#f07400">

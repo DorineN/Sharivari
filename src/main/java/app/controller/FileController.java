@@ -146,16 +146,16 @@ public class FileController {
                 File file = db.getFiles().get(0);
                 if(!files.contains(file.getName())) {
                     if (file.getName().toLowerCase().endsWith(".jpg") || file.getName().toLowerCase().endsWith(".png")) {
-                        Image img = new Image("sample/images/IMG.png");
+                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/IMG.png"));
                         addImage(img, file.getName());
                     } else if (file.getName().toLowerCase().endsWith(".pdf")) {
-                        Image img = new Image("sample/images/PDF.png");
+                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/PDF.png"));
                         addImage(img, file.getName());
                     } else if (file.getName().toLowerCase().endsWith(".doc") || file.getName().toLowerCase().endsWith(".docx")) {
-                        Image img = new Image("sample/images/DOC.png");
+                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/DOC.png"));
                         addImage(img, file.getName());
                     } else if (file.getName().toLowerCase().endsWith(".txt")) {
-                        Image img = new Image("sample/images/TXT.png");
+                        Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/TXT.png"));
                         addImage(img, file.getName());
                     }
                 }
@@ -273,16 +273,16 @@ public class FileController {
 
             for(FTPFile file : ftpClient.listFiles()) {
                 if (file.getName().toLowerCase().endsWith(".jpg") || file.getName().toLowerCase().endsWith(".png")) {
-                    Image img = new Image("sample/images/IMG.png");
+                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/IMG.png"));
                     addImage(img, file.getName());
                 } else if (file.getName().toLowerCase().endsWith(".pdf")) {
-                    Image img = new Image("sample/images/PDF.png");
+                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/PDF.png"));
                     addImage(img, file.getName());
                 } else if (file.getName().toLowerCase().endsWith(".doc") || file.getName().toLowerCase().endsWith(".docx")) {
-                    Image img = new Image("sample/images/DOC.png");
+                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/DOC.png"));
                     addImage(img, file.getName());
                 }else if (file.getName().toLowerCase().endsWith(".txt")) {
-                    Image img = new Image("sample/images/TXT.png");
+                    Image img = new Image(getClass().getClassLoader().getResourceAsStream("images/TXT.png"));
                     addImage(img, file.getName());
                 }
             }

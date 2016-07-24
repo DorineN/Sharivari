@@ -51,9 +51,6 @@ public class Main extends Application {
     public PluginDAO pluginDAO = new PluginDAO(new MySQLConnexion().getConnexion());
 
 
-
-
-
     // Main method
     public static void main(String[] args){
         launch(args);
@@ -80,19 +77,17 @@ public class Main extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/sample.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/sample.fxml"));
             rootLayout = loader.load();
-
-
 
             // Show the scene containing the root layout.
             scene = new Scene(rootLayout);
 
             //Load the css file
-            scene.getStylesheets().add(getClass().getResource("style/style.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getClassLoader().getResource("style/style.css").toExternalForm());
 
             // Show the Sharin icon
-            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
+            primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("images/logo.png")));
             primaryStage.setTitle("Sharin");
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -108,7 +103,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ConnectionView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/ConnectionView.fxml"));
             AnchorPane connectionOverview = loader.load();
 
 
@@ -120,7 +115,7 @@ public class Main extends Application {
 
             // Load Menu Project overview.
             FXMLLoader loaderMenu = new FXMLLoader();
-            loaderMenu.setLocation(Main.class.getResource("view/MenuProjectView.fxml"));
+            loaderMenu.setLocation(getClass().getClassLoader().getResource("view/MenuProjectView.fxml"));
             menuProject = loaderMenu.load();
             menuProject.setVisible(false);
 
@@ -133,7 +128,7 @@ public class Main extends Application {
 
             // Load Menu Home overview.
             FXMLLoader loaderMenuHome = new FXMLLoader();
-            loaderMenuHome.setLocation(Main.class.getResource("view/MenuHomeView.fxml"));
+            loaderMenuHome.setLocation(getClass().getClassLoader().getResource("view/MenuHomeView.fxml"));
             menuHome = loaderMenuHome.load();
             menuHome.setVisible(false);
             rootLayout.getChildren().add(menuHome);
@@ -174,7 +169,7 @@ public class Main extends Application {
 
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/HomeView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/HomeView.fxml"));
             AnchorPane homeOverview = loader.load();
 
 
@@ -218,7 +213,7 @@ public class Main extends Application {
             controllerChat.closeChatClient();
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ProjectView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/ProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
 
@@ -270,7 +265,7 @@ public class Main extends Application {
         try {
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/CalendarView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/CalendarView.fxml"));
             AnchorPane calendarOverview = loader.load();
 
 
@@ -295,7 +290,7 @@ public class Main extends Application {
         try {
             // Load the shared files overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ChatView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/ChatView.fxml"));
             HBox chat = loader.load();
 
             this.primaryStage.setTitle("Sharin - Chat");
@@ -315,7 +310,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/SubscribeView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/SubscribeView.fxml"));
             AnchorPane inscriptionOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Inscription");
@@ -338,7 +333,7 @@ public class Main extends Application {
 
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/CreateProjectView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/CreateProjectView.fxml"));
             AnchorPane projectOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Create Project");
@@ -360,7 +355,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ManageProjectView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/ManageProjectView.fxml"));
             AnchorPane manageProjectOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Créer votre projet");
@@ -382,7 +377,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/CreateTaskView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/CreateTaskView.fxml"));
             AnchorPane createTaskOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Créer une nouvelle tâche");
@@ -404,7 +399,7 @@ public class Main extends Application {
         try {
             // Load my account overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/AccountView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/AccountView.fxml"));
             AnchorPane myAccountOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Mon compte");
@@ -425,7 +420,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/PluginView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/PluginView.fxml"));
             AnchorPane pluginOverview = loader.load();
 
 
@@ -447,7 +442,7 @@ public class Main extends Application {
         try {
             // Load the shared files overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/SharedFiles.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/SharedFiles.fxml"));
             AnchorPane sharedFiles = loader.load();
 
             this.primaryStage.setTitle("Sharin - Fichiers partagés");
@@ -468,7 +463,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ManageTaskView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/ManageTaskView.fxml"));
             AnchorPane manageTaskOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Mettez à jour une tâche");
@@ -502,7 +497,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/TaskView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/TaskView.fxml"));
             AnchorPane taskOverview = loader.load();
 
             this.primaryStage.setTitle("Sharin - Liste des tâches");
@@ -535,7 +530,7 @@ public class Main extends Application {
         try {
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ManageAccountView.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/ManageAccountView.fxml"));
             AnchorPane pluginOverview = loader.load();
 
 

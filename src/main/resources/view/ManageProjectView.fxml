@@ -6,9 +6,9 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import sample.util.*?>
+<?import app.util.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ManageProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ManageProjectController">
     <children>
 
                 <Button fx:id="updateProject" layoutX="626.0" layoutY="594.0" mnemonicParsing="false" onAction="#handleUpdateProject" prefHeight="44.0" prefWidth="326.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE" visible="false">
