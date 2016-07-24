@@ -187,12 +187,12 @@ public class PluginsLoader {
                         //Une classe ne doit pas appartenir à deux catégories de plugins différents.
                         //Si tel est le cas on ne la place que dans la catégorie de la première interface correct
                         // trouvée
-                        if(tmpClass.getInterfaces()[i].getName().toString().equals("sample.util.TypeControllerPlugins") ) {
+                        if(tmpClass.getInterfaces()[i].getName().toString().equals("app.util.TypeControllerPlugins") ) {
                             this.classControllerPlugins.add(tmpClass);
                         }
-                        else if( tmpClass.getInterfaces()[i].getName().toString().equals("sample.util.TypeModelPlugins") ) {
+                        else if( tmpClass.getInterfaces()[i].getName().toString().equals("app.util.TypeModelPlugins") ) {
                             this.classModelPlugins.add(tmpClass);
-                        } else if( tmpClass.getInterfaces()[i].getName().toString().equals("sample.util.TypeViewPlugins") ) {
+                        } else if( tmpClass.getInterfaces()[i].getName().toString().equals("app.util.TypeViewPlugins") ) {
                             this.classViewPlugins.add(tmpClass);
                         }
 
