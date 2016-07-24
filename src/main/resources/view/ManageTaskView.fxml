@@ -6,10 +6,10 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import sample.*?>
-<?import sample.util.*?>
+<?import app.*?>
+<?import app.util.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ManageTaskController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ManageTaskController">
     <children>
         <Button fx:id="deleteTask" layoutX="259.0" layoutY="684.0" mnemonicParsing="false" onAction="#suppressTask" prefHeight="44.0" prefWidth="695.0" style="-fx-background-color: red;" text="Supprimer cette tâche" textFill="WHITE" visible="false">
             <font>

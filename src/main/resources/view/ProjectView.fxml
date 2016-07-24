@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ProjectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ProjectController">
     <children>
         <Label layoutX="504.0" layoutY="230.0" styleClass="labelBlue" text="Votre semaine" textFill="ORANGE">
             <font>

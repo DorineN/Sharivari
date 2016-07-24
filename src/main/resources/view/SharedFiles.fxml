@@ -10,7 +10,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.FileController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.FileController">
     <children>
         <Pane fx:id="pane" layoutY="43.0" prefHeight="656.0" prefWidth="1180.0">
             <children>
