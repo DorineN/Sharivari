@@ -1,13 +1,8 @@
 package app.util;
 
 import app.Main;
-import app.annotations.Connection;
-import app.annotations.CreateProject;
-import app.annotations.CreateTask;
-import app.annotations.JoinProject;
-import app.model.MySQLConnexion;
-import app.model.User;
-import app.model.UserDAO;
+import app.annotations.*;
+import app.model.*;
 
 import java.io.FileWriter;
 import java.lang.reflect.InvocationHandler;
@@ -35,7 +30,7 @@ public class AnnotationsParser implements InvocationHandler{
                 SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
                 Date date = new Date();
 
-                fw.write(dateFormat.format(date) + " " + userLogin + " s'est connecté...\n");
+                fw.write(dateFormat.format(date) + " " + userLogin + " s'est connecté\n");
                 fw.close();
                 return user;
             }
@@ -50,7 +45,7 @@ public class AnnotationsParser implements InvocationHandler{
             SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
             Date date = new Date();
 
-            fw.write(dateFormat.format(date) + " " + user + " a créé un nouveau projet appelé " + project + "...\n");
+            fw.write(dateFormat.format(date) + " " + user + " a créé un nouveau projet appelé " + project + "\n");
             fw.close();
 
             return idProjet;
@@ -66,7 +61,7 @@ public class AnnotationsParser implements InvocationHandler{
             SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
             Date date = new Date();
 
-            fw.write(dateFormat.format(date) + " " + user + " a créé une nouvelle tâche appelée " + task + " dans le projet " + project + "...\n");
+            fw.write(dateFormat.format(date) + " " + user + " a créé une nouvelle tâche appelée " + task + " dans le projet " + project + "\n");
             fw.close();
 
             return idTask;
@@ -83,10 +78,25 @@ public class AnnotationsParser implements InvocationHandler{
             SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
             Date date = new Date();
 
-            fw.write(dateFormat.format(date) + " " + user + " a ajouté " + userWhoJoined + " au projet " + project);
+            fw.write(dateFormat.format(date) + " " + user + " a ajouté " + userWhoJoined + " au projet " + project + "\n");
             fw.close();
 
             return null;
+        }
+
+        if(realMethod.isAnnotationPresent(RemoveTask.class) && realMethod.getReturnType() == boolean.class){
+            int id = (int) args[0];
+            String user = Main.getMyUser().getUserLogin();
+            String project = Main.getMyProject().getProjectName();
+
+            Task taskDeleted = new TaskDAO(new MySQLConnexion().getConnexion()).find(id);
+
+            FileWriter fw = new FileWriter("connections.log", true);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
+            Date date = new Date();
+
+            fw.write(dateFormat.format(date) + " " + user + " a supprimé la tâche " + taskDeleted + " du projet " + project + "\n");
+            fw.close();
         }
 
         return method.invoke(this.obj, args);

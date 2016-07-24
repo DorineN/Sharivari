@@ -5,6 +5,7 @@ package app.model;
  **/
 import app.Main;
 import app.annotations.CreateTask;
+import app.annotations.RemoveTask;
 import app.model.DAO;
 import app.model.Task;
 
@@ -802,6 +803,7 @@ public class TaskDAO extends DAO<Task> implements TaskDAOInterface{
     }
 
     @Override
+    @RemoveTask
     public boolean delete(int id){
         boolean result = false;
 
