@@ -4,6 +4,7 @@ package app.model;
  * Created by Loïc on 21/05/2016.
  **/
 import app.Main;
+import app.annotations.CreateTask;
 import app.model.DAO;
 import app.model.Task;
 
@@ -12,7 +13,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class TaskDAO extends DAO<Task> {
+public class TaskDAO extends DAO<Task> implements TaskDAOInterface{
     private PreparedStatement[] requests = new PreparedStatement[29];
     private Main mainApp;
 
@@ -98,7 +99,7 @@ public class TaskDAO extends DAO<Task> {
 
     }
 
-
+    @Override
     public int findTaskNotFinish(int id){
         int nb = 0;
 
@@ -123,6 +124,7 @@ public class TaskDAO extends DAO<Task> {
 
     }
 
+    @Override
     public void updateRealEndDate(int id){
 
 
@@ -148,6 +150,7 @@ public class TaskDAO extends DAO<Task> {
 
     }
 
+    @Override
     public void deleteRealStartDate(int id){
 
 
@@ -165,6 +168,7 @@ public class TaskDAO extends DAO<Task> {
 
     }
 
+    @Override
     public void deleteRealEndDate(int id){
 
 
@@ -181,6 +185,8 @@ public class TaskDAO extends DAO<Task> {
 
 
     }
+
+    @Override
     public void updateStatus(int idProject, int idStatus){
 
         try{
@@ -199,6 +205,7 @@ public class TaskDAO extends DAO<Task> {
         }
     }
 
+    @Override
     public void addUserToTask(int userId, int projectId){
 
         try{
@@ -216,6 +223,8 @@ public class TaskDAO extends DAO<Task> {
             e.printStackTrace();
         }
     }
+
+    @Override
     public ArrayList<User> findUsersTask(int id){
         ArrayList<User> users= new ArrayList<>();
 
@@ -243,7 +252,7 @@ public class TaskDAO extends DAO<Task> {
         return users;
     }
 
-
+    @Override
     public void updateDateRealStartDate(int id){
 
 
@@ -268,7 +277,7 @@ public class TaskDAO extends DAO<Task> {
 
 
     }
-
+    @Override
     public ArrayList<Task> findTask(String date,int idUser, int idProject){
 
         ArrayList<Task> tTask =  new ArrayList();
@@ -307,6 +316,8 @@ public class TaskDAO extends DAO<Task> {
 
         return tTask;
     }
+
+    @Override
     public ArrayList<Task> findAllTask(String date,int idUser){
 
         ArrayList<Task> tTask =  new ArrayList();
@@ -351,7 +362,7 @@ public class TaskDAO extends DAO<Task> {
         return tTask;
     }
 
-
+    @Override
     public Task find(String name){
         Task task = null;
 
@@ -376,7 +387,7 @@ public class TaskDAO extends DAO<Task> {
 
         return task;
     }
-
+    @Override
     public boolean update(Task task, int oldStatus){
         boolean result = false;
 
@@ -448,7 +459,7 @@ public class TaskDAO extends DAO<Task> {
 
         return result;
     }
-
+    @Override
     public String[] findPriority(){
         String[] result;
         result = new String [1];
@@ -481,6 +492,7 @@ public class TaskDAO extends DAO<Task> {
         return result;
     }
 
+    @Override
     public String[] findStatus(){
         String[] result;
         result = new String [1];
@@ -513,7 +525,7 @@ public class TaskDAO extends DAO<Task> {
         return result;
     }
 
-
+    @Override
     public int findIdPriority(String namePriority){
         int result = 0;
 
@@ -535,6 +547,7 @@ public class TaskDAO extends DAO<Task> {
         return result;
     }
 
+    @Override
     public int findIdStatus(String nameStatus){
         int result = 0;
 
@@ -575,6 +588,7 @@ public class TaskDAO extends DAO<Task> {
         return tTask;
     }*/
 
+    @Override
     public String findNamePriority(int idPriority){
         String result = null;
 
@@ -596,6 +610,7 @@ public class TaskDAO extends DAO<Task> {
         return result;
     }
 
+    @Override
     public String findStatusName(int idStatus){
         String result = null;
 
@@ -617,6 +632,7 @@ public class TaskDAO extends DAO<Task> {
         return result;
     }
 
+    @Override
     public List<Task> findTaskProject(int idProject){
         List<Task> data = new ArrayList<Task>();
         int count = 0;
@@ -655,6 +671,7 @@ public class TaskDAO extends DAO<Task> {
         return data;
     }
 
+    @Override
     public List<Task> findMyTask(int idProject, int idUser){
         List<Task> data = new ArrayList<Task>();
         int count = 0;
@@ -694,6 +711,7 @@ public class TaskDAO extends DAO<Task> {
         return data;
     }
 
+    @Override
     public int findUserTask(int taskId){
         int userId = 0;
         try{
@@ -714,6 +732,7 @@ public class TaskDAO extends DAO<Task> {
         return userId;
     }
 
+    @Override
     public void affectUserToTask(int taskId, int userId){
         try{
             PreparedStatement prepare = requests[11];
@@ -729,6 +748,8 @@ public class TaskDAO extends DAO<Task> {
         }
     }
 
+    @Override
+    @CreateTask
     public int insert(String name, String description, int priority, int duration, String estimateStartDate, String estimateEndDate)throws SQLException {
 
 
@@ -780,6 +801,7 @@ public class TaskDAO extends DAO<Task> {
         return idTask;
     }
 
+    @Override
     public boolean delete(int id){
         boolean result = false;
 
@@ -813,6 +835,7 @@ public class TaskDAO extends DAO<Task> {
         return result;
     }
 
+    @Override
     public Task find(int id){
         Task task = new Task();
 
@@ -839,7 +862,7 @@ public class TaskDAO extends DAO<Task> {
     }
 
 
-
+    @Override
     public void deleteExecuteUser(int idUser, int idTask){
         try{
             PreparedStatement req = requests[28];
@@ -853,6 +876,7 @@ public class TaskDAO extends DAO<Task> {
         }
     }
 
+    @Override
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
 

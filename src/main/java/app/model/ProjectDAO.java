@@ -2,6 +2,7 @@ package app.model;
 
 import app.Main;
 import app.annotations.CreateProject;
+import app.annotations.JoinProject;
 
 import java.sql.Connection;
 import java.sql.*;
@@ -299,8 +300,8 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOInterface{
     }
 
     @Override
+    @JoinProject
     public void addUserToProject(int userId, int roleId, int projectId){
-
         try{
             PreparedStatement req = requests[6];
 

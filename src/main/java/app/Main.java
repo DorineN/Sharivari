@@ -50,7 +50,7 @@ public class Main extends Application {
     public UserDAO userDAOPlugin = new UserDAO(new MySQLConnexion().getConnexion());
     public static ProjectDAOInterface projectDAO = null;
     public ProjectDAO projectDAOPlugin = new ProjectDAO(new MySQLConnexion().getConnexion());
-    public static TaskDAO taskDAO = null;
+    public static TaskDAOInterface taskDAO = null;
     public TaskDAO taskDAOPlugin = new TaskDAO(new MySQLConnexion().getConnexion());
     public static PluginDAO pluginDAO = null;
 
@@ -60,7 +60,7 @@ public class Main extends Application {
         try {
             userDao = UserDAOFactory.newInstance(new MySQLConnexion().getConnexion());
             projectDAO = ProjectDAOFactory.newInstance(new MySQLConnexion().getConnexion());
-            taskDAO = new TaskDAO(new MySQLConnexion().getConnexion());
+            taskDAO = TaskDAOFactory.newInstance(new MySQLConnexion().getConnexion());
             pluginDAO = new PluginDAO(new MySQLConnexion().getConnexion());
         }catch(Exception e){}
 

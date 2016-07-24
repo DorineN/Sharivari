@@ -1,7 +1,6 @@
 package app.model;
 
 import app.util.AnnotationsParser;
-import app.model.UserDAOInterface;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;

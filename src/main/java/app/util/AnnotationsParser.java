@@ -3,7 +3,11 @@ package app.util;
 import app.Main;
 import app.annotations.Connection;
 import app.annotations.CreateProject;
+import app.annotations.CreateTask;
+import app.annotations.JoinProject;
+import app.model.MySQLConnexion;
 import app.model.User;
+import app.model.UserDAO;
 
 import java.io.FileWriter;
 import java.lang.reflect.InvocationHandler;
@@ -39,7 +43,50 @@ public class AnnotationsParser implements InvocationHandler{
 
         if(realMethod.isAnnotationPresent(CreateProject.class) && realMethod.getReturnType() == int.class){
             int idProjet = (int) realMethod.invoke(this.obj, args);
-            System.out.println("testinnnnnnnnnnnng");
+            String user = Main.getMyUser().getUserLogin();
+            String project = (String) args[0];
+
+            FileWriter fw = new FileWriter("connections.log", true);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
+            Date date = new Date();
+
+            fw.write(dateFormat.format(date) + " " + user + " a créé un nouveau projet appelé " + project + "...\n");
+            fw.close();
+
+            return idProjet;
+        }
+
+        if(realMethod.isAnnotationPresent(CreateTask.class) && realMethod.getReturnType() == int.class){
+            int idTask = (int) realMethod.invoke(this.obj, args);
+            String user = Main.getMyUser().getUserLogin();
+            String project = Main.getMyProject().getProjectName();
+            String task = (String) args[0];
+
+            FileWriter fw = new FileWriter("connections.log", true);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
+            Date date = new Date();
+
+            fw.write(dateFormat.format(date) + " " + user + " a créé une nouvelle tâche appelée " + task + " dans le projet " + project + "...\n");
+            fw.close();
+
+            return idTask;
+        }
+
+        if(realMethod.isAnnotationPresent(JoinProject.class) && realMethod.getReturnType() == void.class){
+            int id = (int) args[0];
+            String user = Main.getMyUser().getUserLogin();
+            String project = Main.getMyProject().getProjectName();
+
+            User userWhoJoined = new UserDAO(new MySQLConnexion().getConnexion()).find(id);
+
+            FileWriter fw = new FileWriter("connections.log", true);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
+            Date date = new Date();
+
+            fw.write(dateFormat.format(date) + " " + user + " a ajouté " + userWhoJoined + " au projet " + project);
+            fw.close();
+
+            return null;
         }
 
         return method.invoke(this.obj, args);
