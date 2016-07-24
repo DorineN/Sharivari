@@ -14,6 +14,7 @@ public class ChatClient implements Runnable{
     public static TextField input;
     public static Button sendMessageButton;
 
+    ConnectedUserThread connectedUserThread = null;
     private Socket clientSocket = null;
     private Socket clientSocket2 = null;
     private DataInputStream dis = null;
@@ -48,13 +49,28 @@ public class ChatClient implements Runnable{
         }
     }
 
+    public void quit(){
+        try {
+            if(clientSocket != null) {
+                clientSocket.close();
+                clientSocket = null;
+            }
+
+            if(clientSocket2 != null) {
+                clientSocket2.close();
+                clientSocket2 = null;
+            }
+
+            connectedUserThread.stop();
+        }catch(Exception e){}
+    }
+
     class ConnectedUserThread extends Thread{
         private Socket clientSocket = null;
         private DataInputStream dis = null;
 
         public ConnectedUserThread(Socket clientSocket){
             this.clientSocket = clientSocket;
-
             try{
                 dis = new DataInputStream(this.clientSocket.getInputStream());
             }catch(IOException e){
@@ -81,7 +97,7 @@ public class ChatClient implements Runnable{
             dos.writeUTF(Integer.toString(project) + " " + username);
             dos.flush();
 
-            ConnectedUserThread connectedUserThread = new ConnectedUserThread(clientSocket2);
+            connectedUserThread = new ConnectedUserThread(clientSocket2);
             connectedUserThread.start();
 
             process();

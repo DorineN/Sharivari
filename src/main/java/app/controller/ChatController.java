@@ -45,6 +45,18 @@ public class ChatController {
         }
     }
 
+    public void closeChatClient(){
+        try{
+            if(chatClient != null){
+                chatClient.quit();
+
+                threadClient.stop();
+                threadClient = null;
+                chatClient = null;
+            }
+        }catch(Exception e){}
+    }
+
     public Main getMainApp() {
         return mainApp;
     }
