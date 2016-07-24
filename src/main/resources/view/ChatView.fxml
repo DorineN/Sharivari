@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -12,11 +13,20 @@
                 <HBox prefHeight="23.0" prefWidth="449.0" spacing="10.0">
                     <children>
                         <TextField fx:id="input" prefHeight="25.0" prefWidth="381.0" />
-                        <Button fx:id="sendMessageButton" mnemonicParsing="false" text="Send" />
+                        <Button fx:id="sendMessageButton" mnemonicParsing="false" onAction="#handleSendButton" text="Envoyer" />
                     </children>
                 </HBox>
             </children>
         </VBox>
-        <TextArea fx:id="onlineUsers" editable="false" focusTraversable="false" prefHeight="296.0" prefWidth="137.0" />
+        <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="146.0" spacing="5.0">
+            <children>
+                <Label text="Membres connectés">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="onlineUsers" editable="false" focusTraversable="false" prefHeight="306.0" prefWidth="130.0" style="-fx-text-fill: #088A08;" />
+            </children>
+        </VBox>
     </children>
 </HBox>

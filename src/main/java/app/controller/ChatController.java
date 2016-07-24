@@ -1,7 +1,7 @@
 package app.controller;
 
 import app.Main;
-import app.chat.ChatClient;
+import app.chat.client.ChatClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -21,17 +21,28 @@ public class ChatController {
     private ChatClient chatClient;
     private Thread threadClient;
     private String username = "Az";
-    private int project = 5;
+    private int project = 2;
 
     @FXML
     private void initialize(){
         ChatClient.messages = messages;
         ChatClient.input = input;
         ChatClient.onlineUsers = onlineUsers;
+        ChatClient.sendMessageButton = sendMessageButton;
 
         chatClient = new ChatClient(project, username);
         threadClient = new Thread(chatClient);
         threadClient.start();
+    }
+
+    @FXML
+    private void handleSendButton(){
+        String msg = input.getText();
+        if(!"".equals(msg)){
+            msg += "\n";
+            chatClient.sendMessage(msg);
+            input.clear();
+        }
     }
 
     public Main getMainApp() {
