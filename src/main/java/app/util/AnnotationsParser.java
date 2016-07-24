@@ -23,10 +23,13 @@ public class AnnotationsParser implements InvocationHandler{
 
         if(realMethod.isAnnotationPresent(Connection.class) && realMethod.getReturnType() == User.class) {
             User user = (User) realMethod.invoke(this.obj, args);
-            String userLogin = user.getUserLogin();
+            String userLogin = "";
+
+            if(user != null)
+                userLogin = user.getUserLogin();
 
             if(!"".equals(userLogin)){
-                FileWriter fw = new FileWriter("connections.log", true);
+                FileWriter fw = new FileWriter("annotations.log", true);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
                 Date date = new Date();
 
@@ -41,7 +44,7 @@ public class AnnotationsParser implements InvocationHandler{
             String user = Main.getMyUser().getUserLogin();
             String project = (String) args[0];
 
-            FileWriter fw = new FileWriter("connections.log", true);
+            FileWriter fw = new FileWriter("annotations.log", true);
             SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
             Date date = new Date();
 
@@ -53,18 +56,19 @@ public class AnnotationsParser implements InvocationHandler{
 
         if(realMethod.isAnnotationPresent(CreateTask.class) && realMethod.getReturnType() == int.class){
             int idTask = (int) realMethod.invoke(this.obj, args);
-            String user = Main.getMyUser().getUserLogin();
-            String project = Main.getMyProject().getProjectName();
-            String task = (String) args[0];
 
-            FileWriter fw = new FileWriter("connections.log", true);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
-            Date date = new Date();
+            if(idTask != 0) {
+                String user = Main.getMyUser().getUserLogin();
+                String project = Main.getMyProject().getProjectName();
+                String task = (String) args[0];
 
-            fw.write(dateFormat.format(date) + " " + user + " a créé une nouvelle tâche appelée " + task + " dans le projet " + project + "\n");
-            fw.close();
+                FileWriter fw = new FileWriter("annotations.log", true);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
+                Date date = new Date();
 
-            return idTask;
+                fw.write(dateFormat.format(date) + " " + user + " a créé une nouvelle tâche appelée " + task + " dans le projet " + project + "\n");
+                fw.close();
+            }
         }
 
         if(realMethod.isAnnotationPresent(JoinProject.class) && realMethod.getReturnType() == void.class){
@@ -74,14 +78,12 @@ public class AnnotationsParser implements InvocationHandler{
 
             User userWhoJoined = new UserDAO(new MySQLConnexion().getConnexion()).find(id);
 
-            FileWriter fw = new FileWriter("connections.log", true);
+            FileWriter fw = new FileWriter("annotations.log", true);
             SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
             Date date = new Date();
 
-            fw.write(dateFormat.format(date) + " " + user + " a ajouté " + userWhoJoined + " au projet " + project + "\n");
+            fw.write(dateFormat.format(date) + " " + user + " a ajouté " + userWhoJoined.getUserLogin() + " au projet " + project + "\n");
             fw.close();
-
-            return null;
         }
 
         if(realMethod.isAnnotationPresent(RemoveTask.class) && realMethod.getReturnType() == boolean.class){
@@ -91,7 +93,7 @@ public class AnnotationsParser implements InvocationHandler{
 
             Task taskDeleted = new TaskDAO(new MySQLConnexion().getConnexion()).find(id);
 
-            FileWriter fw = new FileWriter("connections.log", true);
+            FileWriter fw = new FileWriter("annotations.log", true);
             SimpleDateFormat dateFormat = new SimpleDateFormat("[dd/MM/yyyy HH:mm:ss]");
             Date date = new Date();
 

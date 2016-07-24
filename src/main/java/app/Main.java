@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import app.controller.*;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import app.model.*;
 import app.util.PluginsLoader;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -102,9 +100,6 @@ public class Main extends Application {
             primaryStage.setTitle("Sharin");
             primaryStage.setScene(scene);
             primaryStage.show();
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
