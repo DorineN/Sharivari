@@ -61,6 +61,11 @@ public class Controller {
                         client.clientSocket2.close();
                         client.clientSocket2 = null;
                     }
+
+                    client.connectedUsersThread.stop();
+                    client.connectedUsersThread = null;
+                    client.stop();
+                    client = null;
                 }
             }
 
@@ -79,6 +84,7 @@ public class Controller {
                 Server.serverSocket = null;
             }
 
+            serverThread.stop();
             serverThread = null;
             server = null;
         }catch(Exception e){

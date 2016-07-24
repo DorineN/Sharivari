@@ -80,6 +80,7 @@ public class Server implements Runnable{
     }
 
     class ClientThread extends Thread{
+        ConnectedUsersThread connectedUsersThread = null;
         Socket clientSocket = null;
         Socket clientSocket2 = null;
         DataInputStream dis = null;
@@ -150,7 +151,7 @@ public class Server implements Runnable{
 
         public void run(){
             connectionMessage();
-            ConnectedUsersThread connectedUsersThread = new ConnectedUsersThread(this);
+            connectedUsersThread = new ConnectedUsersThread(this);
             connectedUsersThread.start();
             try{
                 while(true){
