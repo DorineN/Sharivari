@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<VBox fx:id="vBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.chat.server.Controller">
+    <children>
+        <TextArea fx:id="serverLog" editable="false" focusTraversable="false" prefHeight="222.0" prefWidth="500.0" />
+        <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="31.0" prefWidth="239.0" text="Start Server" />
+    </children>
+</VBox>

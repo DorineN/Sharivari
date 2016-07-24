@@ -12,9 +12,9 @@ public class FieldsTest {
         assertTrue("Majuscule + carac. numériques", Fields.verifyLogin(login));
         login = "Az-dine_94";
         assertTrue("Tirets + underscore", Fields.verifyLogin(login));
-        login = "@zedine";
 
         // False expected
+        login = "@zedine";
         assertFalse("Arobase", Fields.verifyLogin(login));
         login = "Az.dine";
         assertFalse("Point", Fields.verifyLogin(login));
