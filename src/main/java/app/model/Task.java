@@ -1,12 +1,14 @@
 package app.model;
 
+import app.Main;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Loïc on 21/05/2016.
  */
 public class Task {
-
     protected int idTask;
     protected String nameTask;
     protected String descriptionTask;
@@ -20,12 +22,15 @@ public class Task {
     protected int idProject;
     protected String nameStatus;
     protected String namePriority;
+    protected String nameProject = "";
+    protected String nameUser;
+    private Main mainApp;
 
     public Task(){
         // Empty constructor
     }
 
-    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask, int idProject, int idPriority){
+    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask, int idProject, int idPriority, String nameStatus){
         this.idTask=idTask;
         this.nameTask=nameTask;
         this.descriptionTask=descriptionTask;
@@ -35,6 +40,22 @@ public class Task {
         this.realEndDateTask=realEndDateTask;
         this.idProject=idProject;
         this.idPriority=idPriority;
+        this.nameStatus=nameStatus;
+
+    }
+
+    public Task(int idTask, String nameTask, String descriptionTask, Date estimateStartDateTask, Date realStartDateTask, Date estimateEndDateTask, Date realEndDateTask, int idProject, int idPriority, String nameStatus, String nameProject){
+        this.idTask=idTask;
+        this.nameTask=nameTask;
+        this.descriptionTask=descriptionTask;
+        this.estimateStartDateTask = estimateStartDateTask;
+        this.realStartDateTask=realStartDateTask;
+        this.estimateEndDateTask=estimateEndDateTask;
+        this.realEndDateTask=realEndDateTask;
+        this.idProject=idProject;
+        this.idPriority=idPriority;
+        this.nameStatus=nameStatus;
+        this.nameProject = nameProject;
 
     }
 
@@ -53,6 +74,64 @@ public class Task {
         this.idProject = idProject;
         this.nameStatus = nameStatus;
         this.namePriority = namePriority;
+    }
+
+
+
+    public Task(int idTask, String nameTask, String descriptionTask, int durationTask, int idPriority, Date estimateStartDateTask, Date estimateEndDateTask,
+                Date realStartDateTask, Date realEndDateTask, int idStatus, int idProject, String nameStatus, String namePriority, String nameUser){
+        this.idTask=idTask;
+        this.nameTask=nameTask;
+        this.descriptionTask=descriptionTask;
+        this.durationTask=durationTask;
+        this.estimateStartDateTask = estimateStartDateTask;
+        this.realStartDateTask=realStartDateTask;
+        this.estimateEndDateTask=estimateEndDateTask;
+        this.realEndDateTask=realEndDateTask;
+        this.idPriority = idPriority;
+        this.idStatus = idStatus;
+        this.idProject = idProject;
+        this.nameStatus = nameStatus;
+        this.namePriority = namePriority;
+
+
+
+    }
+
+    public void setNamePriority(String namePriority) {
+        this.namePriority = namePriority;
+    }
+
+    public int getIdProject() {
+        return idProject;
+    }
+
+    public String getNameProject() {
+        return nameProject;
+    }
+
+    public void setNameProject(String nameProject) {
+        this.nameProject = nameProject;
+    }
+
+    public void setIdProject(int idProject) {
+        this.idProject = idProject;
+    }
+
+    public int getIdPriority() {
+        return idPriority;
+    }
+
+    public void setIdPriority(int idPriority) {
+        this.idPriority = idPriority;
+    }
+
+    public String getNameStatus() {
+        return nameStatus;
+    }
+
+    public void setNameStatus(String nameStatus) {
+        this.nameStatus = nameStatus;
     }
 
     public int getIdTask() {
@@ -77,14 +156,6 @@ public class Task {
 
     public void setDescriptionTask(String descriptionTask) {
         this.descriptionTask = descriptionTask;
-    }
-
-    public int getDurationTask() {
-        return durationTask;
-    }
-
-    public void setDurationTask(int durationTask) {
-        this.durationTask = durationTask;
     }
 
     public Date getEstimateStartDateTask() {
@@ -119,80 +190,49 @@ public class Task {
         this.realEndDateTask = realEndDateTask;
     }
 
-    public int getIdPriority() {
-        return idPriority;
-    }
-
-    public void setIdPriority(int idPriority) {
-        this.idPriority = idPriority;
-    }
-
     public int getIdStatus() {
         return idStatus;
+    }
+
+    public void setDurationTask(int durationTask) {
+        this.durationTask = durationTask;
     }
 
     public void setIdStatus(int idStatus) {
         this.idStatus = idStatus;
     }
 
-    public int getIdProject() {
-        return idProject;
-    }
-
-    public void setIdProject(int idProject) {
-        this.idProject = idProject;
+    public int getDurationTask() {
+        return durationTask;
     }
 
     public String getNamePriority() {
         return namePriority;
     }
 
-    public void setNamePriority(String namePriority) {
-        this.namePriority = namePriority;
+    public String getNameUser() {
+        return nameUser;
     }
 
-    public String getNameStatus() {
-        return nameStatus;
-    }
-
-    public void setNameStatus(String nameStatus) {
-        this.nameStatus = nameStatus;
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
     }
 
 
-    /*
-    // Inherited methods
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Task task = (Task) o;
-        if (idTask != task.idTask)
-            return false;
-        if (nameTask != null ? !nameTask.equals(task.nameTask) : task.nameTask != null)
-            return false;
-        if (descriptionTask != null ? !descriptionTask.equals(task.descriptionTask) : task.descriptionTask != null)
-            return false;
-        if (estimateStartDateTask != null ? !estimateStartDateTask.equals(task.estimateStartDateTask) : task.estimateStartDateTask != null)
-            return false;
-        if (realStartDateTask != null ? !realStartDateTask.equals(task.realStartDateTask) : task.realStartDateTask != null)
-            return false;
-        if (estimateEndDateTask != null ? !estimateEndDateTask.equals(task.estimateEndDateTask) : task.estimateEndDateTask != null)
-            return false;
-        if (realEndDateTask != null ? !realEndDateTask.equals(task.realEndDateTask) : task.realEndDateTask != null)
-            return false;
+    public void setMainApp(Main main){
+        this.mainApp = main;
+        //Use to load all executant on view task (smiley immeuble)
+        String concatUser = "";
+
+        ArrayList<User> lUser  = new ArrayList<>();
+        lUser = mainApp.taskDAO.findUsersTask(idTask);
+
+        for (int j = 0; j<lUser.size(); j++){
+            concatUser = concatUser + lUser.get(j).getUserLogin() + " (" + lUser.get(j).getUserName()+ " " + lUser.get(j).getUserFirstName()+")"+ "\n" ;
+        }
+
+
+        this.nameUser = concatUser;
     }
-    @Override
-    public int hashCode() {
-        int result = idTask;
-        result = 31 * result + (nameTask != null ? nameTask.hashCode() : 0);
-        result = 31 * result + (descriptionTask != null ? descriptionTask.hashCode() : 0);
-        result = 31 * result + (estimateStartDateTask != null ? estimateStartDateTask.hashCode() : 0);
-        result = 31 * result + (realStartDateTask != null ? realStartDateTask.hashCode() : 0);
-        result = 31 * result + (estimateEndDateTask != null ? estimateEndDateTask.hashCode() : 0);
-        result = 31 * result + (realEndDateTask != null ? realEndDateTask.hashCode() : 0);
-        return result;
-    }*/
+
 }

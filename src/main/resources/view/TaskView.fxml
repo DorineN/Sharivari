@@ -5,96 +5,90 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import app.*?>
-<?import javafx.scene.text.Font?>
+<?import sample.util.*?>
 
-<?import app.util.FormattedTableCellFactory?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.TaskController">
-      <children>
-          <Button layoutX="128.0" layoutY="514.0" mnemonicParsing="false" onAction="#goCreateTask" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Créer une nouvelle tâche" textFill="WHITE">
-              <font>
-                  <Font name="Browallia New Italic" size="24.0" />
-              </font>
-          </Button>
-          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="306.0" layoutY="22.0" text="Liste des tâches" textAlignment="CENTER" textFill="#f07600">
-              <font>
-                  <Font name="Browallia New Italic" size="40.0" />
-              </font>
-          </Label>
-                <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backProject" prefHeight="32.0" prefWidth="89.0" styleClass="buttonBlue" text="Retour" textFill="WHITE">
-                    <font>
-                        <Font name="Browallia New Italic" size="24.0" />
-                    </font>
-                </Button>
-          <GridPane alignment="CENTER_LEFT" layoutX="42.0" layoutY="84.0">
-         <columnConstraints>
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-          </GridPane>
-              <TableView fx:id="tableTask" layoutX="7.0" layoutY="84.0" prefHeight="400.0" prefWidth="786.0">
-              <columns>
-                  <TableColumn fx:id="nameColumnTask" prefWidth="71.0" text="Nom">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="nameTask" />
-                      </cellValueFactory>
-                      <cellFactory>
-                          <FormattedTableCellFactory alignment="center">
-                          </FormattedTableCellFactory>
-                      </cellFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="descColumnTask" prefWidth="126.0" text="Description">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="descriptionTask" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="durationColumnTask" prefWidth="41.0" text="Durée">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="durationTask" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="startColumnTask" prefWidth="64.0" text="Début">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="estimateStartDateTask" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="deadlineColumnTask" prefWidth="75.0" text="Deadline">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="estimateEndDateTask" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="realStartColumnTask" prefWidth="73.0" text="Début réel">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="realStartDateTask" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="endColumnTask" prefWidth="95.0" text="Fin réelle">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="realEndDateTask" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="userColumnTask" prefWidth="81.0" text="Utilisateur">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="userName" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="statusColumnTask" prefWidth="79.0" text="Statut">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="nameStatus" />
-                      </cellValueFactory>
-                  </TableColumn>
-            <TableColumn fx:id="priorityColumnTask" text="Priorité">
-               <cellValueFactory>
-                  <PropertyValueFactory property="namePriority" />
-               </cellValueFactory>
-            </TableColumn>
-              </columns>
-              <sortOrder>
-                  <fx:reference source="nameColumnTask" />
-              </sortOrder>
-          </TableView>
-          </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.TaskController">
+    <children>
+        <Button fx:id="btnCreateTask" layoutX="318.0" layoutY="592.0" mnemonicParsing="false" onAction="#goCreateTask" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Créer une nouvelle tâche" textFill="WHITE" visible="false">
+            <font>
+                <Font name="Calibri" size="24.0" />
+            </font>
+        </Button>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="462.0" layoutY="14.0" text="Liste des tâches" textAlignment="CENTER" textFill="#f07600">
+            <font>
+                <Font name="Calibri" size="40.0" />
+            </font>
+        </Label>
+
+        <GridPane alignment="CENTER_LEFT" layoutX="42.0" layoutY="84.0">
+            <columnConstraints>
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+        <TableView fx:id="tableTask" layoutX="87.0" layoutY="84.0" prefHeight="472.0" prefWidth="1006.0">
+            <columns>
+                <TableColumn fx:id="nameColumnTask" prefWidth="100.0" text="Nom">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="nameTask" />
+                    </cellValueFactory>
+                    <cellFactory>
+                        <FormattedTableCellFactory alignment="center">
+                        </FormattedTableCellFactory>
+                    </cellFactory>
+                </TableColumn>
+                <TableColumn fx:id="descColumnTask" prefWidth="107.0" text="Description">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="descriptionTask" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="durationColumnTask" prefWidth="93.0" text="Durée (j)">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="durationTask" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="startColumnTask" prefWidth="100.0" text="Début">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="estimateStartDateTask" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="deadlineColumnTask" prefWidth="100.0" text="Deadline">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="estimateEndDateTask" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="realStartColumnTask" prefWidth="100.0" text="Début réel">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="realStartDateTask" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="endColumnTask" prefWidth="100.0" text="Fin réelle">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="realEndDateTask" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="userColumnTask" prefWidth="100.0" text="Executant">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="nameUser" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="statusColumnTask" prefWidth="100.0" text="Statut">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="nameStatus" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="priorityColumnTask" prefWidth="99.0" text="Priorité">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="namePriority" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <sortOrder>
+                <fx:reference source="nameColumnTask" />
+            </sortOrder>
+        </TableView>
+    </children>
 </AnchorPane>

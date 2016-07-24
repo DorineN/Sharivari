@@ -6,9 +6,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import app.model.MySQLConnexion;
-import app.model.UserDAO;
+import app.model.User;
+import app.util.Fields;
+
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 import static java.lang.Integer.parseInt;
@@ -62,7 +65,7 @@ public class SubscribeController {
 
     /** Called when the user clicks on the button New User*/
     @FXML
-    public void handleOk() {
+    public void handleOk() throws NoSuchAlgorithmException {
         if (isInputValid()) {
             String varFirstname = firstname.getText();
             String varName = name.getText();
@@ -72,20 +75,28 @@ public class SubscribeController {
             String varMail = mail.getText();
             String varPassword = password.getText();
 
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(varPassword.getBytes());
 
-            try {
-                UserDAO user = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-                user.insert(varUsername,varPassword,varName, varFirstname, varMail, varPhone, varEnterprise);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            byte byteData[] = md.digest();
+
+            //convert the byte to hex format method 1
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
             }
 
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Inscription validée !");
-            alert.showAndWait();
 
+
+
+
+            mainApp.userDao.insert(varUsername,sb.toString(),varName, varFirstname, varMail, varPhone, varEnterprise);
+
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Inscription validée !");
+            alert.setHeaderText("Votre inscription a bien été prise en compte.");
+            alert.showAndWait();
             //GO CONNECTION
             try {
                 mainApp.showConnection();
@@ -105,38 +116,48 @@ public class SubscribeController {
         String errorMessage = "";
 
         if (firstname.getText() == null || firstname.getText().length() == 0) {
-            errorMessage += "No valid first name!\n";
+            errorMessage += "Champ Prénom non valide !\n";
         }
         if (name.getText() == null || name.getText().length() == 0) {
-            errorMessage += "No valid name!\n";
+            errorMessage += "Champ nom non valide !\n";
         }
         if (username.getText() == null || username.getText().length() == 0) {
-            errorMessage += "No valid username!\n";
+            errorMessage += "Champ Identifiant non valide !\n";
+        } else if(Fields.verifyLogin(username.getText())==false){
+            errorMessage += "Cet identifiant est non valide (chiffres et lettres uniquement, 3 à 16 caractères)!\n";
+        }else{
+            //check if login is already taken
+            int idUser = mainApp.userDao.find(username.getText());
+            if (idUser != 0) {
+                errorMessage += "Cet identifiant est déjà utilisé !\n";
+            }
         }
         if (phone.getText() == null || phone.getText().length() == 0) {
-            errorMessage += "No valid phone number!\n";
+            errorMessage += "Champ Numéro de téléphone non valide !\n";
         } else {
             // try to parse the postal code into an int.
             try {
                 parseInt(phone.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid phone number (must be an integer)!\n";
+                errorMessage += "Champ Numéro de téléphone non valide (doit être sous la forme 0123456789 )!\n";
             }
         }
 
         if (company.getText() == null || company.getText().length() == 0) {
-            errorMessage += "No valid enterprise's name!\n";
+            errorMessage += "Champ Entreprise non valide !\n";
         }
 
         if (mail.getText() == null || mail.getText().length() == 0) {
-            errorMessage += "No valid mail!\n";
+            errorMessage += "Champ Mail non valide !\n";
+        }else if(!Fields.verifyMail(mail.getText())){
+            errorMessage += "Champ Mail non valide !\n";
         }
 
         if (password.getText() == null || password.getText().length() == 0) {
-            errorMessage += "No valid password!\n";
+            errorMessage += "Champ Mot de passe non valide!\n";
 
         }if(!password.getText().equals(confirmPassword.getText())){
-            errorMessage += "Passwords aren't the same!\n";
+            errorMessage += "Les deux mots de passe ne correspondent pas !\n";
         }
 
         if (errorMessage.length() == 0) {
@@ -145,8 +166,8 @@ public class SubscribeController {
             // Show the error message.
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setTitle("Formulaire d'inscription non valide");
+            alert.setHeaderText("Veuillez corriger le(s) champ(s) suivant :");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

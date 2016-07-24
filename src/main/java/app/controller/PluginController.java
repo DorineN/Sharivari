@@ -42,7 +42,7 @@ public class PluginController {
     }
 
     public void initialize() throws Exception {
-        this.loadPlugList();
+
 
     }
 
@@ -69,10 +69,13 @@ public class PluginController {
             try {
                 Files.copy(this.fileSource.toPath(), new File (this.dest, this.fileSource.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
                 labelPath.setText("");
+
+                mainApp.pluginDAO.insertPugin(this.fileSource.getName());
+
                 labelMsg.setText("Plugin ajouté ! Veuillez redémarrer l'application pour la prise en charge du nouveau plugin.");
             } catch (IOException e) {
                 labelPath.setText("");
-                labelMsg.setText("Erreur lors de la copie du fichier.");
+                labelMsg.setText("Erreur lors de la copie du fichier : " +  e);
             }
 
         }else{
@@ -92,13 +95,13 @@ public class PluginController {
             tButton[i] = new Button("Supprimer");
 
             tPane[i].getChildren().add(new Label(mainApp.pluginsLoader.files[i]));
-            tPane[i].setStyle("-fx-border-color: #e1e5cd; -fx-background-color : white; -fx-padding : 10px;");
+            tPane[i].setStyle("-fx-border-color: #e1e5cd; -fx-background-color : white; -fx-padding : 10px; -fx-width:100%;");
             gridPane.add(tPane[i], j, i);
             gridPane.add(tButton[i], j+1, i);
 
             int finalI = i;
 
-            tButton[i].setOnMouseClicked(event-> deleteMyPlug(event,mainApp.pluginsLoader.files[finalI]));
+            tButton[i].setOnMouseClicked(event-> deleteMyPlug(mainApp.pluginsLoader.files[finalI]));
 
 
         }
@@ -106,22 +109,23 @@ public class PluginController {
 
     }
 
-    public void deleteMyPlug(Event event, String files){
-        File myFile = new File("plugin\\"+files);
-        myFile.delete();
-        try {
-            mainApp.pluginsLoader = new PluginsLoader();
-            mainApp.pluginsLoader.loadAllStringPlugins();
+    public void deleteMyPlug(String files){
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        mainApp.pluginDAO.deletePugin(files);
         labelMsg.setText("Plugin supprimé ! Veuillez redémarrer l'application pour la prise en compte de sa suppression.");
+
+
 
     }
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
+        try {
+            this.loadPlugList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

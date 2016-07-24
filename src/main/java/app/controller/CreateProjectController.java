@@ -19,8 +19,9 @@ import java.util.*;
 
 import app.model.MySQLConnexion;
 import app.model.Project;
-import app.model.ProjectDAO;
-import app.model.UserDAO;
+
+import static java.lang.Integer.parseInt;
+
 
 /*************************************************************
  *************** Dialog to create a new project **************
@@ -35,7 +36,7 @@ public class CreateProjectController {
     @FXML
     private TextField name;
     @FXML
-    private TextField description;
+    private TextArea description;
     @FXML
     private DatePicker start;
     @FXML
@@ -56,7 +57,7 @@ public class CreateProjectController {
     private Stage dialogStage;
     private boolean okClicked = false;
 
-    UserDAO userDAO = null;
+
 
     @FXML
     private void initialize() {
@@ -73,23 +74,83 @@ public class CreateProjectController {
         return okClicked;
     }
 
+
     /** Called when the user clicks on the button New User*/
     @FXML
     public void handleOk() throws ParseException {
-
-        //if (isInputValid()) {
-        String varName = name.getText();
-        String varDesc = description.getText();
+        String errorMessage = "";
 
         /**Retrieve values of datepickers **/
         LocalDate date1 = start.getValue();
         LocalDate date2 = estimateEnd.getValue();
 
-        /**Transform date to a specific format**/
-        Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
-        Date varStart1 = Date.from(instant);
-        Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
-        Date varEnd1 = Date.from(instant2);
+
+        Date varStart1 = null;
+        Date varEnd1 = null;
+        if(date1!=null && date2!=null) {
+            /**Transform date to a specific format**/
+            Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
+            varStart1 = Date.from(instant);
+            Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
+            varEnd1 = Date.from(instant2);
+        }
+
+        if (name.getText() == null || name.getText().length() == 0) {
+            errorMessage += "Veuillez saisir le nom du projet !\n";
+        }else{
+            //check if project exist
+            Project testProject = mainApp.projectDAO.find(name.getText());
+            if (testProject!=null){
+                errorMessage += "Nom de projet non disponible!\n";
+            }
+        }
+        if (description.getText() == null || description.getText().length() == 0) {
+            errorMessage += "Veuillez saisir une description du projet !\n";
+        }
+
+        if (start.getValue() == null) {
+            errorMessage += "Veuillez saisir une date de début !\n";
+        }
+        if (estimateEnd.getValue() ==null) {
+            errorMessage += "Veuillez saisir la date de la deadline !\n";
+        }
+        if (estimateEnd.getValue() !=null && estimateEnd.getValue()==start.getValue()) {
+            errorMessage += "Veuillez saisir une date de début et de deadline différente!\n";
+        }
+        if (estimateEnd.getValue() !=null && estimateEnd.getValue()==start.getValue() && varStart1.after(varEnd1)){
+            errorMessage += "La date de départ est apres la date de la dead line !\n";
+        }
+
+
+        if (errorMessage.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Création d'un projet");
+            alert.setHeaderText("Valider la création du projet ?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                insertMyProject(varStart1, varEnd1);
+            }
+        }else{
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Création du projet non valide");
+            alert.setHeaderText("Veuillez corriger le(s) champ(s) suivant :");
+            alert.setContentText(errorMessage);
+
+            alert.showAndWait();
+        }
+    }
+
+
+    public void insertMyProject (Date varStart1,Date varEnd1){
+
+        String varName = name.getText();
+        String varDesc = description.getText();
+
+
+
+
 
         /**Specific transformed date to string to retrieve it in sql format **/
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
@@ -100,39 +161,34 @@ public class CreateProjectController {
 
 
         try {
-            ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            Project project = projectDAO.insert(varName, varDesc, varStart, varEnd);
 
-            if (!"".equals(project.getProjectId())) {
-                Main.setMyProject(project);
+            int idProject = mainApp.projectDAO.insert(varName, varDesc, varStart, varEnd);
+
+            if (idProject != 0) {
+
                 /** ADD USERS  */
-                for(int i = 0; i < tableView.getItems().size(); i++) {
+                for (int i = 0; i < tableView.getItems().size(); i++) {
                     String name = tableView.getItems().get(i).getFirstName();
                     String role = tableView.getItems().get(i).getRoleName();
                     //Retrieve Project ID
-                    int projectId = project.getProjectId();
+
 
                     //Retrieve User ID
-                    try {
-                        UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-                        //Retrieve Id user
-                        int userId = userDao.find(name);
-                        //Retrieve Role ID
-                        int roleId = userDao.findRoleId(role);
 
-                        //Insert new users to project
-                        projectDAO.addUserToProject(userId, roleId, projectId);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    //Retrieve Id user
+                    int userId = mainApp.userDao.find(name);
+                    //Retrieve Role ID
+                    int roleId = mainApp.userDao.findRoleId(role);
+
+                    //Insert new users to project
+                    mainApp.projectDAO.addUserToProject(userId, roleId, idProject);
 
                 }
 
+                //add creator
+                mainApp.projectDAO.addUserToProject(mainApp.getMyUser().getUserId(), 1, idProject);
+                mainApp.setMyProject(mainApp.projectDAO.find(idProject));
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -140,90 +196,32 @@ public class CreateProjectController {
 
         //GO HOME
         try {
+
             mainApp.showProject();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    /**COMBOBOX SEARCHABLE and autocomplete with users of Sharin*/
-   /* public class ComboBoxAutoComplete<T> {
-
-        private ComboBox<T> cmb;
-        String filter = "";
-        private ObservableList<T> originalItems;
-
-        public ComboBoxAutoComplete(ComboBox<T> cmb) {
-            this.cmb = cmb;
-            originalItems = FXCollections.observableArrayList(cmb.getItems());
-            cmb.setTooltip(new Tooltip());
-            cmb.setOnKeyPressed(this::handleOnKeyPressed);
-            cmb.setOnHidden(this::handleOnHiding);
-        }
-
-        private void handleOnHiding(Event event) {
-            filter = "";
-            cmb.getTooltip().hide();
-            T s = cmb.getSelectionModel().getSelectedItem();
-            cmb.getItems().setAll(originalItems);
-            cmb.getSelectionModel().select(s);
-        }
-
-        public void handleOnKeyPressed(KeyEvent e) {
-            ObservableList<T> filteredList = FXCollections.observableArrayList();
-            KeyCode code = e.getCode();
-
-            if (code.isLetterKey()) {
-                filter += e.getText();
-            }
-            if (code == KeyCode.BACK_SPACE && filter.length() > 0) {
-                filter = filter.substring(0, filter.length() - 1);
-                cmb.getItems().setAll(originalItems);
-            }
-            if (code == KeyCode.ESCAPE) {
-                filter = "";
-            }
-            if (filter.length() == 0) {
-                filteredList = originalItems;
-                cmb.getTooltip().hide();
-            } else {
-                Stream<T> itens = cmb.getItems().stream();
-                String txtUsr = filter.toString().toLowerCase();
-                itens.filter(el -> el.toString().toLowerCase().contains(txtUsr)).forEach(filteredList::add);
-                cmb.getTooltip().setText(txtUsr);
-                Window stage = cmb.getScene().getWindow();
-                double posX = stage.getX() + cmb.localToScene(cmb.getBoundsInLocal()).getMinX();
-                double posY = stage.getY() + cmb.localToScene(cmb.getBoundsInLocal()).getMinY();
-                cmb.getTooltip().show(stage, posX, posY);
-                cmb.show();
-            }
-            cmb.getItems().setAll(filteredList);
-        }
-
-    }*/
 
     /**Display users in the combobox **/
     @FXML
     public void searchUser() {
-        try {
-            UserDAO userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            String tab[] = userDAO.findUsersName();
-            String currentUser = Main.getMyUser().getUserLogin();
-            System.out.println("currentuser " + currentUser);
-            //Inject users in combobox
-            for(int i = 0; i< tab.length; i++){
-                String result = "";
-                if(!Objects.equals(currentUser, tab[i])){
-                    result = tab[i];
-                }
+
+        String tab[] = mainApp.userDao.findUsersName();
+        String currentUser = Main.getMyUser().getUserLogin();
+
+        //Inject users in combobox
+        for(int i = 0; i< tab.length; i++){
+            String result = "";
+            if(!Objects.equals(currentUser, tab[i])){
+                result = tab[i];
                 comboBoxSearchUser.getItems().add(
                         result
                 );
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -231,15 +229,17 @@ public class CreateProjectController {
     @FXML
     public void listingRole()  {
         try {
-            UserDAO userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            String tab[] = userDao.findRole();
+
+            String tab[] = mainApp.userDao.findRole();
 
             //Inject roles in combobox
             for(int i = 0; i< tab.length; i++){
                 String result = tab[i];
-                comboBoxRoleName.getItems().add(
-                        result
-                );
+                if (!result.equals("Chef de projet")) {
+                    comboBoxRoleName.getItems().add(
+                            result
+                    );
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,16 +294,16 @@ public class CreateProjectController {
                     deleteButton.setOnAction(event -> data.remove(person));
                 }
             });
-                tableView.setItems(data);
-                if ((tableView.getColumns().size()) == 2) {
-                    tableView.getColumns().add(deleteColumn);
-                }
+            tableView.setItems(data);
+            if ((tableView.getColumns().size()) == 2) {
+                tableView.getColumns().add(deleteColumn);
+            }
 
-                data.add(new Participant(userName, roleName)
-                );
+            data.add(new Participant(userName, roleName)
+            );
 
-                comboBoxSearchUser.setValue("");
-                comboBoxRoleName.setValue("");
+            comboBoxSearchUser.setValue("");
+            comboBoxRoleName.setValue("");
         }else if(userName == "null" || userName == ""){
             this.labelError.setText("Vous n'avez pas sélectionné d'utilisateur");
         }else if(roleName == "null" || roleName == ""){
@@ -322,11 +322,12 @@ public class CreateProjectController {
     }
 
     public void setMainApp(Main mainApp) {
-        searchUser();
-        listingRole();
+
 
         //addListUser();
         this.mainApp = mainApp;
+        searchUser();
+        listingRole();
     }
 
     /** Specific class for users who participate to the project */

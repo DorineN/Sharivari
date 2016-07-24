@@ -9,10 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import app.*;
-import app.model.MySQLConnexion;
-import app.model.Task;
-import app.model.TaskDAO;
-import app.model.UserDAO;
+import app.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,7 +17,9 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 /*************************************************************
  *************** Dialog to create a new task **************
@@ -35,9 +34,7 @@ public class CreateTaskController {
     @FXML
     private TextField name;
     @FXML
-    private TextField description;
-    @FXML
-    private TextField duree;
+    private TextArea description;
     @FXML
     private DatePicker start;
     @FXML
@@ -55,7 +52,7 @@ public class CreateTaskController {
     @FXML
     public Label labelError;
 
-    private Stage dialogStage;
+
     private boolean okClicked = false;
 
     UserDAO userDao = null;
@@ -65,10 +62,6 @@ public class CreateTaskController {
         // Empty
     }
 
-    /** Sets the stage of this dialog.*/
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
 
     /** Returns true if the user clicked OK, false otherwise. **/
     public boolean isOkClicked() {
@@ -77,23 +70,9 @@ public class CreateTaskController {
 
     /** Called when the user clicks on the button New User*/
     @FXML
-    public void handleOk() throws ParseException {
-        int varPriority = 0;
-        //if (isInputValid()) {
-        String varName = name.getText();
-        String varDesc = description.getText();
-        int varDuration = Integer.parseInt(duree.getText());
-        String namePriority = String.valueOf(comboBoxPriorityName.getValue());
+    public void handleOk() throws ParseException, SQLException {
 
-        TaskDAO taskDao = null;
-        try {
-            taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            varPriority = taskDao.findIdPriority(namePriority);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String errorMessage = "";
 
         /**Retrieve values of datepickers **/
         LocalDate date1 = start.getValue();
@@ -105,82 +84,176 @@ public class CreateTaskController {
         Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
         Date varEnd1 = Date.from(instant2);
 
-        /**Specific transformed date to string to retrieve it in sql format **/
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String varStart = sdf.format(varStart1);
+        if (name.getText() == null || name.getText().length() == 0) {
+            errorMessage += "Veuillez saisir le nom de la tache !\n";
+        }else{
 
-        java.text.SimpleDateFormat sdf2 = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String varEnd = sdf2.format(varEnd1);
 
-        try {
-            taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            Task task = taskDao.insert(varName, varDesc, varPriority, varDuration, varStart, varEnd);
+            //check if project exist
+            List<Task> testTask = mainApp.taskDAO.findTaskProject(mainApp.getMyProject().getProjectId());
 
-            if (!"".equals(task.getIdTask())) {
+            for (int z = 0; z < testTask.size(); z++) {
+                if (testTask.get(z).getNameTask().equals(name.getText())) {
+                    errorMessage += "Nom de tache non disponible!\n";
+                    break;
+                }
+            }
+
+        }
+        if (description.getText() == null || description.getText().length() == 0) {
+            errorMessage += "Veuillez saisir une description de la tache !\n";
+        }
+        if (comboBoxPriorityName.getValue() == null ) {
+            errorMessage += "Veuillez saisir la priorité de la tache !\n";
+        }
+
+        if (start.getValue() == null) {
+            errorMessage += "Veuillez saisir une date de début !\n";
+        }
+        if (estimateEnd.getValue() ==null) {
+            errorMessage += "Veuillez saisir la date de la deadline !\n";
+        }
+        if (estimateEnd.getValue() !=null && estimateEnd.getValue()==start.getValue()) {
+            errorMessage += "Veuillez saisir une date de début et de deadline différente!\n";
+        }if (varStart1.after(varEnd1)){
+            errorMessage += "La date de départ est apres la date de la dead line !\n";
+        }
+
+        if (errorMessage.equals("")) {
+            int varPriority = 0;
+            //if (isInputValid()) {
+            String varName = name.getText();
+            String varDesc = description.getText();
+
+
+            String namePriority = String.valueOf(comboBoxPriorityName.getValue());
+
+
+            varPriority = mainApp.taskDAO.findIdPriority(namePriority);
+
+
+            long temps;
+            temps=varEnd1.getTime()-varStart1.getTime();
+            temps=temps/1000/60/60/24;
+            int varDuration = (int) temps;
+
+
+            /**Specific transformed date to string to retrieve it in sql format **/
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String varStart = sdf.format(varStart1);
+
+            java.text.SimpleDateFormat sdf2 = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String varEnd = sdf2.format(varEnd1);
+            int taskId = 0;
+            //check if date end estimate task > end project
+            if (mainApp.getMyProject().getProjectDeadline().before(varEnd1)) {
+                Alert alert = new Alert(AlertType.CONFIRMATION, "La date de fin de la tâche est supérieur à celle de la fin du projet. Continuer repoussera la deadline du projet. Continuer?", ButtonType.YES, ButtonType.NO);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+
+                    try {
+                        taskId = mainApp.taskDAO.insert(varName, varDesc, varPriority, varDuration, varStart, varEnd);
+                        mainApp.getMyProject().setProjectDeadline(varEnd1);
+                        mainApp.projectDAO.updateDeadLine(mainApp.getMyProject().getProjectId(),varEnd);
+
+                    }catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            else {
+                taskId = mainApp.taskDAO.insert(varName, varDesc, varPriority, varDuration, varStart, varEnd);
+            }
+
+
+            //recup all chief and adjudent
+            int[] idUser = mainApp.projectDAO.findMasterUserProject(mainApp.getMyProject().getProjectId());
+            ArrayList<Integer> idUserNew = new ArrayList<>();
+            if (taskId > 0) {
+
+                mainApp.getMyProject().setProjectEnd(null);
+                mainApp.projectDAO.updateEtatProject(mainApp.getMyProject().getProjectId());
                 //Retrieve Project ID
                 int project = Main.getMyProject().getProjectId();
-                int taskId = task.getIdTask();
+
                 /** ADD USERS TO DO THE TASK */
-                for(int i = 0; i < tableView.getItems().size(); i++) {
+
+                for (int i = 0; i < tableView.getItems().size(); i++) {
                     String name = tableView.getItems().get(i).getFirstName();
 
                     //Retrieve User ID
-                    try {
-                        userDao = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-                        //Retrieve Id user
-                        int userId = userDao.find(name);
 
-                        //Insert new users to project
-                        taskDao.affectUserToTask(userId, taskId);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                    //Retrieve Id user
+                    int userId = mainApp.userDao.find(name);
+                    idUserNew.add(userId);
+                    //Affect new user to the task
+
+                    mainApp.taskDAO.affectUserToTask(userId, taskId);
+
+
+                }
+                //add chef project and assiatant
+                for (int j = 0; j < idUser.length; j++) {
+
+                    boolean test = true;
+                    if (idUserNew.size() > 0) {
+                        for (int x = 0; x < idUserNew.size(); x++) {
+
+                            if (idUser[j] == idUserNew.get(x)) {
+                                test = false;
+                                break;
+                            }
+
+                        }
+                    }
+                    if (test == true) {
+
+                        mainApp.taskDAO.affectUserToTask(idUser[j], taskId);
+
                     }
 
                 }
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("La tâche " + varName + " vient d'être créée !");
+                alert.showAndWait();
+
+                //GO HOME
+                try {
+                    mainApp.showProject();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
 
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("La tâche" + varName + " vient d'être créée !");
-        alert.showAndWait();
 
-        //GO HOME
-        try {
-            mainApp.showProject();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        }else{
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Création de la tâche non valide");
+            alert.setHeaderText("Veuillez corriger le(s) champ(s) suivant :");
+            alert.setContentText(errorMessage);
+
+            alert.showAndWait();
         }
     }
 
     /**Display users in the combobox **/
     @FXML
     public void searchUser() {
-        try {
-            UserDAO userDAO = new UserDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            String tab[] = userDAO.findUsersName();
-            String currentUser = Main.getMyUser().getUserLogin();
-            //Inject users in combobox
-            for(int i = 0; i< tab.length; i++){
-                String result = "";
-                if(!Objects.equals(currentUser, tab[i])){
-                    result = tab[i];
-                }
-                comboBoxSearchUserTask.getItems().add(
-                        result
-                );
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        ArrayList<User> users = mainApp.projectDAO.findUsersProject(Main.getMyProject().getProjectId());
+        //Inject users in combobox
+        for(int i = 0; i< users.size(); i++){
+            String result = "";
+            result = users.get(i).getUserLogin();
+
+            comboBoxSearchUserTask.getItems().add(
+                    result
+            );
         }
     }
 
@@ -188,8 +261,8 @@ public class CreateTaskController {
     @FXML
     public void listingPriority()  {
         try {
-            TaskDAO taskDao = new TaskDAO(new MySQLConnexion("jdbc:mysql://localhost/sharin", "root", "").getConnexion());
-            String tab[] = taskDao.findPriority();
+
+            String tab[] = mainApp.taskDAO.findPriority();
 
             //Inject roles in combobox
             for(int i = 0; i< tab.length; i++){
@@ -215,7 +288,6 @@ public class CreateTaskController {
         String userName = String.valueOf(comboBoxSearchUserTask.getValue());
 
         int userDouble = 0;
-
 
         for(int i = 0; i < tableView.getItems().size(); i++) {
             String name = tableView.getItems().get(i).getFirstName();
@@ -248,6 +320,7 @@ public class CreateTaskController {
                     deleteButton.setOnAction(event -> data.remove(person));
                 }
             });
+
             tableView.setItems(data);
             if ((tableView.getColumns().size()) == 1) {
                 tableView.getColumns().add(deleteColumn);
@@ -260,21 +333,14 @@ public class CreateTaskController {
         }
     }
 
-    /** Return button */
-    @FXML
-    private void backHome() {
-        try {
-            mainApp.showProject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
         searchUser();
         listingPriority();
         //addListUser();
-        this.mainApp = mainApp;
+
     }
 
 

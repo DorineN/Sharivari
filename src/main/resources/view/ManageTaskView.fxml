@@ -6,48 +6,46 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import app.*?>
+<?import sample.*?>
+<?import sample.util.*?>
 
-<?import app.util.FormattedTableCellFactory?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ManageTaskController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700" prefWidth="1180" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ManageTaskController">
     <children>
-      <Button layoutX="114.0" layoutY="586.0" mnemonicParsing="false" onAction="#suppressTask" prefHeight="45.0" prefWidth="544.0" style="-fx-background-color: red;" text="Supprimer la tâche" textFill="WHITE">
-         <font>
-            <Font name="Browallia New Italic" size="24.0" />
-         </font>
-      </Button>
-        <Button layoutX="114.0" layoutY="512.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="40.0" prefWidth="544.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE">
+        <Button fx:id="deleteTask" layoutX="259.0" layoutY="684.0" mnemonicParsing="false" onAction="#suppressTask" prefHeight="44.0" prefWidth="695.0" style="-fx-background-color: red;" text="Supprimer cette tâche" textFill="WHITE" visible="false">
             <font>
-                <Font name="Browallia New Italic" size="24.0" />
+                <Font name="Calibri" size="24.0" />
             </font>
         </Button>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="14.0" text="Modifier votre tâche" textAlignment="CENTER" textFill="#f07600">
+        <Button fx:id="updateTask" layoutX="627.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="44.0" prefWidth="326.0" style="-fx-background-color: #f07600;" text="Mettre à jour" textFill="WHITE" visible="false">
             <font>
-                <Font name="Browallia New Italic" size="40.0" />
+                <Font name="Calibri" size="24.0" />
+            </font>
+        </Button>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="-23.0" prefHeight="46.0" prefWidth="1180.0" text="Modifier votre tâche" textAlignment="CENTER" textFill="#f07600">
+            <font>
+                <Font name="Calibri" size="40.0" />
             </font>
         </Label>
-        <GridPane alignment="CENTER_LEFT" layoutX="114.0" layoutY="84.0" prefHeight="282.0" prefWidth="544.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
+        <GridPane alignment="CENTER_LEFT" layoutX="258.0" layoutY="72.0" prefHeight="398.0" prefWidth="695.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX;">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
 
-                <DatePicker fx:id="startTask" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <DatePicker fx:id="estimateEndTask" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="nameTask" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" />
-                <TextField fx:id="descriptionTask" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Intitulé" textAlignment="CENTER" textFill="#f07b0e">
+                <DatePicker fx:id="startTask" disable="true" editable="false" prefHeight="50.0" prefWidth="367.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <DatePicker fx:id="estimateEndTask" disable="true" editable="false" prefHeight="50.0" prefWidth="377.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="nameTask" editable="false" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" />
+                <Label prefHeight="49.0" prefWidth="359.0" styleClass="labelOrange" text="Intitulé" textAlignment="CENTER" textFill="#f07b0e">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
@@ -55,7 +53,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Description" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Label prefHeight="111.0" prefWidth="343.0" styleClass="labelOrange" text="Description" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
@@ -63,7 +61,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Date de début" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                <Label prefHeight="50.0" prefWidth="355.0" styleClass="labelOrange" text="Date de début" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
@@ -71,7 +69,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Date de la deadline" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                <Label prefHeight="49.0" prefWidth="376.0" styleClass="labelOrange" text="Date de la deadline" textAlignment="CENTER" textFill="#f07b0e" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>
@@ -79,42 +77,35 @@
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Choisissez un exécutant" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="7">
+                <Label fx:id="executant" prefHeight="48.0" prefWidth="360.0" styleClass="labelOrange" text="Choisissez un exécutant" textAlignment="CENTER" textFill="#f07b0e" visible="false" GridPane.rowIndex="6">
                     <padding>
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <ComboBox fx:id="comboBoxSearchUserTask" prefHeight="39.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Choisissez une priorité" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="6">
+                <ComboBox fx:id="comboBoxSearchUserTask" prefHeight="61.0" prefWidth="240.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <Label prefHeight="48.0" prefWidth="348.0" styleClass="labelOrange" text="Priorité" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="5">
                     <padding>
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <ComboBox fx:id="comboBoxPriorityNameTask" prefHeight="44.0" prefWidth="268.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <Button fx:id="buttonAddUser" mnemonicParsing="false" onAction="#buttonAddUserToTask" prefHeight="44.0" prefWidth="99.0" styleClass="buttonOrange" text="Ajouter" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-            <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Durée de la tâche" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="4">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <TextField fx:id="durationTask" prefHeight="78.0" prefWidth="267.0" style="-fx-border-color: #e1e5cd;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label prefHeight="78.0" prefWidth="267.0" styleClass="labelOrange" text="Statut" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="5">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <ComboBox fx:id="comboBoxStatusNameTask" prefHeight="44.0" prefWidth="268.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <ComboBox fx:id="comboBoxPriorityNameTask" prefHeight="59.0" prefWidth="342.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Button fx:id="buttonAddUser" mnemonicParsing="false" onAction="#buttonAddUserToTask" prefHeight="44.0" prefWidth="99.0" styleClass="buttonOrange" text="Ajouter" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                <Label prefHeight="49.0" prefWidth="357.0" styleClass="labelOrange" text="Statut" textAlignment="CENTER" textFill="#f07b0e" GridPane.rowIndex="4">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </Label>
+                <ComboBox fx:id="comboBoxStatusNameTask" prefHeight="58.0" prefWidth="342.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextArea fx:id="descriptionTask" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="status" editable="false" prefHeight="58.0" prefWidth="342.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="priority" editable="false" prefHeight="51.0" prefWidth="342.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             </children>
 
         </GridPane>
-        <Button layoutX="28.0" layoutY="16.0" mnemonicParsing="false" onAction="#backHome" style="-fx-background-color: #43C1D9;" text="Retour" textFill="WHITE">
-            <font>
-                <Font name="Calibri" size="12.0" />
-            </font>
-        </Button>
-        <TableView fx:id="tableViewUpdateTask" layoutX="114.0" layoutY="374.0" prefHeight="75.0" prefWidth="544.0" GridPane.rowIndex="1">
+
+        <TableView fx:id="tableViewUpdateTask" layoutX="258.0" layoutY="481.0" prefHeight="146.0" prefWidth="695.0" GridPane.rowIndex="1">
             <columns>
-                <TableColumn fx:id="usersColumn" prefWidth="309.0" text="Tâche attribuée à :">
+                <TableColumn fx:id="usersColumn" prefWidth="348.0" text="Tâche attribuée à :">
                     <cellValueFactory>
                         <PropertyValueFactory property="firstName" />
                     </cellValueFactory>
@@ -128,6 +119,16 @@
                 <fx:reference source="usersColumn" />
             </sortOrder>
         </TableView>
-        <Label fx:id="labelError" layoutX="114.0" layoutY="449.0" prefHeight="34.0" prefWidth="544.0" />
+        <Button fx:id="startUpdateTask" layoutX="259.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleStartUpdateTask" prefHeight="44.0" prefWidth="326.0" style="-fx-background-color: #f07600;" text="Activer la modification" textFill="WHITE" visible="false">
+            <font>
+                <Font name="Calibri" size="24.0" />
+            </font>
+        </Button>
+        <Label fx:id="msgValidation" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="23.0" prefHeight="46.0" prefWidth="1180.0" textAlignment="CENTER" textFill="#f07600">
+            <font>
+                <Font name="Calibri" size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="labelError" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="38.0" prefHeight="17.0" prefWidth="1180.0" textAlignment="CENTER" />
     </children>
 </AnchorPane>
