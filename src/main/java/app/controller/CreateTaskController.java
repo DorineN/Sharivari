@@ -77,13 +77,17 @@ public class CreateTaskController {
         /**Retrieve values of datepickers **/
         LocalDate date1 = start.getValue();
         LocalDate date2 = estimateEnd.getValue();
+        Date varEnd1 = null;
+        Date varStart1 = null;
+        if (date1 != null && date2 != null) {
 
-        /**Transform date to a specific format**/
-        Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
-        Date varStart1 = Date.from(instant);
-        Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
-        Date varEnd1 = Date.from(instant2);
 
+            /**Transform date to a specific format**/
+            Instant instant = Instant.from(date1.atStartOfDay(ZoneId.systemDefault()));
+            varStart1 = Date.from(instant);
+            Instant instant2 = Instant.from(date2.atStartOfDay(ZoneId.systemDefault()));
+            varEnd1 = Date.from(instant2);
+        }
         if (name.getText() == null || name.getText().length() == 0) {
             errorMessage += "Veuillez saisir le nom de la tache !\n";
         }else{
@@ -115,7 +119,7 @@ public class CreateTaskController {
         }
         if (estimateEnd.getValue() !=null && estimateEnd.getValue()==start.getValue()) {
             errorMessage += "Veuillez saisir une date de début et de deadline différente!\n";
-        }if (varStart1.after(varEnd1)){
+        }if (varStart1!=null && varEnd1 !=null && varStart1.after(varEnd1)){
             errorMessage += "La date de départ est apres la date de la dead line !\n";
         }
 
