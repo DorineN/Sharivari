@@ -40,8 +40,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        //showConnection();
-        showChat();
+        showConnection();
     }
 
     // Routes
