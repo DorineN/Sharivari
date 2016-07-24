@@ -103,8 +103,7 @@ public class ConnectionController {
                 sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
             }
 
-            UserDAOInterface userDao = UserDAOFactory.newInstance(new MySQLConnexion().getConnexion());
-            User user = userDao.findConnection(loginContent,sb.toString());
+            User user = mainApp.userDao.findConnection(loginContent, sb.toString());
 
             if (user != null){
                 Main.setMyUser(user);

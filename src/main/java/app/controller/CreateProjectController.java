@@ -148,10 +148,6 @@ public class CreateProjectController {
         String varName = name.getText();
         String varDesc = description.getText();
 
-
-
-
-
         /**Specific transformed date to string to retrieve it in sql format **/
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
         String varStart = sdf.format(varStart1);

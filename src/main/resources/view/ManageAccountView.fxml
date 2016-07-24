@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700" minWidth="1180" prefHeight="700.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ManageAccountController">
+   <children>
+      <Label fx:id="msgValidate" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="87.0" prefHeight="17.0" prefWidth="1180.0" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutY="26.0" prefHeight="46.0" prefWidth="1180.0" text="Gestion des comptes utilisateurs" textAlignment="CENTER" textFill="#f07600">
+         <font>
+            <Font name="Calibri" size="40.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="97.0" layoutY="136.0" prefHeight="559.0" prefWidth="989.0">
+         <content>
+            <GridPane fx:id="gridPane" prefHeight="35.0" prefWidth="987.0" style="-fx-border-color: #e1e5cd; -fx-border-width: 5PX; -fx-background-color: white;">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="671.0" minWidth="10.0" prefWidth="443.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="75.0" prefWidth="205.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="75.0" prefWidth="182.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="147.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="25" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -1,13 +1,14 @@
 package app.model;
 
 import app.Main;
+import app.annotations.CreateProject;
 
 import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDAO extends DAO<Project> {
+public class ProjectDAO extends DAO<Project> implements ProjectDAOInterface{
 
     private Main mainApp;
 
@@ -70,6 +71,7 @@ public class ProjectDAO extends DAO<Project> {
     //Retrieve the user of the current session
     int userId = Main.getMyUser().userId;
 
+    @Override
     public void updateEtatProjectFinish(int idProject){
 
         try{
@@ -94,6 +96,7 @@ public class ProjectDAO extends DAO<Project> {
 
     }
 
+    @Override
     public void updateEtatProject(int idProject){
 
         try{
@@ -110,6 +113,7 @@ public class ProjectDAO extends DAO<Project> {
 
     }
 
+    @Override
     public void updateDeadLine(int idProject, String date){
 
         try{
@@ -126,7 +130,7 @@ public class ProjectDAO extends DAO<Project> {
 
     }
 
-
+    @Override
     public int[] findMasterUserProject(int id){
         int[] tab = null;
         int i = 0;
@@ -158,6 +162,7 @@ public class ProjectDAO extends DAO<Project> {
         return tab;
     }
 
+    @Override
     public void updateToProject(int idUser, int idRole, int idProject){
 
         try{
@@ -174,6 +179,8 @@ public class ProjectDAO extends DAO<Project> {
 
     }
 
+    @CreateProject
+    @Override
     public int insert(String name, String description, String startDate, String estimateEndDate) throws SQLException {
 
         int idProject = 0;
@@ -208,6 +215,7 @@ public class ProjectDAO extends DAO<Project> {
         return idProject;
     }
 
+    @Override
     public Project find(int id){
         Project project = null;
 
@@ -232,6 +240,7 @@ public class ProjectDAO extends DAO<Project> {
         return project;
     }
 
+    @Override
     public Project find(String name){
         Project project = null;
 
@@ -256,6 +265,7 @@ public class ProjectDAO extends DAO<Project> {
         return project;
     }
 
+    @Override
     public boolean update(Project project){
         boolean result = false;
 
@@ -288,6 +298,7 @@ public class ProjectDAO extends DAO<Project> {
         return result;
     }
 
+    @Override
     public void addUserToProject(int userId, int roleId, int projectId){
 
         try{
@@ -306,6 +317,7 @@ public class ProjectDAO extends DAO<Project> {
         }
     }
 
+    @Override
     public ArrayList<User> findUsersProject(int projectId){
         ArrayList<User> users= new ArrayList<>();
 
@@ -333,6 +345,7 @@ public class ProjectDAO extends DAO<Project> {
         return users;
     }
 
+    @Override
     public boolean delete(int idProject){
 
         boolean result = false;
@@ -388,6 +401,7 @@ public class ProjectDAO extends DAO<Project> {
         return result;
     }
 
+    @Override
     public boolean deleteUserProject(int idUser, int idProject) {
         boolean result = false;
 
@@ -409,6 +423,7 @@ public class ProjectDAO extends DAO<Project> {
         return result;
     }
 
+    @Override
     public List<Task> findTaskProject(int idProject){
         List<Task> data = new ArrayList<Task>();
         int count = 0;
@@ -446,6 +461,7 @@ public class ProjectDAO extends DAO<Project> {
 
     }
 
+    @Override
     public String findRole(int idUser, int idProject) {
         String role ="";
         try{
@@ -467,10 +483,9 @@ public class ProjectDAO extends DAO<Project> {
         return role;
     }
 
+    @Override
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
-
-
     }
 
 }

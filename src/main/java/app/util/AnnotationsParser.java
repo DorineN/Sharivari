@@ -1,6 +1,8 @@
 package app.util;
 
+import app.Main;
 import app.annotations.Connection;
+import app.annotations.CreateProject;
 import app.model.User;
 
 import java.io.FileWriter;
@@ -33,6 +35,11 @@ public class AnnotationsParser implements InvocationHandler{
                 fw.close();
                 return user;
             }
+        }
+
+        if(realMethod.isAnnotationPresent(CreateProject.class) && realMethod.getReturnType() == int.class){
+            int idProjet = (int) realMethod.invoke(this.obj, args);
+            System.out.println("testinnnnnnnnnnnng");
         }
 
         return method.invoke(this.obj, args);

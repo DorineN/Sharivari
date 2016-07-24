@@ -45,14 +45,25 @@ public class Main extends Application {
     //Prepare request
     public Main() throws SQLException, ClassNotFoundException {
     }
-    public UserDAO userDao = new UserDAO(new MySQLConnexion().getConnexion());
-    public ProjectDAO projectDAO = new ProjectDAO(new MySQLConnexion().getConnexion());
-    public TaskDAO taskDAO = new TaskDAO(new MySQLConnexion().getConnexion());
-    public PluginDAO pluginDAO = new PluginDAO(new MySQLConnexion().getConnexion());
+
+    public static UserDAOInterface userDao = null;
+    public UserDAO userDAOPlugin = new UserDAO(new MySQLConnexion().getConnexion());
+    public static ProjectDAOInterface projectDAO = null;
+    public ProjectDAO projectDAOPlugin = new ProjectDAO(new MySQLConnexion().getConnexion());
+    public static TaskDAO taskDAO = null;
+    public TaskDAO taskDAOPlugin = new TaskDAO(new MySQLConnexion().getConnexion());
+    public static PluginDAO pluginDAO = null;
 
 
     // Main method
     public static void main(String[] args){
+        try {
+            userDao = UserDAOFactory.newInstance(new MySQLConnexion().getConnexion());
+            projectDAO = ProjectDAOFactory.newInstance(new MySQLConnexion().getConnexion());
+            taskDAO = new TaskDAO(new MySQLConnexion().getConnexion());
+            pluginDAO = new PluginDAO(new MySQLConnexion().getConnexion());
+        }catch(Exception e){}
+
         launch(args);
     }
 

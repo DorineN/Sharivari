@@ -72,6 +72,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         }
     }
 
+    @Override
     public void deleteParticipate(int id){
         try{
             PreparedStatement req = requests[20];
@@ -84,6 +85,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         }
     }
 
+    @Override
     public void deleteExecute(int id){
         try{
             PreparedStatement req = requests[19];
@@ -96,6 +98,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         }
     }
 
+    @Override
     public void resetPassword(int id){
         MessageDigest md = null;
         try {
@@ -133,6 +136,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
 
     }
 
+    @Override
     public void deleteAccount(int id){
         PreparedStatement req = requests[13];
 
@@ -144,6 +148,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         }
     }
 
+    @Override
     public ArrayList<User> findAllUserExeptOne(int id){
         ArrayList<User> lUser =  new ArrayList();
         try{
@@ -172,7 +177,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
     }
 
 
-
+    @Override
     public void insert(String login, String pwd, String lastName, String firstName, String mail, int phone, String company){
         try{
             PreparedStatement req = requests[0];
@@ -193,6 +198,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
 
     }
 
+    @Override
     public int[] findUserProject(int userId){
 
         //Retrieve the user of the current session
@@ -256,10 +262,12 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
     }
 
 
+    @Override
     public boolean update(User user, String pwd) {
         return false;
     }
 
+    @Override
     public User find(int id){
         User user = new User();
 
@@ -285,6 +293,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         return user;
     }
 
+    @Override
     public int find(String name){
         int idUser = 0;
         try{
@@ -307,6 +316,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
     }
 
     /** SEARCH USERS NAME IN SHARIN **/
+    @Override
     public String[] findUsersName(){
 
         //Retrieve the user of the current session
@@ -340,6 +350,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         return tab;
     }
 
+    @Override
     public String[] findRole(){
 
         String[] tab = null;
@@ -371,6 +382,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         return tab;
     }
 
+    @Override
     public int findRoleId(String roleName){
         int roleId = 0;
         try{
@@ -394,6 +406,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
     }
 
 
+    @Override
     public boolean updateUser(User user){
         boolean result = false;
 
@@ -419,6 +432,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         return result;
     }
 
+    @Override
     public boolean updatePwd(String pwd, int id){
         boolean result = false;
 
@@ -453,6 +467,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         return result;
     }
 
+    @Override
     public String findLoginUser(int idUser){
         String nameUser = "";
         try{
@@ -474,9 +489,8 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         return nameUser;
     }
 
+    @Override
     public void updateTypeAccount(int id, String type) {
-
-
         PreparedStatement req = requests[14];
 
         try {
@@ -490,6 +504,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
     }
 
 
+    @Override
     public String findPostItUser(int idUser, int idProject) {
         String postit = "";
 
@@ -511,6 +526,7 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
         return postit;
     }
 
+    @Override
     public String updatePostitUser(String postit, int idUser, int idProject) {
 
         try {
@@ -527,6 +543,8 @@ public class UserDAO extends DAO<User> implements UserDAOInterface {
 
         return postit;
     }
+
+    @Override
     public String findRoleName(int idRole){
         String roleName = "";
         try{
