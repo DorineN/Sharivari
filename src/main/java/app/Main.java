@@ -19,7 +19,6 @@ import java.io.IOException;
 
 
 public class Main extends Application {
-
     private Stage primaryStage;
     private BorderPane rootLayout;
 
@@ -41,7 +40,8 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showConnection();
+        //showConnection();
+        showChat();
     }
 
     // Routes
@@ -459,6 +459,25 @@ public class Main extends Application {
 
             // Give the controller access to the main app.
             FileController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showChat() throws IOException{
+        try {
+            // Load the shared files overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("view/ChatView.fxml"));
+            HBox chat = loader.load();
+
+            this.primaryStage.setTitle("Sharin - Chat");
+            this.primaryStage.setResizable(false);
+            rootLayout.setCenter(chat);
+
+            // Give the controller access to the main app.
+            ChatController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
