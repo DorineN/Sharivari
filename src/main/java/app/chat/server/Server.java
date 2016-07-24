@@ -104,26 +104,30 @@ public class Server implements Runnable{
         }
 
         public void connectionMessage(){
-            for(ClientThread currentClientThread : connectedClientsVector){
-                if(currentClientThread.project == project){
-                    try {
-                        currentClientThread.dos.writeUTF(user + " a rejoint la discussion...\n");
-                        currentClientThread.dos.flush();
-                    }catch(IOException e){
-                        e.printStackTrace();
+            synchronized (connectedClientsVector) {
+                for (ClientThread currentClientThread : connectedClientsVector) {
+                    if (currentClientThread.project == project) {
+                        try {
+                            currentClientThread.dos.writeUTF(user + " a rejoint la discussion...\n");
+                            currentClientThread.dos.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
         }
 
         public void sendMessage(String msg){
-            for(ClientThread currentClientThread : connectedClientsVector){
-                if(currentClientThread.project == project){
-                    try {
-                        currentClientThread.dos.writeUTF("[" + user + "] : " + msg);
-                        currentClientThread.dos.flush();
-                    }catch(IOException e){
-                        e.printStackTrace();
+            synchronized (connectedClientsVector) {
+                for (ClientThread currentClientThread : connectedClientsVector) {
+                    if (currentClientThread.project == project) {
+                        try {
+                            currentClientThread.dos.writeUTF("[" + user + "] : " + msg);
+                            currentClientThread.dos.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
