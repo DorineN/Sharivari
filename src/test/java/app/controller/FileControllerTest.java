@@ -11,10 +11,16 @@ public class FileControllerTest {
     @Test
     public void testGetNumRow() throws Exception {
         FileController fileController = new FileController();
-        int nbElements = 5;
+        int nbElements = 2;
         int nbColumns = 5;
 
         Assert.assertEquals(0, fileController.getNumRow(nbElements, nbColumns));
+
+        nbElements = 5;
+        Assert.assertEquals(0, fileController.getNumRow(nbElements, nbColumns));
+
+        nbElements = 6;
+        Assert.assertEquals(1, fileController.getNumRow(nbElements, nbColumns));
     }
 
     @Test
