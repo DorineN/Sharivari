@@ -58,8 +58,5 @@ public class MySQLConnexion extends DBConnexion {
             alert.setHeaderText("Le fichier de configuration de la base de données \"logBdd.txt\" est introuvable.");
             alert.showAndWait();
         }
-
-
-
     }
 }

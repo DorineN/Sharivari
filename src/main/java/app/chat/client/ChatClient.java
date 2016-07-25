@@ -62,7 +62,9 @@ public class ChatClient implements Runnable{
             }
 
             connectedUserThread.stop();
-        }catch(Exception e){}
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     class ConnectedUserThread extends Thread{
@@ -83,7 +85,9 @@ public class ChatClient implements Runnable{
                 while(true) {
                     onlineUsers.setText(dis.readUTF());
                 }
-            }catch(IOException e){}
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
     }
 

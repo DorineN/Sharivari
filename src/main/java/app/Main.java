@@ -32,7 +32,7 @@ public class Main extends Application {
     public  AnchorPane menuProject;
     public  AnchorPane menuHome;
 
-    ChatController controllerChat = new ChatController();
+    private ChatController controllerChat = null;
 
     private static Task myTask = new Task();
 
@@ -107,6 +107,11 @@ public class Main extends Application {
 
     public void showConnection() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/ConnectionView.fxml"));
@@ -168,6 +173,10 @@ public class Main extends Application {
     // Home
     public void showHome() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
 
             //Update menu for adm
             controllerMenuHome.displayAdmin();
@@ -215,8 +224,11 @@ public class Main extends Application {
     // Project
     public void showProject() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
 
-            controllerChat.closeChatClient();
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/ProjectView.fxml"));
@@ -269,6 +281,11 @@ public class Main extends Application {
     // Calendar
     public void showCalendar() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load home overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/CalendarView.fxml"));
@@ -294,6 +311,11 @@ public class Main extends Application {
     //Tchat
     public void showTchat() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load the shared files overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/ChatView.fxml"));
@@ -314,6 +336,11 @@ public class Main extends Application {
     // Subscribe
     public void showSubscribe() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/SubscribeView.fxml"));
@@ -336,6 +363,10 @@ public class Main extends Application {
     // Task
     public void showCreateProject() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
 
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
@@ -359,6 +390,11 @@ public class Main extends Application {
     // Update Project
     public void showManageProject() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/ManageProjectView.fxml"));
@@ -381,6 +417,11 @@ public class Main extends Application {
     // Create Task
     public void showCreateTask() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/CreateTaskView.fxml"));
@@ -403,6 +444,11 @@ public class Main extends Application {
     // My Account
     public void showMyAccount() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load my account overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/AccountView.fxml"));
@@ -424,6 +470,11 @@ public class Main extends Application {
 
     public void showPlugin() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/PluginView.fxml"));
@@ -446,6 +497,11 @@ public class Main extends Application {
 
     public void showSharedFiles() throws IOException{
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load the shared files overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/SharedFiles.fxml"));
@@ -467,6 +523,11 @@ public class Main extends Application {
     // Update Task
     public void showManageTask() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/ManageTaskView.fxml"));
@@ -501,6 +562,11 @@ public class Main extends Application {
     // Show all Project Tasks
     public void showTask() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/TaskView.fxml"));
@@ -534,6 +600,11 @@ public class Main extends Application {
 
     public void showManagAccount() throws IOException {
         try {
+            if(controllerChat != null){
+                controllerChat.closeChatClient();
+                controllerChat = null;
+            }
+
             // Load connexion overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("view/ManageAccountView.fxml"));
