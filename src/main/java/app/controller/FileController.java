@@ -92,6 +92,24 @@ public class FileController {
 
     }
 
+    public int getNumRow(int nbElements, int nbColumns){
+        int numRow;
+
+        numRow = nbElements  / nbColumns;
+        if((nbElements % nbColumns) == 0)
+            numRow--;
+
+        return numRow;
+    }
+
+    public int getNumCol(int nbElements, int numRow, int nbColumns){
+        int numCol;
+
+        numCol = (nbElements - (numRow * nbColumns)) - 1;
+
+        return numCol;
+    }
+
     private void addImage(Image i, String name){
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
@@ -113,13 +131,17 @@ public class FileController {
 
         files.add(name);
         nbFiles = files.size();
+        /*
         numRow = nbFiles  / nbColumns;
         if((nbFiles % nbColumns) != 0)
             numCol = (nbFiles - (numRow * nbColumns)) - 1;
         else {
             numRow--;
             numCol = (nbFiles - (numRow * nbColumns)) - 1;
-        }
+        }*/
+
+        numRow = getNumRow(nbFiles, nbColumns);
+        numCol = getNumCol(nbFiles, numRow, nbColumns);
 
         vbox.getChildren().addAll(imageView, filename, delete);
         gridPane.add(vbox, numCol, numRow);

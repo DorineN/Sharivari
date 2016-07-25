@@ -69,6 +69,8 @@ public class AnnotationsParser implements InvocationHandler{
                 fw.write(dateFormat.format(date) + " " + user + " a créé une nouvelle tâche appelée " + task + " dans le projet " + project + "\n");
                 fw.close();
             }
+
+            return idTask;
         }
 
         if(realMethod.isAnnotationPresent(JoinProject.class) && realMethod.getReturnType() == void.class){
