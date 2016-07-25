@@ -142,7 +142,7 @@ public class Server implements Runnable{
                             currentClientThread.dos.writeUTF(user + " a quitté la discussion...\n");
                             currentClientThread.dos.flush();
                         } catch (Exception e) {
-                            System.out.println("new");
+                            e.printStackTrace();
                         }
                     }
                 }
