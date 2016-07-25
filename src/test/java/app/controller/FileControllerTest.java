@@ -21,6 +21,9 @@ public class FileControllerTest {
 
         nbElements = 6;
         Assert.assertEquals(1, fileController.getNumRow(nbElements, nbColumns));
+
+        nbElements = 11;
+        Assert.assertEquals(2, fileController.getNumRow(nbElements, nbColumns));
     }
 
     @Test
